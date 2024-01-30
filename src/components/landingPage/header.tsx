@@ -11,7 +11,7 @@ export default function Header() {
             width={368}
             height={297}
             alt={'Logo Mulher Lendo'}
-            src={'/img/foto-header.png'}
+            src={'https://github.com/geisabitt/resgatando-anas/blob/main/public/img/foto-header.png'}
           />
           <div className="absolute w-[318px] h-[81px] top-[195px] left-0 bg-[#ffa621bf]" />
           <div className="absolute w-[284px] top-[203px] left-[17px] [font-family:'Inter-Bold',Helvetica] font-bold text-white text-[24px] tracking-[0] leading-[normal]">
