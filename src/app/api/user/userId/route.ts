@@ -7,8 +7,6 @@ const prisma = new PrismaClient();
 
 export async function GET(req: NextRequest) {
     const id = await AuthService.creatRouteId();
-
-    console.log('id na rote de usuario', id);
     if (id) {
         const user = await prisma.users.findFirst({
             where: { id },
@@ -19,8 +17,6 @@ export async function GET(req: NextRequest) {
                 type: true,
             }
         });
-
-        console.log('usuario vindo da rota', user);
 
         if (user) {
             return redirect(`/retiro/users/${id}`);
