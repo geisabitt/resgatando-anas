@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "rm -rf .next && next dev",
+    "postinstall": "prisma generate",
+    "dev": "rm -rf .next && next dev && prisma generate",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
