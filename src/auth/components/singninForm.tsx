@@ -25,8 +25,28 @@ export function SigninForm() {
             <CardContent>
                 <div className="grid w-full items-center gap-4">
                     <div className="flex flex-col space-y-1.5">
-                    <Label htmlFor="name">Nome</Label>
-                    <Input name='name' id="name" type="text" placeholder="Digite seu nome" required />
+                    <Label htmlFor="nome">Nome</Label>
+                    <Input name='nome' id="nome" type="text" placeholder="Digite seu nome" required />
+                    </div>
+                    <div className="flex flex-col space-y-1.5">
+                    <Label htmlFor="telefone">Telefone</Label>
+                    <Input name='telefone' id="telefone" type="text" placeholder="(21)98999-9999" required />
+                    </div>
+                    <div className="flex flex-col space-y-1.5">
+                    <Label htmlFor="telefone_emergencia">Telefone de emergencia</Label>
+                    <Input name='telefone_emergencia' id="telefone_emergencia" type="text" placeholder="Digite seu nome" required />
+                    </div>
+                    <div className="flex flex-col space-y-1.5">
+                    <Label htmlFor="rg">RG</Label>
+                    <Input name='rg' id="rg" type="text" placeholder="Digite seu nome" required />
+                    </div>
+                    <div className="flex flex-col space-y-1.5">
+                    <Label htmlFor="cpf">CPF</Label>
+                    <Input name='cpf' id="cpf" type="text" placeholder="Digite seu nome" required />
+                    </div>
+                    <div className="flex flex-col space-y-1.5">
+                    <Label htmlFor="data_de_nascimento">Data de Nascimento</Label>
+                    <Input name='data_de_nascimento' id="data_de_nascimento" type="date" required />
                     </div>
                     <div className="flex flex-col space-y-1.5">
                     <Label htmlFor="email">E-mail</Label>
@@ -35,10 +55,6 @@ export function SigninForm() {
                     <div className="flex flex-col space-y-1.5">
                     <Label htmlFor="password">Senha</Label>
                     <Input name='password' id="password" type="password" placeholder="Digite uma senha segura" required />
-                    </div>
-                    <div className="flex flex-col space-y-1.5">
-                    <Label htmlFor="password">Confirme sua senha</Label>
-                    <Input name='confirmPassword' id="confirmPassword" type="password" placeholder="Digite a mesma senha" required />
                     </div>
                 </div>
             </CardContent>

@@ -1,15 +1,17 @@
+import { HamburguerMenu } from "@/components/HamburgerMenu";
+import Header from "@/components/landingPage/header";
+import Information from "@/components/landingPage/informations";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 export default function Home() {
   return (
     <main>
-      <div>
-        <h1>Retido Descendo do salto</h1>
-        <p>Realizado pelo projeto de muheres Resgatando Anas Você é Terra Fértil</p>
-      </div>
-      <div  className="flex flex-col items-center justify-center min-w-[340px] max-w-[500px] my-20 mx-auto gap-4">
-        <Link className="p-4 bg-accent rounded" href="/retiro/login">Retiro Login</Link>
-        <Link className="p-4 bg-accent rounded" href="/retiro/cadastro">Retiro Cadastro</Link>
+      <div><HamburguerMenu/></div>
+      <div><Header/></div>
+      <div><Information/></div>
+      <div  className="flex flex-col items-center justify-center min-w-[340px] max-w-[500px] my-4 mx-auto gap-4">
+        <Link className="p-4 flex" href="/retiro/cadastro"><Button className="bg-[#ffa621] rounded-[10px] px-24 py-4">Fazer inscrição</Button></Link>
       </div>
     </main>
   )
