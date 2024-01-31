@@ -2,7 +2,6 @@
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -14,7 +13,7 @@ import{ Payment }from '@mercadopago/sdk-react'
 
 export default function Pagamento() {
 
-    const publicKey = process.env.TOKEN_TEST_MERCADOPAGO_PUBLIC;
+    const publicKey = 'TEST-f4563544-ce69-40c3-b88e-6e7d1bd93a83';
     if(publicKey) initMercadoPago(publicKey , { locale: 'pt-BR' });
 
     const initialization = {

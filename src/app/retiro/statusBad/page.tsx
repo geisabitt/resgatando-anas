@@ -1,9 +1,8 @@
-'use client'
 import{ StatusScreen, initMercadoPago }from '@mercadopago/sdk-react'
 
-export default function Pagamento() {
+export default async function Pagamento() {
 
-    const publicKey = process.env.TOKEN_TEST_MERCADOPAGO_STATUSBAD;
+  const publicKey = 'TEST-2b00e5a0-b421-4588-b9cb-846a553d760e';
     if(publicKey) initMercadoPago(publicKey , { locale: 'pt-BR' });
 
     const initialization = {
