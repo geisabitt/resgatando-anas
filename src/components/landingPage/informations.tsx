@@ -2,7 +2,7 @@ import { FaRegCalendar } from "react-icons/fa6";
 import { IoIosPin } from "react-icons/io";
 export default function Information() {
     return (
-        <>
+        <div className="flex align-center justify-center">
             <div className="p-6 flex flex-col gap-6">
                 <div className="flex gap-4 items-center">
                     <span><FaRegCalendar className='w-4 h-4' /></span>
@@ -13,6 +13,6 @@ export default function Information() {
                     <p>Rua: Caminho Morro Grande, 932</p>
                     <p>Barão de Guandu, Nova Iguaçu - RJ</p></h3></div>
             </div>
-        </>
+        </div>
     );
 }

@@ -21,8 +21,8 @@ export function HamburguerMenu() {
       <NavigationMenuTrigger><CiMenuBurger className='w-6 h-6 transition duration-200 group-data-[state=open]:rotate-90' /></NavigationMenuTrigger>
       <NavigationMenuContent className="flex flex-col gap-4 px-10 py-4">
         <NavigationMenuLink><Link href="/">Inicio</Link></NavigationMenuLink>
-        <NavigationMenuLink><Link href="/retiro/cadastro">Participar</Link></NavigationMenuLink>
-        <NavigationMenuLink><Link href="/retiro/login">Login</Link></NavigationMenuLink>
+        <NavigationMenuLink><Link href="/retiro/pagamento">Participar</Link></NavigationMenuLink>
+        {/* <NavigationMenuLink><Link href="/retiro/login">Login</Link></NavigationMenuLink> */}
       </NavigationMenuContent>
     </NavigationMenuItem>
   </NavigationMenuList>
