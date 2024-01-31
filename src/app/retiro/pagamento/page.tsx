@@ -1,5 +1,13 @@
 'use client'
-import { Button, buttonVariants } from '@/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import {buttonVariants } from '@/components/ui/button';
 import Link from 'next/link';
 import{ initMercadoPago }from '@mercadopago/sdk-react'
 import{ Payment }from '@mercadopago/sdk-react'
@@ -23,17 +31,24 @@ export default function Pagamento() {
       };
   return (
     <>
-        <Payment
+        <Card className="w-[350px]">
+      <CardHeader>
+        <CardTitle>Pagina de agamento</CardTitle>
+      </CardHeader>
+      <CardContent>
+      <Payment
         initialization={initialization}
         customization={customization}
         onSubmit={async (param) => {
             console.log(param);
         }}
         />
-      <div className="flex justify-center p-4">
+      </CardContent>
+      <CardFooter className="flex justify-between">
       <Link href='statusOk' className={buttonVariants({variant:"outline"})}>Pagamento Confirmado</Link>
       <Link href='statusBad' className={buttonVariants({variant:"outline"})}>Erro de paragemto</Link>
-      </div>
+     </CardFooter>
+    </Card>
     </>
   )
 }
