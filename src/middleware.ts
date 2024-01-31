@@ -5,7 +5,12 @@ export const config = {
   matcher: '/((?!_next/static|_next/image|favicon.ico).*)',
 };
 
-const publicRoutes = ['/', '/retiro/cadastro', '/retiro/login'];
+const publicRoutes = ['/',
+                      '/retiro/cadastro',
+                      '/retiro/login',
+                      '/retiro/pagamento',
+                      '/retiro/statusOk',
+                      '/retiro/statusBad'];
 
 export async function middleware(req: NextRequest) {
   console.log(req.nextUrl);
