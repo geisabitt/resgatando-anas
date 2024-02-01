@@ -13,8 +13,7 @@ import{ Payment }from '@mercadopago/sdk-react'
 
 export default function Pagamento() {
 
-    const publicKey = 'TEST-f4563544-ce69-40c3-b88e-6e7d1bd93a83';
-    if(publicKey) initMercadoPago(publicKey , { locale: 'pt-BR' });
+  initMercadoPago('TEST-f4563544-ce69-40c3-b88e-6e7d1bd93a83' , { locale: 'pt-BR' });
 
     const initialization = {
         amount: 280,
@@ -30,9 +29,9 @@ export default function Pagamento() {
       };
   return (
     <>
-        <Card className="w-[350px]">
+        <Card className="w-[350px] my-2 mx-auto">
       <CardHeader>
-        <CardTitle>Pagina de agamento</CardTitle>
+        <CardTitle>Pagina de pagamento</CardTitle>
       </CardHeader>
       <CardContent>
       <Payment
@@ -43,9 +42,9 @@ export default function Pagamento() {
         }}
         />
       </CardContent>
-      <CardFooter className="flex justify-between">
-      <Link href='statusOk' className={buttonVariants({variant:"outline"})}>Pagamento Confirmado</Link>
-      <Link href='statusBad' className={buttonVariants({variant:"outline"})}>Erro de paragemto</Link>
+      <CardFooter className="flex justify-between gap-2">
+      <Link href='statusOk' className="bg-success p2 rounded-[0.3rem] text-center">Pagamento Confirmado</Link>
+      <Link href='statusBad' className="bg-destructive p2 rounded-[0.3rem] text-center">Erro de paragemto</Link>
      </CardFooter>
     </Card>
     </>
