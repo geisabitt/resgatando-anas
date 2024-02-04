@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import AuthService from './auth/service/auth-service';
+import AuthService from './auth/service/authService';
 
 export const config = {
   matcher: '/((?!_next/static|_next/image|favicon.ico|_next/img|foto-header.png).*)',
@@ -9,6 +9,7 @@ const publicRoutes = ['/',
                       '/retiro/cadastro',
                       '/retiro/login',
                       '/retiro/pagamento',
+                      '/retiro/pagamentoPix',
                       '/retiro/statusOk',
                       '/retiro/statusBad'
                       ];
