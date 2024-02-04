@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client'
 import * as bcrypt from 'bcrypt'
 import { redirect } from 'next/navigation';
-import AuthService from '../service/auth-service';
+import AuthService from '../service/authService';
 import { NextResponse } from 'next/server';
 
 const prisma = new PrismaClient();

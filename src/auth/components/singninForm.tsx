@@ -12,7 +12,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Link from "next/link"
-import AuthActions from "@/auth/actions/auth-actions"
+import AuthActions from "@/auth/actions/authActions"
 
 export function SigninForm() {
   return (

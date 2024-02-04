@@ -1,4 +1,4 @@
-import AuthService from "@/auth/service/auth-service";
+import AuthService from "@/auth/service/authService";
 import { PrismaClient } from "@prisma/client";
 import { redirect } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
@@ -19,8 +19,8 @@ export async function GET(req: NextRequest) {
         });
 
         if (user) {
-            return redirect(`/retiro/users/${id}`);
+            return redirect(`/retiro/users/${id}`)
         }
     }
-    return NextResponse.redirect(new URL('/', req.url))
+    return NextResponse.redirect(new URL('/', req.url));
 }
