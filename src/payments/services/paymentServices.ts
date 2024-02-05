@@ -1,4 +1,5 @@
-async function PaymentPix(formData:FormData) {
+import { PaymentCreateRequest } from 'mercadopago/dist/clients/payment/create/types';
+async function PaymentPix(formData: FormData): Promise<{ transactionDetails: TransactionDetails; result: any }> {
     'use server';
 
     const name = formData.get('name') as string;
@@ -9,6 +10,19 @@ async function PaymentPix(formData:FormData) {
     const transaction_amount = 280;
     const paymentType = 'bank_transfer';
     const selectedPaymentMethod = 'bank_transfer';
+
+    const paymentCreateRequest: PaymentCreateRequest = {
+        description,
+        payment_method_id,
+        payer:{
+            email,
+            phone:{
+                number: phone,
+            },
+            first_name: name,
+        },
+        transaction_amount,
+    }
 
     const transactionDetails: TransactionDetails = {
         name,
@@ -21,16 +35,33 @@ async function PaymentPix(formData:FormData) {
         selectedPaymentMethod
     };
 
-    const teste = await console.log(fetch('http://localhost:3001/api/mp/paymentPix'));
-     
-    
+    try {
+        const response = await fetch('http://localhost:3000/api/mp/payments', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ transactionDetails }),
+        });
 
-    return { transactionDetails, teste }
+        if (!response.ok) {
+            console.error(`API call failed with status: ${response.status}`);
+            const errorData = await response.json();
+            console.error('Error data:', errorData);
+            throw new Error(`Failed to make the API call. Status: ${response.status}`);
+        }
 
+        const result = await response.json();
+
+        return { transactionDetails, result };
+    } catch (error) {
+        console.error(error);
+        throw new Error('Failed to make the API call');
     }
-
-const PaymentService = {
-    PaymentPix
 }
 
-export default PaymentService
+const PaymentService = {
+    PaymentPix,
+};
+
+export default PaymentService;
