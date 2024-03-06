@@ -25,6 +25,12 @@ export function FormPaymentPix() {
             <CardContent>
                 <div className="grid w-full items-center gap-4">
                     <div className="flex flex-col space-y-1.5">
+                    <Label htmlFor="name">Investimento R$250,00</Label>
+                    <Input name='transaction_amount' id="transaction_amount" type="hidden" value={250} required />
+                    <Input name='description' id="description" type="hidden" value="Retiro 2024: Descendo do salto" required />
+                    <Input name='payment_method_id' id="payment_method_id" type="hidden" value="pix" required />
+                    </div>
+                    <div className="flex flex-col space-y-1.5">
                     <Label htmlFor="name">Nome</Label>
                     <Input name='name' id="name" type="text" placeholder="Digite seu nome" required />
                     </div>
