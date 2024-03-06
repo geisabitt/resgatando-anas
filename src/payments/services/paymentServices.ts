@@ -1,47 +1,38 @@
 import { PaymentCreateRequest } from 'mercadopago/dist/clients/payment/create/types';
-async function PaymentPix(formData: FormData): Promise<{ transactionDetails: TransactionDetails; result: any }> {
+
+async function PaymentPix(formData: FormData): Promise<{ paymentCreateRequest: PaymentCreateRequest; result: any }> {
     'use server';
 
     const name = formData.get('name') as string;
     const email = formData.get('email') as string;
     const phone = formData.get('phone') as string;
-    const description = 'Retiro de Mulheres';
-    const payment_method_id = 'pix';
-    const transaction_amount = 280;
-    const paymentType = 'bank_transfer';
-    const selectedPaymentMethod = 'bank_transfer';
+    const description = formData.get('description') as string;
+    const payment_method_id = formData.get('payment_method_id') as string;
+    const transaction_amount = parseFloat(formData.get('transaction_amount') as string);
 
     const paymentCreateRequest: PaymentCreateRequest = {
         description,
         payment_method_id,
+        transaction_amount,
         payer:{
             email,
+            first_name: name,
             phone:{
                 number: phone,
             },
-            first_name: name,
         },
-        transaction_amount,
     }
-
-    const transactionDetails: TransactionDetails = {
-        name,
-        email,
-        phone,
-        description,
-        payment_method_id,
-        transaction_amount,
-        paymentType,
-        selectedPaymentMethod
-    };
+    console.log("SERVICE LOG", paymentCreateRequest);
+    
 
     try {
         const response = await fetch('http://localhost:3000/api/mp/payments', {
+        //const response = await fetch('http://localhost:3000/api/mp/paymentHandle', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ transactionDetails }),
+            body: JSON.stringify({ paymentCreateRequest }),
         });
 
         if (!response.ok) {
@@ -53,7 +44,7 @@ async function PaymentPix(formData: FormData): Promise<{ transactionDetails: Tra
 
         const result = await response.json();
 
-        return { transactionDetails, result };
+        return { paymentCreateRequest, result };
     } catch (error) {
         console.error(error);
         throw new Error('Failed to make the API call');

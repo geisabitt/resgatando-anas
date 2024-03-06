@@ -6,7 +6,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import {buttonVariants } from '@/components/ui/button';
 import Link from 'next/link';
 import{ initMercadoPago }from '@mercadopago/sdk-react'
 import{ Payment }from '@mercadopago/sdk-react'

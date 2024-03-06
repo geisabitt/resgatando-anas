@@ -3,18 +3,22 @@ import { PaymentCreateRequest } from 'mercadopago/dist/clients/payment/create/ty
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(req: NextRequest, res: NextResponse) {
-    const client = new MercadoPagoConfig({ accessToken: process.env.ACCESS_TOKEN_TEST_MERCADOPAGO!, options: { timeout: 5000 } });
+    const client = new MercadoPagoConfig({ accessToken: process.env.ACCESS_TOKEN_TEST_MERCADOPAGO!, options: { timeout: 20000 } });
     const payment = new Payment(client);
+
+    console.log("API Request Data", req.body);
+    const body = await req.body as PaymentCreateRequest;
     try {
-        const body = req.body as PaymentCreateRequest;
-        console.log(body);
+        // Imprimir apenas os dados recebidos
+
+        console.log("Parsed Request Body", body);
 
         const result = await payment.create({ body });
-        console.log(result);
+        console.log("API Response", result);
 
-        NextResponse.json(result);
+        NextResponse.json({ message: body }, { status: 200 });
     } catch (error) {
         console.error(error);
-        NextResponse.json({ message: 'Internal Server Error' }, { status: 500 });
+        NextResponse.json({ message: body }, { status: 500 });
     }
-    };
+};
