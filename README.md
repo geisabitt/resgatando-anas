@@ -1,4 +1,8 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# PWA Resgatando Anas
+
+Produção [retiro-resgatando-anas](https://resgatando-anas-two.vercel.app/)
+
+Desenvolvimento [resgatando-anas.vercel](https://resgatando-anas.vercel.app/)
 
 ## Getting Started
 
@@ -6,12 +10,6 @@ First, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:5101](http://localhost:5101) with your browser to see the result.
