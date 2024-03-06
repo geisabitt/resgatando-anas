@@ -4,7 +4,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/card";
 import Link from 'next/link';
 import { FormPaymentPix } from "@/payments/components/formPaymentPix";
 import { initMercadoPago } from "@mercadopago/sdk-react";
