@@ -8,8 +8,8 @@ import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMe
 export function HeaderMenu() {
   return (
 
-    <div className='w-[100%] bg-[#E6C6C8] fixed top-0 z-50' >
-        <div className='w-[80%] mx-auto' >
+    <div className='w-[100%] bg-[#E6C6C8] fixed top-0 z-10' >
+        <div className='w-[90%] mx-auto' >
             <div className='flex justify-end items-center gap-4 p-2'>
               <NavigationMenu>
                 <NavigationMenuList>
