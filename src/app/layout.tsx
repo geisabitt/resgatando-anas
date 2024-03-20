@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Noto_Sans } from 'next/font/google'
 import './globals.css'
 import ButtonIndex from '@/components/ButtonIndex'
 import FooterMenu from '@/components/FooterMenu';
 import { HeaderMenu } from '@/components/HeaderMenu';
-const inter = Inter({ subsets: ['latin'] })
+const notoSans = Noto_Sans({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Retiro Descencendo do Salto',
@@ -18,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <body className={inter.className}>
+      <body className={notoSans.className}>
       <HeaderMenu/>
       <div className='my-20'>{children}</div>
       <ButtonIndex/>

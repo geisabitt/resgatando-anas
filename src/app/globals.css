@@ -1,7 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&display=swap');
 
 @layer base {
   :root {
@@ -74,9 +73,5 @@
   }
   body {
     @apply bg-background text-foreground;
-  }
-  p{
-    font-family: "Dosis", sans-serif;
-    font-weight: 400;
   }
 }
