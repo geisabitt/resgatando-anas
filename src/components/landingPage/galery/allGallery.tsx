@@ -3,19 +3,18 @@ import { IoMdCloseCircle } from "react-icons/io";
 import React, { useState } from 'react';
 import ItemGallery from './itemGallery';
 import Image from 'next/image';
-import { Button } from "@/components/ui/button";
 
 interface GalleryProps {
     images: string[];
-  }
+}
 
-export default function AllGallery({images}:GalleryProps) {
+export default function AllGallery({images}:Readonly<GalleryProps>) {
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
     const handleClick = (imageUrl: string) => {
         setSelectedImage(imageUrl);
-      };
-    
-      return (
+    };
+
+    return (
         <>
         <div className="flex flex-wrap w-[616px] max-h-[240px] gap-2">
             {images.map((imageUrl, index) => (
@@ -33,11 +32,11 @@ export default function AllGallery({images}:GalleryProps) {
                     <IoMdCloseCircle className="w-8 h-8" />
                     </button>
                     <div className="rounded-lg shadow-lg">
-                    <Image width={340} height={340} src={selectedImage} alt="Selected Image" />
+                    <Image className="rounded-[10px]" width={340} height={340} src={selectedImage} alt="Selected Image" />
                     </div>
                 </div>
             </div>
         )}
         </>
-      );
+    );
 }
