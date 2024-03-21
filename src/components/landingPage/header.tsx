@@ -21,7 +21,7 @@ export default function Header() {
             alt={'Logo Mulher Lendo'}
             src={'/img/foto-header.png'}
           />
-          <div className="absolute w-[252px] h-[64px] top-[90px] left-0 bg-[#E6C6C8]" />
+          <div className="absolute w-[252px] h-[64px] top-[90px] left-0 bg-primary" />
           <div className="absolute w-[254px] top-[95px] left-[17px] font-bold text-gray-800 text-[1rem]">
             RETIRO DE <br />
             MULHERES 2023
