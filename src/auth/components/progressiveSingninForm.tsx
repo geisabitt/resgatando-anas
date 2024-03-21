@@ -2,7 +2,7 @@
 import * as React from "react";
 import { useState } from "react";
 
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -51,8 +51,9 @@ export function SigninProgressiveForm() {
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (currentIndex === cards.length - 1 && isFormValid()) {
-      // Envie os dados do formulário
+      console.log('<<<<<formData>>>>>>',formData);
     } else {
+      console.log('<<<<<formData>>>>>>',formData);
       setCurrentIndex((prevIndex) => prevIndex + 1);
     }
   };
@@ -79,9 +80,9 @@ export function SigninProgressiveForm() {
         <CardHeader className="text-center">
           <div className="flex items-center justify-center gap-2 mb-8">
             {cards.map((_, index) => (
-              <FaCheckCircle 
+              <FaCheckCircle
                 key={index}
-                className={`w-4 h-4 ${index <= currentIndex ? "text-[#60F5B7]" : "text-[#E6C6C8]"}`}
+                className={`w-4 h-4 ${index <= currentIndex ? "text-success" : "text-primary"}`}
               />
             ))}
           </div>
@@ -109,16 +110,18 @@ export function SigninProgressiveForm() {
           </div>
         </CardContent>
         <CardFooter className="flex flex-col gap-2">
-          {/* {currentIndex > 0 && (
-            <Button onClick={() => setCurrentIndex((prevIndex) => prevIndex - 1)}>Voltar</Button>
-          )} */}
-          {currentIndex < cards.length - 1 && (
-            <Button className="w-full" onClick={() => setCurrentIndex((prevIndex) => prevIndex + 1)}>Próximo</Button>
+          <div className="flex flex-row gap-2">
+          {currentIndex > 0 && (
+            <Button className="w-full bg-success hover:bg-success"  onClick={() => setCurrentIndex((prevIndex) => prevIndex - 1)}>Voltar</Button>
           )}
-          <Button className="w-full" type="submit" disabled={!isFormValid()}>
+          {currentIndex < cards.length - 1 && (
+            <Button className="w-full bg-success hover:bg-success" onClick={() => setCurrentIndex((prevIndex) => prevIndex + 1)}>Próximo</Button>
+          )}
+          </div>
+          <Button className="w-full bg-success" type="submit" disabled={!isFormValid()}>
             Cadastrar
           </Button>
-          <Button className="w-full outline"><Link href="login">
+          <Button variant={'outline'} className="w-full"><Link href="login">
             Já tenho cadastro
           </Link>
           </Button>
