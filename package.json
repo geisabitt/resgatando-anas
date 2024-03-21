@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "postinstall": "prisma generate",
-    "dev": "next -p 5101 && rm -rf .next && next dev && prisma generate",
+    "dev": "next dev -p 5101 --hostname 172.22.47.138 && rm -rf .next && prisma generate",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

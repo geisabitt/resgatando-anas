@@ -14,7 +14,7 @@ export function HeaderMenu() {
               <NavigationMenu>
                 <NavigationMenuList>
                   <NavigationMenuItem>
-                    <NavigationMenuTrigger className="bg-[#E6C6C8] hover:bg-[#E6C6C8]" >
+                    <NavigationMenuTrigger className="bg-[#E6C6C8]" >
                       <AiOutlineMenu color="#fff"className='w-6 h-6 transition duration-200 group-data-[state=open]:rotate-90' /></NavigationMenuTrigger>
                     <NavigationMenuContent className="flex flex-col gap-4 px-10 py-4 bg-[#E6C6C8]">
                       <NavigationMenuLink><Link href="/">Inicio</Link></NavigationMenuLink>
