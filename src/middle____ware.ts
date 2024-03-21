@@ -13,10 +13,10 @@ const publicRoutes = [
   '/retiro/pagamentoPix',
   '/retiro/statusOk',
   '/retiro/statusBad',
-  '/api/mp/payments', // Adicione a rota da API como pública
+  '/api/mp/payments',
 ];
 
-const publicFolders = ['/img']; // Adicione a pasta 'img' aos recursos públicos
+const publicFolders = ['/img', '/videos'];
 
 export async function middleware(req: NextRequest) {
   const pathname = req.nextUrl.pathname;

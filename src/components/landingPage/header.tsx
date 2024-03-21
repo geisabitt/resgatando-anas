@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import ButtonRegistro from "./buttonRegistro";
 export default function Header() {
     return (
       <>
@@ -34,7 +34,7 @@ export default function Header() {
         <p className="text-justify">
         Reserve um tempo para si mesma e entre em um espaço de cura e crescimento. Descendo do Salto é mais do que um evento; é um convite para se conectar consigo mesma, elevar sua autoestima e se cercar de apoio. Independentemente de onde você esteja em sua jornada, este retiro foi criado com você em mente.
         </p>
-        <Link className="px-4 py-2 rounded bg-[#60F5B7] text-gray-800 text-center" href="/">Faça sua inscrição</Link>
+        <ButtonRegistro/>
       </div>
       </div>
       <p className="mx-auto my-auto py-4 md:w-auto p-4 text-justify">
