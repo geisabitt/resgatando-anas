@@ -18,7 +18,7 @@ export function HeaderMenu() {
                       <AiOutlineMenu color="#fff"className='w-6 h-6 transition duration-200 group-data-[state=open]:rotate-90' /></NavigationMenuTrigger>
                     <NavigationMenuContent className="flex flex-col gap-4 px-10 py-4 bg-primary">
                       <NavigationMenuLink><Link href="/">Inicio</Link></NavigationMenuLink>
-                      <NavigationMenuLink><Link href="/">Participar</Link></NavigationMenuLink>
+                      <NavigationMenuLink><Link href="retiro/cadastro/dadosPessoais">Participar</Link></NavigationMenuLink>
                       <NavigationMenuLink><Link href="/">Login</Link></NavigationMenuLink>
                     </NavigationMenuContent>
                   </NavigationMenuItem>
