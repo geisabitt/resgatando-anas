@@ -58,7 +58,7 @@ export function AnamineseProgressiveForm() {
     e.preventDefault();
     if (currentIndex === cards.length - 1 && isFormValid()) {
       console.log('<<<<<formData>>>>>>',formData);
-      redirect('/retiro/cadastro/dadosAdicionais')
+      redirect('/retiro/cadastro/status')
     } else {
       console.log('<<<<<formData>>>>>>',formData);
       setCurrentIndex((prevIndex) => prevIndex + 1);
