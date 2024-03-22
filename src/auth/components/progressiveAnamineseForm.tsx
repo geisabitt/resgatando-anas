@@ -172,7 +172,7 @@ export function AnamineseProgressiveForm() {
             )}
             {currentIndex === groups.length - 1 && (
               <Button className="w-full mb-1 bg-success" type="submit" disabled={!isFormValid()}>
-               <Link href="/retiro/cadastro/dadosAdicionais">Cadastrar</Link>
+               <Link href="/retiro/cadastro/status">Cadastrar</Link>
               </Button>
             )}
           {currentIndex > 0 && (
