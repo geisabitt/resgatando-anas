@@ -46,7 +46,9 @@ export default function Information() {
 </p>
                     </div>
                 </div>
-                <ButtonRegistro/>
+                <div className='w-[90%]'>
+                    <ButtonRegistro/>
+                </div>
             </div>
         </div>
     );
