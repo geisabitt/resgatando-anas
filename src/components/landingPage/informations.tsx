@@ -42,13 +42,10 @@ export default function Information() {
                     <p>Pra. Roberta (21) 97026-1802</p>
                     <p>Pra. Glória: (21) 97068-6842</p>
                     <p className="mt-4">Informações adicionais:</p>
-                    <p>Diac. Camila (21) 993636957.
-</p>
+                    <p>Diac. Camila (21) 993636957</p>
                     </div>
                 </div>
-                <div className='w-[90%]'>
                     <ButtonRegistro/>
-                </div>
             </div>
         </div>
     );
