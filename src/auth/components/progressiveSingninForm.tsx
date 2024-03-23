@@ -7,7 +7,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FaCheckCircle  } from "react-icons/fa";
 import { redirect } from "next/navigation";
-import Link from "next/link";
 
 type FormData = {
   nome: string;
@@ -26,17 +25,9 @@ const validateCPF = (cpf: string): boolean => {
   return regex.test(cpf);
 };
 
-const formatCPF = (cpf: string): string => {
-  return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
-};
-
 const validateRG = (rg: string): boolean => {
   const regex = /^[0-9]{8}$/;
   return regex.test(rg);
-};
-
-const formatRG = (rg: string): string => {
-  return rg.replace(/(\d{2})(\d{3})(\d{3})/, "$1.$2.$3");
 };
 
 const validateEmail = (email: string): boolean => {
@@ -44,7 +35,23 @@ const validateEmail = (email: string): boolean => {
   return regex.test(email);
 };
 
-export function SigninProgressiveForm() {
+const validatePassword = (password: string): boolean => {
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+  return passwordRegex.test(password);
+};
+
+const validateBirthDate = (birthDate: string): boolean => {
+  const today = new Date();
+  const minAgeDate = new Date(today.getFullYear() - 99, today.getMonth(), today.getDate());
+  const maxAgeDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+
+  const inputDate = new Date(birthDate);
+
+  return inputDate >= minAgeDate && inputDate <= maxAgeDate;
+};
+
+
+export function SigninProgressiveForm({createAcount}:any) {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [formData, setFormData] = useState<FormData>({
     nome: "",
@@ -58,19 +65,46 @@ export function SigninProgressiveForm() {
     passwordRepeat:"",
   });
 
+  const isFieldValid = (card: any, value: string): boolean => {
+    switch (card.name) {
+      case 'cpf':
+        return validateCPF(value);
+      case 'rg':
+        return validateRG(value);
+      case 'email':
+        return validateEmail(value);
+      case 'password':
+        return validatePassword(value);
+      case 'passwordRepeat':
+        return value === formData.password;
+      case 'data_de_nascimento':
+        return validateBirthDate(value);
+      default:
+        return !!value.trim();
+    }
+  };
+
+  const handleNextButtonClick = () => {
+    const currentCard = groups[currentIndex].cards;
+
+    for (const card of currentCard) {
+      const fieldValue = formData[card.name];
+
+      if (!isFieldValid(card, fieldValue)) {
+        if (card.name === 'passwordRepeat') {
+          alert(`As senhas não são iguais.`);
+        } else {
+          alert(`Campo inválido no campo ${card.label}.`);
+        }
+        return;
+      }
+    }
+
+    setCurrentIndex((prevIndex) => prevIndex + 1);
+  };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    let formattedValue = value;
-
-  if (name === "cpf") {
-    formattedValue = value.replace(/\D/g, "");
-    formattedValue = formatCPF(formattedValue);
-  }
-
-  if (name === "rg") {
-    formattedValue = value.replace(/\D/g, "");
-    formattedValue = formatRG(formattedValue);
-  }
 
     setFormData((prevState) => ({
       ...prevState,
@@ -78,48 +112,67 @@ export function SigninProgressiveForm() {
     }));
   };
 
-  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (currentIndex === cards.length - 1 && isFormValid()) {
-      console.log('<<<<<Cadastro Concluido?>>>>>>',formData);
-      redirect('retiro/cadastro/dadosAdicionais')
-    } else {
-      console.log('<<<<<Button Next>>>>>>',formData);
-      setCurrentIndex((prevIndex) => prevIndex + 1);
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+
+  const validateForm = (): boolean => {
+    if (!isFormValid()) {
+      alert("Por favor, preencha todos os campos obrigatórios.");
+      return false;
     }
+
     if (!validateCPF(formData.cpf)) {
       alert("CPF inválido!");
-      return;
+      return false;
     }
 
     if (!validateRG(formData.rg)) {
       alert("RG inválido!");
-      return;
+      return false;
     }
 
     if (!validateEmail(formData.email)) {
       alert("Email inválido!");
-      return;
+      return false;
     }
 
     if (formData.password !== formData.passwordRepeat) {
       alert("As senhas não são iguais!");
-      return;
+      return false;
     }
 
-    if (
-      !formData.password.match(/[a-z]/) ||
-      !formData.password.match(/[A-Z]/) ||
-      !formData.password.match(/[0-9]/) ||
-      formData.password.length < 8
-    ) {
+    if (!passwordRegex.test(formData.password)) {
       alert(
         "A senha deve conter pelo menos uma letra maiúscula, uma letra minúscula, um número e ter no mínimo 8 caracteres."
       );
+      return false;
+    }
+    if (!passwordRegex.test(formData.password)) {
+      alert(
+        "A senha deve conter pelo menos uma letra maiúscula, uma letra minúscula, um número e ter no mínimo 8 caracteres."
+      );
+      return false;
     }
 
+    if (!validateBirthDate(formData.data_de_nascimento)) {
+      alert("A idade deve estar entre 18 e 99 anos.");
+      return false;
+    }
+
+    return true;
   };
 
+
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (validateForm()) {
+      if (currentIndex === cards.length - 1) {
+        redirect("/retiro/cadastro/dadosAdicionais");
+      } else {
+        setCurrentIndex((prevIndex) => prevIndex + 1);
+      }
+    }
+  };
   const isFormValid = () => {
     return Object.values(formData).every((value) => value.trim() !== "");
   };
@@ -130,7 +183,7 @@ export function SigninProgressiveForm() {
       cards: [
         { label: "Nome", name: "nome", type: "text", placeholder: "Digite seu nome" },
         { label: "Telefone", name: "telefone", type: "text", placeholder: "(21)98999-9999" },
-        { label: "Telefone de emergência", name: "telefone_emergencia", type: "text", placeholder: "Digite seu nome" },
+        { label: "Telefone de emergência", name: "telefone_emergencia", type: "text", placeholder: "(21)98999-9999" },
       ],
     },
     {
@@ -138,7 +191,7 @@ export function SigninProgressiveForm() {
       cards: [
         { label: "E-mail", name: "email", type: "email", placeholder: "Digite seu email" },
         { label: "Senha", name: "password", type: "password", placeholder: "Digite uma senha segura" },
-        { label: "Repita a Senha", name: "passwordRepeat", type: "password", placeholder: "Repita a senha" }
+        { label: "Confirmar Senha", name: "passwordRepeat", type: "password", placeholder: "Confirmar senha" }
       ],
     },
     {
@@ -146,7 +199,7 @@ export function SigninProgressiveForm() {
       cards: [
         { label: "RG", name: "rg", type: "text", placeholder: "Digite seu RG" },
         { label: "CPF", name: "cpf", type: "text", placeholder: "Digite seu CPF" },
-        { label: "Data de Nascimento", name: "data_de_nascimento", type: "date", placeholder: "Digite sua data de nascimento" },
+        { label: "Data de Nascimento", name: "data_de_nascimento", type: "date", placeholder: "dd/mm/aaaa" },
       ],
     },
   ];
@@ -190,21 +243,20 @@ export function SigninProgressiveForm() {
             {currentIndex < groups.length - 1 && (
               <Button
                 className="w-full mb-1 bg-success hover:bg-success"
-                onClick={() => setCurrentIndex((prevIndex) => prevIndex + 1)}
-              >
+                onClick={handleNextButtonClick} >
                 Próximo
               </Button>
             )}
             {currentIndex === groups.length - 1 && (
               <Button className="w-full mb-1 bg-success" type="submit" disabled={!isFormValid()}>
-                <Link href="/retiro/cadastro/dadosAdicionais">Cadastrar</Link>
+                {/* <Link href="/retiro/cadastro/dadosAdicionais">Cadastrar</Link> */}Cadastrar
               </Button>
             )}
-            {currentIndex === 0 && (
+            {/* {currentIndex === 0 && (
               <Button variant="outline" className="w-full mb-1">
                 <Link href="login">Já tenho cadastro</Link>
               </Button>
-            )}
+            )} */}
           {currentIndex > 0 && (
             <Button
               className="w-full mb-1 bg-success hover:bg-success"

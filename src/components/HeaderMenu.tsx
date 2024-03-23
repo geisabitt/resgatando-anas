@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { IoMdHeart } from "react-icons/io";
 import Link from "next/link"
 import { AiOutlineMenu } from "react-icons/ai";
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger,} from "@/components/ui/navigation-menu"
@@ -10,8 +11,9 @@ export function HeaderMenu() {
 
     <div className='w-[100%] bg-primary fixed top-0 z-10' >
         <div className='w-[90%] mx-auto' >
-            <div className='flex justify-end items-center gap-4 p-2'>
-              <NavigationMenu>
+            <div className='flex justify-end items-center gap-4 p-4'>
+            <IoMdHeart className='w-6 h-6 fill-primary' />
+              {/* <NavigationMenu>
                 <NavigationMenuList>
                   <NavigationMenuItem>
                     <NavigationMenuTrigger className="bg-primary hover:bg-primary" >
@@ -23,7 +25,7 @@ export function HeaderMenu() {
                     </NavigationMenuContent>
                   </NavigationMenuItem>
                 </NavigationMenuList>
-              </NavigationMenu>
+              </NavigationMenu> */}
             </div>
         </div>
     </div>
