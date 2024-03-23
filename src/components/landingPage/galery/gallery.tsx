@@ -2,7 +2,7 @@ import AllGallery from './allGallery';
 import { FaArrowRight } from "react-icons/fa";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 
-const baseUrl = process.env.BASE_URL;
+const baseUrl = process.env.BASE_URL_PRODUCION;
 const images2021 = [
   `${baseUrl}/img/retiro2021/retiro2021-0001.jpg`,
   `${baseUrl}/img/retiro2021/retiro2021-0002.jpg`,
@@ -33,7 +33,7 @@ const images2022 = [
 ];
 export default function Gallery() {
     return (
-        <ScrollArea id='galeria' className="w-[100%] max-h-[290px] py-4 pl-4 rounded-md border overflow-auto">
+        <ScrollArea id='galeria' className="w-[100%] max-h-[290px] py-4 pl-4 overflow-auto">
             <div className="flex gap-2 flex-row">
             <div>
             <h3 className='flex items-center gap-2 pl-[102px] font-bold'>Galeria 2021 <FaArrowRight /></h3>
