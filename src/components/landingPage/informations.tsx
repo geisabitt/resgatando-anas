@@ -8,9 +8,13 @@ export default function Information() {
     return (
         <div className="flex align-center justify-center">
             <div className="p-6 flex flex-col gap-6">
-                <div className="flex gap-4 items-center">
-                    <span><FaRegCalendar className='w-4 h-4 text-primary' /></span>
-                    <p>Dias: 25, 26 e 27 de outubro 2024</p></div>
+                <div className="flex gap-4">
+                    <span className="pt-1"><FaRegCalendar className='w-4 h-4 text-primary' /></span>
+                    <div>
+                    <p>Dias: 25, 26 e 27 de outubro 2024</p>
+                    <p>Investimento: 250,00</p>
+                    </div>
+                    </div>
                 <div className="flex gap-4">
                     <span className="pt-1"><IoIosPin className='w-4 h-4 text-success' /></span>
                     <div>
@@ -25,7 +29,7 @@ export default function Information() {
                     <p>Local de saída do retiro: </p>
                     <p>Igreja - Comunidade Cristã Terra Fértil</p>
                     <p>Rua: Av Fuscão , 255</p>
-                    <p>Corumbá, Nova Iguaçu - RJ.</p>
+                    <p>Corumbá, Nova Iguaçu - RJ</p>
                     </div>
                 </div>
                 <div className="flex gap-4">
