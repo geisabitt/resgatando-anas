@@ -5,7 +5,7 @@ export default function LoadingComponent(){
             <div className="flex w-full h-full max-w-[100vw] max-h-[100vh] items-center justify-center overflow-hidden">
                 <Image className='object-cover' src={`${process.env.BASE_URL_PRODUCION}/img/BgLoading.jpg`} alt='Imagen de Loading' width={360} height={740} layout="responsive" objectFit="cover"/>
                 <div className="absolute z-50">
-                    <div className="flex flex-col min-h-[95vh] items-center justify-between gap-4">
+                    <div className="flex flex-col min-h-[95vh] items-center justify-center gap-6">
                         <Image className='' src={`/img/LogoResgatandoAnas.png`} alt='Imagen de Loading' width={230} height={215}/>
                         <h2 className="text-white pt-4 text-[1.5rem]">Retiro Descendo do salto</h2>
                             <div>
