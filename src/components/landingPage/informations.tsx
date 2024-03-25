@@ -12,7 +12,7 @@ export default function Information() {
                     <span className="pt-1"><FaRegCalendar className='w-4 h-4 text-primary' /></span>
                     <div>
                     <p>Dias: 25, 26 e 27 de outubro 2024</p>
-                    <p>Investimento: 250,00</p>
+                    <p>Investimento: R$ 250,00</p>
                     </div>
                     </div>
                 <div className="flex gap-4">
