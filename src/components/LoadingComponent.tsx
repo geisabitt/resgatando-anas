@@ -1,9 +1,9 @@
 import Image from 'next/image';
 export default function LoadingComponent(){
     return(
-        <div className="absolute z-40 top-0 bottom-0 left-0 right-0">
+        <div className="absolute z-40 top-0 bottom-0 left-0 right-0 overflow-hidden">
             <div className="flex w-full h-full max-w-[100vw] max-h-[100vh] items-center justify-center overflow-hidden">
-                <Image className='object-cover' src={`${process.env.BASE_URL_PRODUCION}/img/BgLoading.jpg`} alt='Imagen de Loading' width={260} height={640} layout="responsive" objectFit="cover"/>
+                <Image className='object-cover' src={`${process.env.BASE_URL_PRODUCION}/img/BgLoading.jpg`} alt='Imagen de Loading' width={360} height={740} layout="responsive" objectFit="cover"/>
                 <div className="absolute z-50">
                     <div className="flex flex-col min-h-[95vh] items-center justify-center gap-4">
                         <Image className='' src={`/img/LogoResgatandoAnas.png`} alt='Imagen de Loading' width={230} height={215}/>
