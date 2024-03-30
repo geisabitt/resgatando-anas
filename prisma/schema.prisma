@@ -13,12 +13,12 @@ datasource db {
 model Users {
   id                   String   @id @default(uuid())
   email                String   @unique
-  telefone             String
+  telefone             String?
   image                String?
-  telefone_emergencia  String
-  rg                   String
-  cpf                  String
-  data_de_nascimento   String
+  telefone_emergencia  String?
+  rg                   String?
+  cpf                  String?
+  data_de_nascimento   String?
   name                 String
   password             String
   type                 String
@@ -26,17 +26,17 @@ model Users {
   updatedAt            DateTime @updatedAt()
 }
 model UsersAnaminese {
-  id                   String   @id @default(uuid())
-  userId               String   @unique
-  telefone             String
-  image                String?
-  telefone_emergencia  String
-  rg                   String
-  cpf                  String
-  data_de_nascimento   String
-  name                 String
-  password             String
-  type                 String
-  createdAt            DateTime @default(now())
-  updatedAt            DateTime @updatedAt()
+  id                       String   @id @default(uuid())
+  userId                   String   @unique
+  possui_doenca            String?
+  qual_doenca              String?
+  faz_uso_medicamento      String?
+  qual_medicamento         String?
+  alergia_medicamento      String?
+  alergia_qual_medicamento String?
+  restricao_alimentar      String?
+  quais_alimentos          String?
+  tamanho_blusa            String?
+  createdAt                DateTime @default(now())
+  updatedAt                DateTime @updatedAt()
 }

@@ -22,7 +22,7 @@ async function createSessionToken(payload = {}){
         path:'/',
         httpOnly: true
     })
-    //salvar o token em um cookie para usar no server side
+    return session;
 }
 
 async function isSessionValid() {

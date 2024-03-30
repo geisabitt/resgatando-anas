@@ -1,37 +1,74 @@
-// import { PrismaClient } from '@prisma/client'
-// import * as bcrypt from 'bcrypt'
-// import { redirect } from 'next/navigation';
-// import AuthService from '../service/authService';
-// import { NextRequest } from 'next/server';
+import AuthService from '@/auth/service/authService';
+import { PrismaClient, Users } from '@prisma/client'
+import * as bcrypt from 'bcrypt'
+import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET() {
 
-    return Response.json({message: 'Hello Login'})
+/**
+ * @swagger
+ * /api/user/login:
+ *  post:
+ *    sumary: Login de usuário
+ *    description: Essa rota é responsavel pelo login do usuário
+ *    tags: ['Usuario']
+ *    requestBody:
+ *      required: true
+ *      content:
+ *          application/json:
+ *              schema:
+ *                  type: object
+ *                  properties:
+ *                      email:
+ *                          type: string
+ *                      password:
+ *                          type: string
+ *    responses:
+ *      200:
+ *        description: Login realizado com sucesso
+ *      400:
+ *        description: Todos os dados são obrigatórios
+ *      401:
+ *        description: Credenciais inválidas
+ *      404:
+ *        description: Usuário não encontrado
+ *      403:
+ *        description: Não autorizado
+ *      500:
+ *        description: Erro interno do servidor
+*/
 
-        // const user = await prisma.users.findFirst({
-        //     where:{
-        //         email,
-        //     }
-        // })
+const prisma = new PrismaClient();
 
-        // if(!user){
-        //     Response.json({ message: 'Dados do usuário incorreto, ou não encontrado.' }, { status: 404 });
-        //     console.log('Usuario não encontrado')
-        //     redirect('/retiro/login')
-        // }
+export async function POST(req:NextRequest) {
 
-        // const isMatch = await bcrypt.compare(password, user?.password)
+    const userLogin: Partial<Users> = await req.json()
 
-        // if(!isMatch){
-        //     Response.json({ message: 'Dados do usuário incorreto, ou não encontrado.' }, { status: 404 });
-        //     console.log('usuario ou senha invalidos');
-        //     redirect('/retiro/login')
-        // }
+    const email = userLogin.email;
+    const password = userLogin.password;
 
-        // await AuthService.createSessionToken({sub: user.id ,type: user.type})
-
-        // Response.json({ message: 'Login realizado com sucesso' }, { status: 202 });
-        // console.log('Login realizado com sucesso!');
-        // redirect(`/api/user/userId`)
-
+    if (!email || !password) {
+        return NextResponse.json({ message: 'Todos os dados são obrigatórios' }, { status: 400 });
     }
+
+    const user = await prisma.users.findFirst({
+        where: {
+            email,
+        }
+    });
+
+    if (!user) {
+        return NextResponse.json({ message: 'Usuário não encontrado.' }, { status: 404 });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
+        return NextResponse.json({ message: 'Credenciais inválidas.' }, { status: 401 });
+    }
+
+
+    const token = await AuthService.createSessionToken({ sub: user.id, type: user.type });
+
+
+    return Response.json({ message: 'Login realizado com sucesso', token }, { status: 200 });
+}
