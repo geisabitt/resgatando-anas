@@ -4,7 +4,7 @@
 // import AuthService from '../service/authService';
 // import { NextRequest } from 'next/server';
 
-async function GET() {
+export async function GET() {
 
     return Response.json({message: 'Hello Login'})
 
