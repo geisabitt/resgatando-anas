@@ -5,6 +5,7 @@ import { NextResponse } from "next/server";
 //  * /api/mp/getAllMethods:
 //  *  get:
 //  *    desctiption: Retorna os metodos de pagamento disponveis no mercadoPago
+//  *    tags: ['Pagamento']
 //  *    responses:
 //  *      200:
 //  *        description: Todos os pagamentos
