@@ -1,4 +1,4 @@
-import { AnamineseProgressiveForm } from "@/auth/components/progressiveAnamineseForm";
+import { AnamineseProgressiveForm } from "@/auth/components/cadastro/progressiveAnamineseForm";
 
 export default function CadastroAnaminese() {
   return (

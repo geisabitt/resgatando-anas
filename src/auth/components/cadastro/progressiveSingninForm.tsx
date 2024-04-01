@@ -7,53 +7,16 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FaCheckCircle  } from "react-icons/fa";
 import { redirect } from "next/navigation";
-
-type FormData = {
-  nome: string;
-  telefone: string;
-  telefone_emergencia: string;
-  rg: string;
-  cpf: string;
-  data_de_nascimento: string;
-  email: string;
-  password: string;
-  passwordRepeat:string;
-};
-
-const validateCPF = (cpf: string): boolean => {
-  const regex = /^[0-9]{11}$/;
-  return regex.test(cpf);
-};
-
-const validateRG = (rg: string): boolean => {
-  const regex = /^[0-9]{8}$/;
-  return regex.test(rg);
-};
-
-const validateEmail = (email: string): boolean => {
-  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return regex.test(email);
-};
-
-const validatePassword = (password: string): boolean => {
-  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
-  return passwordRegex.test(password);
-};
-
-const validateBirthDate = (birthDate: string): boolean => {
-  const today = new Date();
-  const minAgeDate = new Date(today.getFullYear() - 99, today.getMonth(), today.getDate());
-  const maxAgeDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
-
-  const inputDate = new Date(birthDate);
-
-  return inputDate >= minAgeDate && inputDate <= maxAgeDate;
-};
+import { NextRequest, NextResponse } from 'next/server';
+import * as validations from "./formValidations";
+import { DadosPessoais } from "./model";
+import { useRouter } from "next/navigation";
 
 
-export function SigninProgressiveForm({createAcount}:any) {
+
+export function SigninProgressiveForm() {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [formData, setFormData] = useState<FormData>({
+  const [dadosPessoais, setDadosPessoais] = useState<DadosPessoais>({
     nome: "",
     telefone: "",
     telefone_emergencia: "",
@@ -68,27 +31,26 @@ export function SigninProgressiveForm({createAcount}:any) {
   const isFieldValid = (card: any, value: string): boolean => {
     switch (card.name) {
       case 'cpf':
-        return validateCPF(value);
+        return validations.validateCPF(value);
       case 'rg':
-        return validateRG(value);
+        return validations.validateRG(value);
       case 'email':
-        return validateEmail(value);
+        return validations.validateEmail(value);
       case 'password':
-        return validatePassword(value);
+        return validations.validatePassword(value);
       case 'passwordRepeat':
-        return value === formData.password;
+        return value === dadosPessoais.password;
       case 'data_de_nascimento':
-        return validateBirthDate(value);
+        return validations.validateBirthDate(value);
       default:
         return !!value.trim();
     }
   };
-
   const handleNextButtonClick = () => {
     const currentCard = groups[currentIndex].cards;
 
     for (const card of currentCard) {
-      const fieldValue = formData[card.name];
+      const fieldValue = dadosPessoais[card.name];
 
       if (!isFieldValid(card, fieldValue)) {
         if (card.name === 'passwordRepeat') {
@@ -106,78 +68,32 @@ export function SigninProgressiveForm({createAcount}:any) {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setFormData((prevState) => ({
+    setDadosPessoais((prevState) => ({
       ...prevState,
       [name]: value,
     }));
   };
 
-  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
 
-  const validateForm = (): boolean => {
-    if (!isFormValid()) {
-      alert("Por favor, preencha todos os campos obrigatórios.");
-      return false;
-    }
-
-    if (!validateCPF(formData.cpf)) {
-      alert("CPF inválido!");
-      return false;
-    }
-
-    if (!validateRG(formData.rg)) {
-      alert("RG inválido!");
-      return false;
-    }
-
-    if (!validateEmail(formData.email)) {
-      alert("Email inválido!");
-      return false;
-    }
-
-    if (formData.password !== formData.passwordRepeat) {
-      alert("As senhas não são iguais!");
-      return false;
-    }
-
-    if (!passwordRegex.test(formData.password)) {
-      alert(
-        "A senha deve conter pelo menos uma letra maiúscula, uma letra minúscula, um número e ter no mínimo 8 caracteres."
-      );
-      return false;
-    }
-    if (!passwordRegex.test(formData.password)) {
-      alert(
-        "A senha deve conter pelo menos uma letra maiúscula, uma letra minúscula, um número e ter no mínimo 8 caracteres."
-      );
-      return false;
-    }
-
-    if (!validateBirthDate(formData.data_de_nascimento)) {
-      alert("A idade deve estar entre 18 e 99 anos.");
-      return false;
-    }
-
-    return true;
-  };
-
-
+  const router = useRouter();
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    if (validateForm()) {
+  
+    if (validations.validateForm(dadosPessoais)) {
       if (currentIndex === cards.length - 1) {
-        redirect("/retiro/cadastro/dadosAdicionais");
+        console.log(dadosPessoais)
+        router.push("/retiro/cadastro/dadosAdicionais");
       } else {
         setCurrentIndex((prevIndex) => prevIndex + 1);
       }
     }
   };
+
   const isFormValid = () => {
-    return Object.values(formData).every((value) => value.trim() !== "");
+    return Object.values(dadosPessoais).every((value) => value.trim() !== "");
   };
 
-  const groups: { label: string; cards: { label: string; name: keyof FormData; type: string; placeholder: string }[] }[] = [
+  const groups: { label: string; cards: { label: string; name: keyof DadosPessoais; type: string; placeholder: string }[] }[] = [
     {
       label: "Informações Pessoais",
       cards: [
@@ -231,7 +147,7 @@ export function SigninProgressiveForm({createAcount}:any) {
                   id={card.name}
                   type={card.type}
                   placeholder={card.placeholder}
-                  value={formData[card.name]}
+                  value={dadosPessoais[card.name]}
                   onChange={handleInputChange}
                   required
                 />
