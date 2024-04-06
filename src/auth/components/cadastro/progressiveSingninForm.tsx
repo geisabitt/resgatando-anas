@@ -5,14 +5,30 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle,} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { FaCheckCircle  } from "react-icons/fa";
-import { redirect } from "next/navigation";
-import { NextRequest, NextResponse } from 'next/server';
+import { FaCheckSquare   } from "react-icons/fa";
 import * as validations from "./formValidations";
 import { DadosPessoais } from "./model";
 import { useRouter } from "next/navigation";
 
+function ProgressBullet({ active, status }: { active: boolean; status: "filled" | "notFilled" }) {
+  return (
+    <div
+      className={`w-5 h-5 rounded-full ${
+        active && status === "filled" ? "bg-success900" : active ? "bg-success" : "bg-primary"
+      } flex items-center justify-center text-success`}
+    >
+      {active && <FaCheckSquare className="w-2.5 h-2.5" />}
+    </div>
+  );
+}
 
+function ProgressLine({ active }: { active: boolean }) {
+  return (
+    <div
+      className={`flex-1 h-0.5 bg-${active ? "success" : "primary"} rounded-lg`}
+    />
+  );
+}
 
 export function SigninProgressiveForm() {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
@@ -27,6 +43,35 @@ export function SigninProgressiveForm() {
     password: "",
     passwordRepeat:"",
   });
+  const [groups, setGroups] = useState<{ label: string; status: "notFilled" | "filled"; cards: { label: string; name: keyof DadosPessoais; type: string; placeholder: string }[] }[]>([
+    {
+      label: "Informações Pessoais",
+      status: "notFilled",
+      cards: [
+        { label: "Nome", name: "nome", type: "text", placeholder: "Digite seu nome" },
+        { label: "Telefone", name: "telefone", type: "text", placeholder: "(21)98999-9999" },
+        { label: "Telefone de emergência", name: "telefone_emergencia", type: "text", placeholder: "(21)98999-9999" },
+      ],
+    },
+    {
+      label: "Informações de Conta",
+      status: "notFilled",
+      cards: [
+        { label: "E-mail", name: "email", type: "email", placeholder: "Digite seu email" },
+        { label: "Senha", name: "password", type: "password", placeholder: "Digite uma senha segura" },
+        { label: "Confirmar Senha", name: "passwordRepeat", type: "password", placeholder: "Confirmar senha" }
+      ],
+    },
+    {
+      label: "Documentos",
+      status: "notFilled",
+      cards: [
+        { label: "RG", name: "rg", type: "text", placeholder: "Digite seu RG" },
+        { label: "CPF", name: "cpf", type: "text", placeholder: "Digite seu CPF" },
+        { label: "Data de Nascimento", name: "data_de_nascimento", type: "date", placeholder: "dd/mm/aaaa" },
+      ],
+    },
+  ]);
 
   const isFieldValid = (card: any, value: string): boolean => {
     switch (card.name) {
@@ -53,7 +98,7 @@ export function SigninProgressiveForm() {
       const fieldValue = dadosPessoais[card.name];
 
       if (!isFieldValid(card, fieldValue)) {
-        if (card.name === 'passwordRepeat') {
+        if (card.name === "passwordRepeat") {
           alert(`As senhas não são iguais.`);
         } else {
           alert(`Campo inválido no campo ${card.label}.`);
@@ -61,6 +106,10 @@ export function SigninProgressiveForm() {
         return;
       }
     }
+
+    const updatedGroups = [...groups];
+    updatedGroups[currentIndex].status = "filled";
+    setGroups(updatedGroups);
 
     setCurrentIndex((prevIndex) => prevIndex + 1);
   };
@@ -93,32 +142,7 @@ export function SigninProgressiveForm() {
     return Object.values(dadosPessoais).every((value) => value.trim() !== "");
   };
 
-  const groups: { label: string; cards: { label: string; name: keyof DadosPessoais; type: string; placeholder: string }[] }[] = [
-    {
-      label: "Informações Pessoais",
-      cards: [
-        { label: "Nome", name: "nome", type: "text", placeholder: "Digite seu nome" },
-        { label: "Telefone", name: "telefone", type: "text", placeholder: "(21)98999-9999" },
-        { label: "Telefone de emergência", name: "telefone_emergencia", type: "text", placeholder: "(21)98999-9999" },
-      ],
-    },
-    {
-      label: "Informações de Conta",
-      cards: [
-        { label: "E-mail", name: "email", type: "email", placeholder: "Digite seu email" },
-        { label: "Senha", name: "password", type: "password", placeholder: "Digite uma senha segura" },
-        { label: "Confirmar Senha", name: "passwordRepeat", type: "password", placeholder: "Confirmar senha" }
-      ],
-    },
-    {
-      label: "Documentos",
-      cards: [
-        { label: "RG", name: "rg", type: "text", placeholder: "Digite seu RG" },
-        { label: "CPF", name: "cpf", type: "text", placeholder: "Digite seu CPF" },
-        { label: "Data de Nascimento", name: "data_de_nascimento", type: "date", placeholder: "dd/mm/aaaa" },
-      ],
-    },
-  ];
+
 
   const cards = groups[currentIndex].cards;
 
@@ -126,12 +150,17 @@ export function SigninProgressiveForm() {
     <Card className="w-[350px]">
       <form onSubmit={handleFormSubmit}>
         <CardHeader className="text-center">
-          <div className="flex items-center justify-center gap-2 mb-8">
+          <div className="flex items-center justify-between mb-8">
             {groups.map((group, index) => (
-              <FaCheckCircle
-                key={index}
-                className={`w-4 h-4 ${index <= currentIndex ? "text-success" : "text-primary"}`}
-              />
+              <React.Fragment key={index}>
+                <ProgressBullet
+                  active={index <= currentIndex}
+                  status={group.status}
+                />
+                {index < groups.length - 1 && (
+                  <ProgressLine active={index < currentIndex} />
+                )}
+              </React.Fragment>
             ))}
           </div>
           <CardTitle>Cadastre-se no site </CardTitle>
