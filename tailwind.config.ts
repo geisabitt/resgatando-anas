@@ -34,6 +34,9 @@ const config = {
         success900: {
           DEFAULT: '#28674D',
         },
+        blue900: {
+          DEFAULT: '#00516B',
+        },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",

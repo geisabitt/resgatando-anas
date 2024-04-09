@@ -9,6 +9,7 @@ import { FaCheckSquare   } from "react-icons/fa";
 import * as validations from "./formValidations";
 import { DadosPessoais } from "./model";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 function ProgressBullet({ active, status }: { active: boolean; status: "filled" | "notFilled" }) {
   return (
@@ -183,6 +184,11 @@ export function SigninProgressiveForm() {
               </div>
             ))}
           </div>
+          {currentIndex === 0 && (
+              <Button className="w-full my-2 bg-blue900 hover:bg-blue-900">
+                <Link href="/retiro/cadastro/termosDeUso">Contrato</Link>
+              </Button>
+            )}
         </CardContent>
         <CardFooter className="flex flex-col gap-2">
             {currentIndex < groups.length - 1 && (
@@ -193,15 +199,8 @@ export function SigninProgressiveForm() {
               </Button>
             )}
             {currentIndex === groups.length - 1 && (
-              <Button className="w-full mb-1 bg-success" type="submit" disabled={!isFormValid()}>
-                {/* <Link href="/retiro/cadastro/dadosAdicionais">Cadastrar</Link> */}Cadastrar
-              </Button>
+              <Button className="w-full mb-1 bg-success" type="submit" disabled={!isFormValid()}>Cadastrar</Button>
             )}
-            {/* {currentIndex === 0 && (
-              <Button variant="outline" className="w-full mb-1">
-                <Link href="login">Já tenho cadastro</Link>
-              </Button>
-            )} */}
           {currentIndex > 0 && (
             <Button
               className="w-full mb-1 bg-success hover:bg-success"
