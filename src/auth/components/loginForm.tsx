@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Link from "next/link"
 import AuthActions from '@/auth/actions/authActions';
+import { AlertSistem } from "@/components/shared/alertSistem"
 
 export function LoginForm() {
   return (
@@ -39,6 +40,7 @@ export function LoginForm() {
             <Link href='cadastro' className={buttonVariants({variant:"outline"})}>Não tenho cadastro</Link>
         </CardFooter>
         </form>
+        <AlertSistem message="" />
     </Card>
   )
 }

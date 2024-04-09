@@ -1,20 +1,5 @@
 import { NextResponse } from "next/server";
 
-// /**
-//  * @swagger
-//  * /api/mp/getAllPayments:
-//  *  get:
-//  *    desctiption: Retorna todos os pagementos realizados, de todos os status, ACEITO, CANCELADO, PENDENTE... , para o controle administarivo
-//  *    tags: ['Pagamento']
-//  *    responses:
-//  *      200:
-//  *        description: Todos os pagamentos
-//  *      400:
-//  *        description: Não encontrado
-//  *      403:
-//  *        description: Não autorizado
-// */
-
 const SEARCH_URL = 'https://api.mercadopago.com/v1/payments/search';
 const ACCESS_TOKEN = process.env.ACCESS_TOKEN_TEST_MERCADOPAGO;
 

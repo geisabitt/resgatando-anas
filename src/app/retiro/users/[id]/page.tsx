@@ -1,7 +1,7 @@
 // import InfoUser from "@/components/InfoUser";
 
-export default function PortalUserDetail({params,}:{
-    params:{id:string,}
+export default function PortalUserDetail({params}:{
+    params:{id:string}
 }){
     return (
         <div>

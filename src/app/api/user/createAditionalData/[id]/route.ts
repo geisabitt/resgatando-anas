@@ -1,54 +1,6 @@
 import { PrismaClient, Users } from "@prisma/client";
 import { NextRequest } from "next/server";
 
-// /**
-//  * @swagger
-//  * /api/user/createAditionalData/[id]:
-//  *  post:
-//  *    sumary: Cadastro de dados Médicos
-//  *    description: Essa rota é responsavel pelo cadastro dos dados médicos de um usuario para melhor experiencia no retiro
-//  *    tags: ['Usuario']
-//  *    parameters:
-//  *      - name : id
-//  *        in: query
-//  *    requestBody:
-//  *      required: true
-//  *      content:
-//  *          application/json:
-//  *              schema:
-//  *                  type: object
-//  *                  properties:
-//  *                      email:
-//  *                          type: string
-//  *                      telefone:
-//  *                          type: string
-//  *                      image:
-//  *                          type: string
-//  *                      telefone_emergencia:
-//  *                          type: string
-//  *                      rg:
-//  *                          type: string
-//  *                      cpf:
-//  *                          type: string
-//  *                      data_de_nascimento:
-//  *                          type: string
-//  *                      name:
-//  *                          type: string
-//  *                      password:
-//  *                          type: string
-//  *                      type:
-//  *                          type: string
-//  *    responses:
-//  *      201:
-//  *        description: Usuario cadastrado com sucesso
-//  *      404:
-//  *        description: Not Found
-//  *      403:
-//  *        description: não autorizado
-//  *      500:
-//  *        description: Internal Server Error
-// */
-
 const prisma = new PrismaClient();
 
 export async function POST (req: NextRequest){

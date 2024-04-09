@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle,}
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FaCheckCircle  } from "react-icons/fa";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 type Questions = {
@@ -53,12 +53,12 @@ export function AnamineseProgressiveForm() {
       [name]: value,
     }));
   };
-
+  const router = useRouter();
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (currentIndex === cards.length - 1 && isFormValid()) {
       console.log('<<<<<formData>>>>>>',formData);
-      redirect('/retiro/cadastro/status')
+      router.push("/retiro/cadastro/dadosAdicionais");
     } else {
       console.log('<<<<<formData>>>>>>',formData);
       setCurrentIndex((prevIndex) => prevIndex + 1);
