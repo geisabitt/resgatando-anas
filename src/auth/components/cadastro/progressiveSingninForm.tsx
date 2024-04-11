@@ -1,5 +1,6 @@
 "use client"
 import * as React from "react";
+import axios from 'axios';
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle,} from "@/components/ui/card";
@@ -36,7 +37,7 @@ export function SigninProgressiveForm() {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [termoDeUso, setTermoDeUso] = useState(false);
   const [dadosPessoais, setDadosPessoais] = useState<DadosPessoais>({
-    nome: "",
+    name: "",
     telefone: "",
     telefone_emergencia: "",
     rg: "",
@@ -61,7 +62,7 @@ export function SigninProgressiveForm() {
       label: "Informações Pessoais",
       status: "notFilled",
       cards: [
-        { label: "Nome", name: "nome", type: "text", placeholder: "Digite seu nome" },
+        { label: "Nome", name: "name", type: "text", placeholder: "Digite seu nome" },
         { label: "Telefone", name: "telefone", type: "text", placeholder: "(21)98999-9999" },
         { label: "Telefone de emergência", name: "telefone_emergencia", type: "text", placeholder: "(21)98999-9999" },
       ],
@@ -148,15 +149,23 @@ export function SigninProgressiveForm() {
 
 
   const router = useRouter();
-  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+  
     if (validations.validateForm(dadosPessoais)) {
-      if (currentIndex === cards.length - 1) {
-        console.log(dadosPessoais)
-        router.push("/retiro/cadastro/dadosAdicionais");
-      } else {
-        setCurrentIndex((prevIndex) => prevIndex + 1);
+      try {
+        const response = await axios.post('/api/user/create', dadosPessoais);
+        if (response.status === 201) {
+          // Dados pessoais cadastrados com sucesso
+          console.log(response.data);
+          router.push("/retiro/cadastro/dadosAdicionais");
+        } else {
+          console.log(response.data);
+        }
+      } catch (error) {
+        // Lidar com erros da API
+        console.error('Erro ao cadastrar usuário:', error);
+        // Exibir mensagem de erro para o usuário, se necessário
       }
     }
   };
@@ -194,6 +203,7 @@ export function SigninProgressiveForm() {
             {cards.map((card, index) => (
               <div key={index} className="flex flex-col space-y-1.5">
                 <Label htmlFor={card.name}>{card.label}</Label>
+                <span></span>
                 <Input
                   name={card.name}
                   id={card.name}

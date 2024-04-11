@@ -1,5 +1,5 @@
 export type DadosPessoais = {
-    nome: string;
+    name: string;
     telefone: string;
     telefone_emergencia: string;
     rg: string;

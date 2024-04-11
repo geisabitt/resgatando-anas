@@ -40,7 +40,7 @@ export function LoginForm() {
             <Link href='cadastro' className={buttonVariants({variant:"outline"})}>Não tenho cadastro</Link>
         </CardFooter>
         </form>
-        <AlertSistem message="" />
+        <AlertSistem title="" message="" />
     </Card>
   )
 }

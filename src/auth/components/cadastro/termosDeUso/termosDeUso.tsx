@@ -19,17 +19,16 @@ export default function TermosDeUso({ onClose, onAcceptTerms  }: TermosDeUsoProp
     const [isChecked, setIsChecked] = useState(false);
 
     const handleCheckboxChange = () => {
-        setIsChecked(true);
+        setIsChecked(!isChecked); // Altera o estado para o oposto do valor atual
         onAcceptTerms();
     };
 
     useEffect(() => {
-        console.log('Termos do componente termos',isChecked)
+        console.log('Termos do componente termos', isChecked);
     }, [isChecked]);
-
     return (
     <div className="termosDeUsoContainer ">
-    <ScrollArea className="h-[85vh] w-full">
+    <ScrollArea className="h-[80vh] w-full">
     <div  className="flex flex-col align-center gap-4 justify-center p-4 text-gray-900">
         <div>
                 <h5 className="font-bold">Comunidade Cristã Terra Fértil</h5>
@@ -111,11 +110,12 @@ export default function TermosDeUso({ onClose, onAcceptTerms  }: TermosDeUsoProp
             </div>
         </div>
         <div className="flex items-center space-x-2">
-            <Checkbox
-            className="w-6 h-6 border-blue900 data-[state=checked]:bg-blue900"
+            <input type="checkbox"
+            className="w-6 h-6 border-blue900 checked:bg-blue900"
             id="terms"
             name='termos_de_uso'
             onChange={handleCheckboxChange}
+            checked={isChecked}
             />
             <label
                 htmlFor="terms"
@@ -123,7 +123,7 @@ export default function TermosDeUso({ onClose, onAcceptTerms  }: TermosDeUsoProp
                 <p>Li e aceito os termos de uso</p>
             </label>
         </div>
-        <Button onClick={onClose as React.MouseEventHandler<HTMLButtonElement>} variant="outline">Voltar</Button>
+        <Button onClick={onClose} variant="outline">Voltar</Button>
     </div>
     </ScrollArea>
 
