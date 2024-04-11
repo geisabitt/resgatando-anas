@@ -9,15 +9,15 @@ import { FaCheckSquare   } from "react-icons/fa";
 import * as validations from "./formValidations";
 import { DadosPessoais } from "./model";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
+import TermosDeUso from './termosDeUso/termosDeUso';
+
 
 function ProgressBullet({ active, status }: { active: boolean; status: "filled" | "notFilled" }) {
   return (
     <div
       className={`w-5 h-5 rounded-full ${
         active && status === "filled" ? "bg-success900" : active ? "bg-success" : "bg-primary"
-      } flex items-center justify-center text-success`}
-    >
+      } flex items-center justify-center text-success`}>
       {active && <FaCheckSquare className="w-2.5 h-2.5" />}
     </div>
   );
@@ -32,7 +32,9 @@ function ProgressLine({ active }: { active: boolean }) {
 }
 
 export function SigninProgressiveForm() {
+  const [showTermosDeUso, setShowTermosDeUso] = useState(false);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [termoDeUso, setTermoDeUso] = useState(false);
   const [dadosPessoais, setDadosPessoais] = useState<DadosPessoais>({
     nome: "",
     telefone: "",
@@ -43,8 +45,18 @@ export function SigninProgressiveForm() {
     email: "",
     password: "",
     passwordRepeat:"",
+    termos_de_uso: "",
   });
-  const [groups, setGroups] = useState<{ label: string; status: "notFilled" | "filled"; cards: { label: string; name: keyof DadosPessoais; type: string; placeholder: string }[] }[]>([
+
+  React.useEffect(() => {
+    console.log('termos de uso',termoDeUso)
+    console.log('dados pessoais',dadosPessoais)
+  }, [termoDeUso,dadosPessoais]);
+
+  const toggleTermosDeUso = () => {
+    setShowTermosDeUso(!showTermosDeUso);
+  };
+  const [groups, setGroups] = useState<{label: string; status: "notFilled" | "filled"; cards: { label: string; name: keyof DadosPessoais; type: string; placeholder: string }[] }[]>([
     {
       label: "Informações Pessoais",
       status: "notFilled",
@@ -115,6 +127,16 @@ export function SigninProgressiveForm() {
     setCurrentIndex((prevIndex) => prevIndex + 1);
   };
 
+  const handleAcceptTerms = () => {
+    setTermoDeUso(true);
+    setDadosPessoais((prevState) => ({
+      ...prevState,
+      termos_de_uso: `${termoDeUso}`,
+    }));
+    console.log('termosDeUso', true);
+    console.log('termosDeUso', termoDeUso)
+  };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
@@ -128,7 +150,7 @@ export function SigninProgressiveForm() {
   const router = useRouter();
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-  
+
     if (validations.validateForm(dadosPessoais)) {
       if (currentIndex === cards.length - 1) {
         console.log(dadosPessoais)
@@ -184,11 +206,12 @@ export function SigninProgressiveForm() {
               </div>
             ))}
           </div>
-          {currentIndex === 0 && (
-              <Button className="w-full my-2 bg-blue900 hover:bg-blue-900">
-                <Link href="/retiro/cadastro/termosDeUso">Contrato</Link>
+          {currentIndex === 0 && !showTermosDeUso && (
+              <Button  onClick={toggleTermosDeUso} type="button" className="w-full mt-4 bg-blue900 hover:bg-blue-900">
+                Contrato
               </Button>
             )}
+            <div>{showTermosDeUso && <TermosDeUso onClose={toggleTermosDeUso} onAcceptTerms={handleAcceptTerms} />}</div>
         </CardContent>
         <CardFooter className="flex flex-col gap-2">
             {currentIndex < groups.length - 1 && (
@@ -204,8 +227,7 @@ export function SigninProgressiveForm() {
           {currentIndex > 0 && (
             <Button
               className="w-full mb-1 bg-success hover:bg-success"
-              onClick={() => setCurrentIndex((prevIndex) => prevIndex - 1)}
-            >
+              onClick={() => setCurrentIndex((prevIndex) => prevIndex - 1)}>
               Voltar
             </Button>
           )}

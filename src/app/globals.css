@@ -3,6 +3,36 @@
 @tailwind utilities;
 
 @layer base {
+
+  h1{
+    font-size: 2.5rem;
+    color: #37434F;
+  }
+  h2{
+    font-size: 2.25rem;
+    color: #37434F;
+  }
+  h3{
+    font-size: 2rem;
+    color: #37434F;
+  }
+  h4{
+    font-size: 1.75rem;
+    color: #37434F;
+  }
+  h5{
+    font-size: 1.5rem;
+    color: #37434F;
+  }
+  h6{
+    font-size: 1.25rem;
+    color: #37434F;
+  }
+  p{
+    font-size: 1rem;
+    color: #37434F;
+  }
+
   :root {
     --background: 0 0% 100%;
     --foreground: 0 0% 3.9%;
@@ -33,6 +63,8 @@
     --ring: 0 0% 3.9%;
 
     --radius: 0.5rem;
+
+    color: #37434F;
 
   }
 

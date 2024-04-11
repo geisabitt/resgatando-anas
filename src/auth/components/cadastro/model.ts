@@ -8,4 +8,5 @@ export type DadosPessoais = {
     email: string;
     password: string;
     passwordRepeat:string;
+    termos_de_uso: string;
   };
