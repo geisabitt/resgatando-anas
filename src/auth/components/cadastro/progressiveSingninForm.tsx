@@ -11,6 +11,11 @@ import * as validations from "./formValidations";
 import { DadosPessoais } from "./model";
 import { useRouter } from "next/navigation";
 import TermosDeUso from './termosDeUso/termosDeUso';
+import { BsCheck2 } from "react-icons/bs";
+import { AiOutlineClose } from "react-icons/ai";
+
+type JSXElement = React.ReactElement<any, string | React.JSXElementConstructor<any>>;
+type ErrorPasswordMessage = JSXElement[];
 
 function ProgressBullet({ active, status }: { active: boolean; status: "filled" | "notFilled" }) {
   return (
@@ -34,8 +39,10 @@ function ProgressLine({ active }: { active: boolean }) {
 export function SigninProgressiveForm() {
   const [showTermosDeUso, setShowTermosDeUso] = useState(false);
   const [messageErrors, setMessageErrors] = useState<{[key: string]: string}>({});
+  const [messagePasswordErrors, setMessagePasswordErrors] = useState<{ [key: string]: ErrorPasswordMessage }>({});
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [termoDeUso, setTermoDeUso] = useState(false);
+  const [passwordFocused, setPasswordFocused] = useState(false);
   const [dadosPessoais, setDadosPessoais] = useState<DadosPessoais>({
     name: "",
     telefone: "",
@@ -48,6 +55,14 @@ export function SigninProgressiveForm() {
     passwordRepeat:"",
     termos_de_uso: "",
   });
+
+  const handlePasswordFocus = () => {
+    setPasswordFocused(true);
+  };
+
+  const handlePasswordBlur = () => {
+    setPasswordFocused(false);
+  };
 
   React.useEffect(() => {
     console.log('termos de uso',termoDeUso)
@@ -169,7 +184,31 @@ export function SigninProgressiveForm() {
             errorMessage = validations.validateEmail(value) ? '' : 'Email inválido!';
             break;
           case 'password':
-            errorMessage = validations.validatePassword(value) ? '' : 'A senha deve conter pelo menos uma letra maiúscula, uma letra minúscula, um número e ter no mínimo 8 caracteres';
+            const lowercaseRegex = /[a-z]/;
+            const uppercaseRegex = /[A-Z]/;
+            const numberRegex = /[0-9]/;
+            const minLength = value.length >= 8;
+
+            const hasLowercase = lowercaseRegex.test(value);
+            const hasUppercase = uppercaseRegex.test(value);
+            const hasNumber = numberRegex.test(value);
+
+            let errorPasswordMessage: ErrorPasswordMessage = [];
+            if (!hasLowercase || value.trim() === '') errorPasswordMessage.push(<label className="flex gap-2" key="lowercase"><AiOutlineClose className="text-destructive" /> 1 Letra minúscula</label>);
+            if (hasLowercase) errorPasswordMessage.push(<label className="flex gap-2" key="lowercase-valid"><BsCheck2 className="text-success" /> 1 Letra minúscula</label>);
+            if (!hasUppercase || value.trim() === '') errorPasswordMessage.push(<label className="flex gap-2" key="uppercase"><AiOutlineClose className="text-destructive" /> 1 Letra maiúscula</label>);
+            if (hasUppercase) errorPasswordMessage.push(<label className="flex gap-2" key="uppercase-valid"><BsCheck2 className="text-success" /> 1 Letra maiúscula</label>);
+            if (!hasNumber || value.trim() === '') errorPasswordMessage.push(<label className="flex gap-2" key="number"><AiOutlineClose className="text-destructive" /> 1 Número</label>);
+            if (hasNumber) errorPasswordMessage.push(<label className="flex gap-2" key="number-valid"><BsCheck2 className="text-success" /> 1 Número</label>);
+            if (!minLength || value.trim() === '') errorPasswordMessage.push(<label className="flex gap-2" key="length"><AiOutlineClose className="text-destructive" /> Mínimo 8 dígitos</label>);
+            if (minLength) errorPasswordMessage.push(<label className="flex gap-2" key="length-valid"><BsCheck2 className="text-success" /> Mínimo 8 dígitos</label>);
+
+            errorPasswordMessage = errorPasswordMessage.map((element, index) => React.cloneElement(element, { key: index }));
+
+            setMessagePasswordErrors((prevState) => ({
+              ...prevState,
+              [name]: errorPasswordMessage,
+            }));
             break;
           case 'passwordRepeat':
             errorMessage = value === dadosPessoais.password ? '' : 'As senhas não são iguais!';
@@ -257,10 +296,15 @@ export function SigninProgressiveForm() {
                   placeholder={card.placeholder}
                   value={dadosPessoais[card.name]}
                   onChange={handleInputChange}
+                  onFocus={card.name === 'password' ? handlePasswordFocus : undefined}
+                  onBlur={card.name === 'password' ? handlePasswordBlur : undefined}
                   className={`${messageErrors[card.name] ? 'border-destructive' : ''}`}
                   required
                 />
-                {messageErrors[card.name] && <label className="text-destructive">{messageErrors[card.name]}</label>}
+                {card.name === 'password' && passwordFocused && messagePasswordErrors[card.name] && (
+                  <div className="text-[0.75rem]">{messagePasswordErrors[card.name]}</div>
+                )}
+                {card.name !== 'password' && messageErrors[card.name] && <label className="text-destructive">{messageErrors[card.name]}</label>}
               </div>
             ))}
           </div>
