@@ -12,7 +12,6 @@ import { DadosPessoais } from "./model";
 import { useRouter } from "next/navigation";
 import TermosDeUso from './termosDeUso/termosDeUso';
 
-
 function ProgressBullet({ active, status }: { active: boolean; status: "filled" | "notFilled" }) {
   return (
     <div
@@ -34,6 +33,7 @@ function ProgressLine({ active }: { active: boolean }) {
 
 export function SigninProgressiveForm() {
   const [showTermosDeUso, setShowTermosDeUso] = useState(false);
+  const [messageErrors, setMessageErrors] = useState<{[key: string]: string}>({});
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [termoDeUso, setTermoDeUso] = useState(false);
   const [dadosPessoais, setDadosPessoais] = useState<DadosPessoais>({
@@ -107,18 +107,23 @@ export function SigninProgressiveForm() {
   };
   const handleNextButtonClick = () => {
     const currentCard = groups[currentIndex].cards;
+    let hasError = false;
+    const newMessageErrors = {...messageErrors};
 
     for (const card of currentCard) {
       const fieldValue = dadosPessoais[card.name];
 
       if (!isFieldValid(card, fieldValue)) {
-        if (card.name === "passwordRepeat") {
-          alert(`As senhas não são iguais.`);
-        } else {
-          alert(`Campo inválido no campo ${card.label}.`);
-        }
-        return;
+        hasError = true;
+        newMessageErrors[card.name] = `${card.label} é obrigatório.`;
+      } else {
+        delete newMessageErrors[card.name];
       }
+    }
+
+    if (hasError) {
+      setMessageErrors(newMessageErrors);
+      return;
     }
 
     const updatedGroups = [...groups];
@@ -145,8 +150,50 @@ export function SigninProgressiveForm() {
       ...prevState,
       [name]: value,
     }));
-  };
 
+    const currentCard = groups[currentIndex].cards.find((card) => card.name === name);
+    if (currentCard) {
+      let errorMessage = '';
+
+      if (value.trim() === '') {
+        errorMessage = 'Este campo é obrigatório!';
+      } else {
+        switch (name) {
+          case 'cpf':
+            errorMessage = validations.validateCPF(value) ? '' : 'CPF inválido!';
+            break;
+          case 'rg':
+            errorMessage = validations.validateRG(value) ? '' : 'RG inválido!';
+            break;
+          case 'email':
+            errorMessage = validations.validateEmail(value) ? '' : 'Email inválido!';
+            break;
+          case 'password':
+            errorMessage = validations.validatePassword(value) ? '' : 'A senha deve conter pelo menos uma letra maiúscula, uma letra minúscula, um número e ter no mínimo 8 caracteres';
+            break;
+          case 'passwordRepeat':
+            errorMessage = value === dadosPessoais.password ? '' : 'As senhas não são iguais!';
+            break;
+          case 'data_de_nascimento':
+            errorMessage = validations.validateBirthDate(value) ? '' : 'A data de nascimento inválida!';
+            break;
+          case 'telefone':
+            errorMessage = validations.validatePhoneNumber(value) ? '' : 'O telefone deve conter apenas números e ter 11 digitos';
+            break;
+          case 'telefone_emergencia':
+            errorMessage = validations.validatePhoneNumber(value) ? '' : 'O telefone deve conter apenas números e ter 11 digitos';
+            break;
+          default:
+            errorMessage = '';
+        }
+      }
+
+      setMessageErrors((prevState) => ({
+        ...prevState,
+        [name]: errorMessage,
+      }));
+    }
+  };
 
   const router = useRouter();
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -203,7 +250,6 @@ export function SigninProgressiveForm() {
             {cards.map((card, index) => (
               <div key={index} className="flex flex-col space-y-1.5">
                 <Label htmlFor={card.name}>{card.label}</Label>
-                <span></span>
                 <Input
                   name={card.name}
                   id={card.name}
@@ -211,8 +257,10 @@ export function SigninProgressiveForm() {
                   placeholder={card.placeholder}
                   value={dadosPessoais[card.name]}
                   onChange={handleInputChange}
+                  className={`${messageErrors[card.name] ? 'border-destructive' : ''}`}
                   required
                 />
+                {messageErrors[card.name] && <label className="text-destructive">{messageErrors[card.name]}</label>}
               </div>
             ))}
           </div>
@@ -246,4 +294,3 @@ export function SigninProgressiveForm() {
     </Card>
   );
 }
-

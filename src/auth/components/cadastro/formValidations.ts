@@ -30,45 +30,55 @@ export const validateCPF = (cpf: string): boolean => {
     return inputDate >= minAgeDate && inputDate <= maxAgeDate;
   };
 
+  export const validatePhoneNumber = (phoneNumber: string): boolean => {
+    if (!/^\d+$/.test(phoneNumber)) {
+      return false;
+    }
+    if (phoneNumber.length < 10) {
+      return false;
+    }
+    if (phoneNumber.length > 11) {
+      return false;
+    }
+    return true;
+  };
+
   export const validateForm = (dadosPessoais: DadosPessoais): boolean => {
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
 
     if (!validateCPF(dadosPessoais.cpf)) {
-      alert("CPF inválido!");
       return false;
     }
 
     if (!validateRG(dadosPessoais.rg)) {
-      alert("RG inválido!");
       return false;
     }
 
     if (!validateEmail(dadosPessoais.email)) {
-      alert("Email inválido!");
       return false;
     }
 
     if (dadosPessoais.password !== dadosPessoais.passwordRepeat) {
-      alert("As senhas não são iguais!");
       return false;
     }
 
     if (!passwordRegex.test(dadosPessoais.password)) {
-      alert(
-        "A senha deve conter pelo menos uma letra maiúscula, uma letra minúscula, um número e ter no mínimo 8 caracteres."
-      );
       return false;
     }
 
     if (!passwordRegex.test(dadosPessoais.password)) {
-      alert(
-        "A senha deve conter pelo menos uma letra maiúscula, uma letra minúscula, um número e ter no mínimo 8 caracteres."
-      );
       return false;
     }
 
     if (!validateBirthDate(dadosPessoais.data_de_nascimento)) {
-      alert("A idade deve estar entre 18 e 99 anos.");
+      return false;
+    }
+
+    if (!validatePhoneNumber(dadosPessoais.telefone)) {
+      return false;
+    }
+
+    if (!validatePhoneNumber(dadosPessoais.telefone_emergencia)) {
       return false;
     }
 

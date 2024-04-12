@@ -1,5 +1,5 @@
 import { Prisma, PrismaClient, Users } from "@prisma/client";
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { validateUserData } from "./validations";
 import * as bcrypt from 'bcrypt'
 import AuthService from "@/auth/service/authService";

@@ -10,3 +10,8 @@ export type DadosPessoais = {
     passwordRepeat:string;
     termos_de_uso: string;
   };
+
+export type AlertMessage = {
+  title: string
+  message: string
+}
