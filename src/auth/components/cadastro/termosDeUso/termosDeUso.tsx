@@ -1,11 +1,10 @@
 "use client"
 import { useEffect, useState } from 'react';
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Checkbox } from "@/components/ui/checkbox"
 import { BsFillTelephoneFill } from "react-icons/bs";
+import { Button } from '@/components/ui/button';
 
 import './termosDeUso.css'
-import { Button } from '@/components/ui/button';
 
 type OnCloseFunction = () => void;
 type onAcceptTermsType = () => void;

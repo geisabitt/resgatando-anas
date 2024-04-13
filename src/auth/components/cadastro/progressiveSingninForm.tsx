@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 import TermosDeUso from './termosDeUso/termosDeUso';
 import { BsCheck2 } from "react-icons/bs";
 import { AiOutlineClose } from "react-icons/ai";
+import { AlertSistem } from "@/components/shared/alertSistem";
 
 type JSXElement = React.ReactElement<any, string | React.JSXElementConstructor<any>>;
 type ErrorPasswordMessage = JSXElement[];
@@ -43,6 +44,7 @@ export function SigninProgressiveForm() {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [termoDeUso, setTermoDeUso] = useState(false);
   const [passwordFocused, setPasswordFocused] = useState(false);
+  const [alertVisible, setAlertVisible] = useState(false);
   const [dadosPessoais, setDadosPessoais] = useState<DadosPessoais>({
     name: "",
     telefone: "",
@@ -55,6 +57,10 @@ export function SigninProgressiveForm() {
     passwordRepeat:"",
     termos_de_uso: "",
   });
+
+  const handleAlertClose = () => {
+    setAlertVisible(false);
+  };
 
   const handlePasswordFocus = () => {
     setPasswordFocused(true);
@@ -237,21 +243,21 @@ export function SigninProgressiveForm() {
   const router = useRouter();
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-  
+
     if (validations.validateForm(dadosPessoais)) {
       try {
         const response = await axios.post('/api/user/create', dadosPessoais);
         if (response.status === 201) {
-          // Dados pessoais cadastrados com sucesso
+
           console.log(response.data);
           router.push("/retiro/cadastro/dadosAdicionais");
         } else {
           console.log(response.data);
+          setAlertVisible(true);
         }
       } catch (error) {
-        // Lidar com erros da API
         console.error('Erro ao cadastrar usuário:', error);
-        // Exibir mensagem de erro para o usuário, se necessário
+        setAlertVisible(true);
       }
     }
   };
@@ -282,7 +288,7 @@ export function SigninProgressiveForm() {
             ))}
           </div>
           <CardTitle>Cadastre-se no site </CardTitle>
-          <CardDescription>Você e terra fértil</CardDescription>
+          <CardDescription>Você é terra fértil</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid w-full items-center gap-4">
@@ -335,6 +341,12 @@ export function SigninProgressiveForm() {
           )}
         </CardFooter>
       </form>
+      <AlertSistem 
+          title="mensagem do sistema" 
+          message="Erro ao cadastrar usuário. O campo 'email' é inválido. Tente novamente mais tarde" 
+          onClose={handleAlertClose} 
+          show={alertVisible} 
+        />
     </Card>
   );
 }
