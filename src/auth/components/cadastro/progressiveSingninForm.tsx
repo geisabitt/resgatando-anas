@@ -1,6 +1,6 @@
 "use client"
 import * as React from "react";
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle,} from "@/components/ui/card";
@@ -251,8 +251,9 @@ export function SigninProgressiveForm() {
     if (validations.validateForm(dadosPessoais)) {
       try {
         const response = await axios.post('/api/user/create', dadosPessoais);
-        if (response.status === 201) {
+        if (response.data.status === 201) {
           console.log(response.data);
+          localStorage.setItem('session', response.data.token)
           router.push("/retiro/cadastro/dadosAdicionais");
         } else {
           console.log(response.data);
