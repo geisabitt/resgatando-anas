@@ -1,6 +1,6 @@
 "use client"
 import * as React from "react";
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle,} from "@/components/ui/card";
@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FaCheckSquare   } from "react-icons/fa";
 import * as validations from "./formValidations";
-import { DadosPessoais } from "./model";
+import { AlertMessage, DadosPessoais } from "./model";
 import { useRouter } from "next/navigation";
 import TermosDeUso from './termosDeUso/termosDeUso';
 import { BsCheck2 } from "react-icons/bs";
@@ -56,6 +56,10 @@ export function SigninProgressiveForm() {
     password: "",
     passwordRepeat:"",
     termos_de_uso: "",
+  });
+  const [alertMessage, setAlertMessage] = useState<AlertMessage>({
+    title: '',
+    message: ''
   });
 
   const handleAlertClose = () => {
@@ -248,15 +252,22 @@ export function SigninProgressiveForm() {
       try {
         const response = await axios.post('/api/user/create', dadosPessoais);
         if (response.status === 201) {
-
           console.log(response.data);
           router.push("/retiro/cadastro/dadosAdicionais");
         } else {
           console.log(response.data);
+          setAlertMessage({
+            title: `Error status ${response.data.error.code}`,
+            message: `${response.data.message}`
+          });
           setAlertVisible(true);
         }
       } catch (error) {
         console.error('Erro ao cadastrar usuário:', error);
+        setAlertMessage({
+          title: `Error`,
+          message: `${error}`
+        });
         setAlertVisible(true);
       }
     }
@@ -341,11 +352,11 @@ export function SigninProgressiveForm() {
           )}
         </CardFooter>
       </form>
-      <AlertSistem 
-          title="mensagem do sistema" 
-          message="Erro ao cadastrar usuário. O campo 'email' é inválido. Tente novamente mais tarde" 
-          onClose={handleAlertClose} 
-          show={alertVisible} 
+      <AlertSistem
+          title={alertMessage.title}
+          message={alertMessage.message}
+          onClose={handleAlertClose}
+          show={alertVisible}
         />
     </Card>
   );
