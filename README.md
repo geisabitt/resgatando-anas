@@ -12,6 +12,16 @@ First, run the development server:
 npm run dev
 ```
 
+```bash
+sudo prisma generate
+```
+
+ou
+
+```bash
+prisma generate
+```
+
 Open [http://localhost:5101](http://localhost:5101) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.

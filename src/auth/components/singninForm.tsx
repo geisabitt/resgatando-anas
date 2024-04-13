@@ -18,7 +18,8 @@ import { Car } from "lucide-react"
 export function SigninForm() {
   return (
     <Card className="w-[350px]">
-        <form action={AuthActions.createAccount}>
+        {/* <form action={AuthActions.createAccount}> */}
+        <form>
             <CardHeader>
                 <CardTitle>Cadastre-se</CardTitle>
                 <CardDescription>Preencha seu dados para fazer o cadastro.</CardDescription>

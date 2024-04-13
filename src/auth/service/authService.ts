@@ -8,6 +8,7 @@ async function openSessionToken(token:string){
 }
 
 async function createSessionToken(payload = {}){
+    console.log("Payload", payload)
     const secret = new TextEncoder().encode(process.env.JWT_AUTH_SECRET)
     const session = await new jose.SignJWT(payload)
     .setProtectedHeader({
@@ -15,14 +16,14 @@ async function createSessionToken(payload = {}){
     })
     .setExpirationTime('1d')
     .sign(secret);
-
+    
     const { exp } = await openSessionToken(session)
     cookies().set('session', session,{
         expires: (exp as number) *1000,
         path:'/',
         httpOnly: true
     })
-    //salvar o token em um cookie para usar no server side
+    return session
 }
 
 async function isSessionValid() {
