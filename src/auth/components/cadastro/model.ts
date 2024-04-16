@@ -15,17 +15,19 @@ export type AlertMessage = {
   title: string
   message: string
 }
+
 export type DadosAnaminese = {
   possui_doenca: string;
   qual_doenca: string;
-  uso_de_medicamento: string;
+  faz_uso_medicamento: string;
   qual_medicamento: string;
   alergia_medicamento: string;
-  qual_alergia_medicamento: string;
-  dieta_alergia_alimentar: string;
-  qual_dieta_alergia_alimentar: string;
+  alergia_qual_medicamento: string;
+  restricao_alimentar: string;
+  quais_alimentos: string;
   tamanho_blusa: string;
 };
+
 export type CardDadosAdicionais = {
   label: string;
   name: keyof DadosAnaminese;

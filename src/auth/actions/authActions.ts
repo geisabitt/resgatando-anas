@@ -8,49 +8,6 @@ import { cookies } from 'next/headers'
 const prisma = new PrismaClient();
 const baseUrl = process.env.BASE_URL;
 
-// async function createAccount(formData:FormData) {
-//     'use server';
-
-//     // nome: string;
-//     // telefone: string;
-//     // telefone_emergencia: string;
-//     // rg: string;
-//     // cpf: string;
-//     // data_de_nascimento: string;
-//     // email: string;
-//     // password: string;
-//     // passwordRepeat:string;
-
-//         const name = formData.get('name') as string;
-//         const telefone = formData.get('telefone') as string;
-//         const telefone_emergencia = formData.get('telefone_emergencia') as string;
-//         const rg = formData.get('rg') as string;
-//         const cpf = formData.get('cpf') as string;
-//         const data_de_nascimento = formData.get('data_de_nascimento') as string;
-//         const email = formData.get('email') as string;
-//         const password = formData.get('password') as string;
-//         const passwordRepeat = formData.get('passwordRepeat') as string;
-//         const type = 'client';
-
-//         if (!name || !email || !password || !type) {
-//             throw new Error('Todos os campos são obrigatórios');
-//         }
-
-//         const hashPassword = await bcrypt.hash(password, 10);
-
-//         await prisma.users.create({
-//             data: {
-//                 name,
-//                 email,
-//                 password: hashPassword,
-//                 type
-//             }
-//         });
-
-//         redirect('/retiro/login')
-
-//     }
-
 async function loginAction(formData:FormData) {
     'use server';
 
@@ -135,7 +92,6 @@ async function login(formData:FormData) {
         }
 
 const AuthActions ={
-    // createAccount,
     login,
     loginAction
 }

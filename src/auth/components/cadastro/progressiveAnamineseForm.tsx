@@ -18,22 +18,24 @@ export function AnamineseProgressiveForm() {
   const [dadosAnaminese, setDadosAnaminese] = useState<DadosAnaminese>({
     possui_doenca: "",
     qual_doenca: "",
-    uso_de_medicamento: "",
+    faz_uso_medicamento: "",
     qual_medicamento: "",
     alergia_medicamento: "",
-    qual_alergia_medicamento: "",
-    dieta_alergia_alimentar: "",
-    qual_dieta_alergia_alimentar: "",
+    alergia_qual_medicamento: "",
+    restricao_alimentar: "",
+    quais_alimentos: "",
     tamanho_blusa: "",
   });
+
   const [alertMessage, setAlertMessage] = useState<AlertMessage>({
     title: '',
     message: ''
   });
+
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [messageErrors, setMessageErrors] = useState<{[key: string]: string}>({});
   const [alertVisible, setAlertVisible] = useState(false);
-  
+
   const handleAlertClose = () => {
     setAlertVisible(false);
   };
@@ -84,42 +86,32 @@ export function AnamineseProgressiveForm() {
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(dadosAnaminese)
-    setAlertVisible(true);
-    setAlertMessage({
-      title: `Test dados`,
-      message: `
-      ${dadosAnaminese.possui_doenca}
-      ${dadosAnaminese.qual_doenca}
-      ${dadosAnaminese.uso_de_medicamento}
-      ${dadosAnaminese.qual_medicamento}
-      ${dadosAnaminese.alergia_medicamento}
-      ${dadosAnaminese.qual_alergia_medicamento}
-      ${dadosAnaminese.dieta_alergia_alimentar}
-      ${dadosAnaminese.qual_dieta_alergia_alimentar}
-      `
-    });
 
-    //   try {
-    //     const response = await axios.post('/api/user/createAditionalData', dadosAnaminese);
-    //     if (response.data.status === 201) {
-    //       console.log(response.data);
-    //       //router.push("/retiro/cadastro/dadosAdicionais");
-    //     } else {
-    //       console.log(response.data);
-    //       setAlertMessage({
-    //         title: `Error status ${response.data.error.code}`,
-    //         message: `${response.data.message}`
-    //       });
-    //       setAlertVisible(true);
-    //     }
-    //   } catch (error) {
-    //     console.error('Erro ao cadastrar usuário:', error);
-    //     setAlertMessage({
-    //       title: `Error`,
-    //       message: `${error}`
-    //     });
-    //     setAlertVisible(true);
-    // }
+      try {
+        const response = await axios.post('/api/user/createAditionalData', dadosAnaminese);
+        if (response.data.status === 201 || response.data.status === 200) {
+          console.log('try 200 ou 201', response.data);
+          router.push("/retiro/cadastro/status");
+        } else if(response.data.status === "D200" ){
+          console.log('try else D200', response.data);
+          //TODO tratar a rota de edição para quem já possui os dados adicionais cadastrados
+          router.push("/retiro/cadastro/status");
+        } else{
+          console.log('try else', response.data);
+          setAlertMessage({
+            title: `Error status ${response.data.error.code}`,
+            message: `${response.data.message}`
+          });
+          setAlertVisible(true);
+        }
+      } catch (error) {
+        console.error('Erro ao cadastrar usuário:', error);
+        setAlertMessage({
+          title: `Error`,
+          message: `${error}`
+        });
+        setAlertVisible(true);
+    }
   };
 
   const isFormValid = () => {
@@ -139,7 +131,7 @@ export function AnamineseProgressiveForm() {
       label: "Medicamento",
       status: "notFilled",
       cards: [
-        { label: "Faz uso de algum medicamento?", name: "uso_de_medicamento", type: "radio", options: ["Sim", "Não"]},
+        { label: "Faz uso de algum medicamento?", name: "faz_uso_medicamento", type: "radio", options: ["Sim", "Não"]},
         { label: "Qual medicamento ?", name: "qual_medicamento", type: "text"},
       ],
     },
@@ -148,15 +140,15 @@ export function AnamineseProgressiveForm() {
       status: "notFilled",
       cards: [
         { label: "Tem alergia a algum medicamento ?", name: "alergia_medicamento", type: "radio", options: ["Sim", "Não"]},
-        { label: "Qual medicamento ?", name: "qual_alergia_medicamento", type: "text"},
+        { label: "Qual medicamento ?", name: "alergia_qual_medicamento", type: "text"},
       ],
     },
     {
       label: "Dieta Restrita",
       status: "notFilled",
       cards: [
-        { label: "Faz alguma dieta obrigatória devido à doença ou algum tipo de restrição alimentar causada por alergia ou intolerância a algum tipo de alimento?", name: "dieta_alergia_alimentar", type: "radio", options: ["Sim", "Não"]},
-        { label: "Quais alimentos ?", name: "qual_dieta_alergia_alimentar", type: "text"},
+        { label: "Faz alguma dieta obrigatória devido à doença ou algum tipo de restrição alimentar causada por alergia ou intolerância a algum tipo de alimento?", name: "restricao_alimentar", type: "radio", options: ["Sim", "Não"]},
+        { label: "Quais alimentos ?", name: "quais_alimentos", type: "text"},
       ],
     },
     {
@@ -255,6 +247,7 @@ export function AnamineseProgressiveForm() {
         <CardFooter className="flex flex-col gap-2">
           {currentIndex < groups.length - 1 && (
             <Button
+              type='button'
               className="w-full mb-1 bg-success hover:bg-success"
               onClick={handleNextButtonClick}
             >

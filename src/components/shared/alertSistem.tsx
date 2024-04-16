@@ -20,7 +20,8 @@ export function AlertSistem(props: AlertSistemProps) {
         <Alert className='py-10'>
           <AlertTitle>{props.title}</AlertTitle>
           <AlertDescription>
-            {props.message}
+          <div className="alert-sistem-body" dangerouslySetInnerHTML={{ __html: props.message }} />
+            {/* {props.message} */}
           </AlertDescription>
           <button onClick={handleClose} className="absolute flex gap-2 top-0 justify-center items-center right-0 p-2 text-sm text-gray-400 hover:text-gray-600 focus:outline-none">
             <AiOutlineClose className="text-destructive" /> Fechar
