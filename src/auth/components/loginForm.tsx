@@ -1,14 +1,7 @@
 import * as React from "react"
 
 import { Button, buttonVariants } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Link from "next/link"
@@ -22,7 +15,7 @@ export function LoginForm() {
         <CardTitle>Login</CardTitle>
         <CardDescription>Preencha seu dados para logar.</CardDescription>
       </CardHeader>
-        <form action={AuthActions.login}>
+        <form action={AuthActions.loginAction}>
         <CardContent>
             <div className="grid w-full items-center gap-4">
                 <div className="flex flex-col space-y-1.5">

@@ -51,6 +51,44 @@ const baseUrl = process.env.BASE_URL;
 
 //     }
 
+async function loginAction(formData:FormData) {
+    'use server';
+
+        const email = formData.get('email') as string;
+        const password = formData.get('password') as string;
+
+        if (!email || !password) {
+            NextResponse.json({ message: 'Todos os dados são obrigatórios' }, { status: 400 });
+        }
+
+        const user = await prisma.users.findFirst({
+            where:{
+                email,
+            }
+        })
+
+        if(!user){
+            NextResponse.json({ message: 'Dados do usuário incorreto, ou não encontrado.' }, { status: 404 });
+            console.log('Usuario não encontrado')
+            redirect('/retiro/login')
+        }
+
+        const isMatch = await bcrypt.compare(password, user?.password)
+
+        if(!isMatch){
+            NextResponse.json({ message: 'Dados do usuário incorreto, ou não encontrado.' }, { status: 404 });
+            console.log('usuario ou senha invalidos');
+            redirect('/retiro/login')
+        }
+
+        await AuthService.createSessionToken({sub: user.id ,type: user.type})
+
+        NextResponse.json({ message: 'Login realizado com sucesso' }, { status: 202 });
+        console.log('Login realizado com sucesso!');
+        redirect(`/retiro/cadastro/dadosAdicionais`)
+
+    }
+
 async function login(formData:FormData) {
         'use server';
 
@@ -98,7 +136,8 @@ async function login(formData:FormData) {
 
 const AuthActions ={
     // createAccount,
-    login
+    login,
+    loginAction
 }
 
 export default AuthActions;

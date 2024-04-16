@@ -26,15 +26,21 @@ export type DadosAnaminese = {
   qual_dieta_alergia_alimentar: string;
   tamanho_blusa: string;
 };
-export type CardData = {
+export type CardDadosAdicionais = {
   label: string;
-  name: keyof DadosPessoais;
+  name: keyof DadosAnaminese;
   type: string;
-  placeholder: string;
+  placeholder?: string;
+  options?: string[];
 }
 
-export type GroupData = {
+export type GroupDadosAdicionais = {
   label: string;
   status: "notFilled" | "filled";
-  cards: CardData[];
+  cards: CardDadosAdicionais[];
 }
+
+
+export type RequiredFields = {
+  [key: string]: boolean;
+};

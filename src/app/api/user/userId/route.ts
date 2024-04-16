@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
         });
 
         if (user) {
-            return redirect(`/retiro/users/${id}`)
+            return redirect(`/`)
         }
     }
     return NextResponse.redirect(new URL('/', req.url));

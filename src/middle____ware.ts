@@ -7,6 +7,8 @@ export const config = {
 
 const publicRoutes = [
   '/',
+  '/api/user/create',
+  '/api/user/login',
   '/retiro/cadastro',
   '/retiro/login',
   '/retiro/pagamento',

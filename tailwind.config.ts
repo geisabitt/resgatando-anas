@@ -7,6 +7,9 @@ const config = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
+    './app/**/*.css',
+    './auth/**/*.css',
+    './components/**/*.css',
 	],
   prefix: "",
   theme: {
@@ -33,6 +36,9 @@ const config = {
         },
         success900: {
           DEFAULT: '#28674D',
+        },
+        blue500: {
+          DEFAULT: '#007EB5',
         },
         blue900: {
           DEFAULT: '#00516B',

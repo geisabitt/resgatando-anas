@@ -21,7 +21,7 @@ export default async function CadastroAnaminese() {
     <p>Tente cadastrar-se</p>
     <Button><Link href="/retiro/cadastro/dadosPessoais">CADASTRE-SE</Link></Button>
     <p>Se já possuir uma conta faça login</p>
-    <Button><Link href="#">BREVE</Link></Button>
+    <Button><Link href="/retiro/login">Login</Link></Button>
   </CardFooter>
 </Card> }
     </div>
