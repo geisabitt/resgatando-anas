@@ -50,10 +50,10 @@ export default function Information() {
                     <h6 className="font-bold">Dúvidas e informações:</h6>
                 </div>
                 <div>
-                    <p>Pra. Roberta (21) 97026-1802</p>
-                    <p>Pra. Glória: (21) 97068-6842</p>
+                    <p className="flex justify-between">Pra. Roberta: <span>(21) 97026-1802</span></p>
+                    <p className="flex justify-between">Pra. Glória: <span>(21) 97068-6842</span></p>
                     <p className="mt-4 font-bold">Informações adicionais:</p>
-                    <p>Diac. Camila (21) 993636957</p>
+                    <p className="flex justify-between">Diac. Camila: <span>(21) 99363-6957</span></p>
                 </div>
                 </div>
                 <div className="flex flex-col gap-4">
