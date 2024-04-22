@@ -36,13 +36,29 @@ export default function Gallery() {
         <ScrollArea id='galeria' className="w-[100%] max-h-[290px] py-4 pl-4 overflow-auto">
             <div className="flex gap-2 flex-row">
             <div>
-            <h3 className='flex items-center gap-2 pl-[102px] font-bold'>Galeria 2021 <FaArrowRight /></h3>
-            <h4 className='pl-[102px]'>Raízes curadas</h4>
+              <div className='flex flex-col justify-center pl-[70px]'>
+                <div className="flex gap-2 ">
+                {/* <FaArrowRight className="mt-2 transform rotate-180"/> */}
+                <div className="mx-6 text-center">
+                <h6 className='font-bold'>Galeria 2021</h6>
+                <p>Raízes curadas</p>
+                </div>
+                <FaArrowRight className="mt-2" />
+                </div>
+              </div>
             <AllGallery images={images2021} />
             </div>
             <div>
-            <h3 className='flex items-center gap-2 pl-[102px] font-bold'>Galeria 2022 {/*<FaArrowRight />*/}</h3>
-            <h4 className='pl-[106px]'>Frutifique</h4>
+            <div className='flex flex-col justify-center pl-[70px]'>
+                <div className="flex gap-2 ">
+                <FaArrowRight className="mt-2 transform rotate-180"/>
+                <div className="text-center">
+                <h6 className='font-bold'>Galeria 2022</h6>
+                <p>Floresça</p>
+                </div>
+                {/* <FaArrowRight className="mt-2" /> */}
+                </div>
+              </div>
             <AllGallery images={images2022} />
             </div>
             {/* <div>

@@ -34,14 +34,29 @@ const config = {
         success: {
           DEFAULT: '#60F5B7',
         },
+        success700: {
+          DEFAULT: '#44AE82',
+        },
         success900: {
           DEFAULT: '#28674D',
         },
         blue500: {
           DEFAULT: '#007EB5',
         },
+        green400: {
+          DEFAULT: '#FFF170',
+        },
+        gray700: {
+          DEFAULT: '#727272',
+        },
+        blue700: {
+          DEFAULT: '#005981',
+        },
         blue900: {
           DEFAULT: '#00516B',
+        },
+        red300: {
+          DEFAULT: '#FF5555',
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
