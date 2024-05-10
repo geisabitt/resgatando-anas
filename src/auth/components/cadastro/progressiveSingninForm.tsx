@@ -214,12 +214,21 @@ export function SigninProgressiveForm() {
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if(dadosPessoais.termos_de_uso !== 'true'){
+      setAlertMessage({
+        title: `Contrato`,
+        message: `É preciso aceitar os termos de uso para concluir o cadastro`
+      });
+      setAlertVisible(true);
+      toggleTermosDeUso();
+      return
+    }
+
     if (validations.validateForm(dadosPessoais)) {
       try {
         const response = await axios.post('/api/user/create', dadosPessoais);
         if (response.data.status === 201) {
           console.log(response.data);
-          localStorage.setItem('session', response.data.token)
           router.push("/retiro/cadastro/dadosAdicionais");
         } else {
           console.log(response.data);
