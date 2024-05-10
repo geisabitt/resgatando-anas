@@ -1,8 +1,8 @@
 "use client"
-import { useEffect, useState } from 'react';
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { BsFillTelephoneFill } from "react-icons/bs";
 import { Button } from '@/components/ui/button';
+import { useEffect, useState } from 'react';
+import { BsFillTelephoneFill } from "react-icons/bs";
 
 import './termosDeUso.css'
 
@@ -18,7 +18,7 @@ export default function TermosDeUso({ onClose, onAcceptTerms  }: TermosDeUsoProp
     const [isChecked, setIsChecked] = useState(false);
 
     const handleCheckboxChange = () => {
-        setIsChecked(!isChecked); // Altera o estado para o oposto do valor atual
+        setIsChecked(!isChecked);
         onAcceptTerms();
     };
 

@@ -248,19 +248,19 @@ export function AnamineseProgressiveForm() {
           {currentIndex < groups.length - 1 && (
             <Button
               type='button'
-              className="w-full mb-1 bg-success hover:bg-success"
+              className="w-full mb-1 bg-success700 hover:bg-success700"
               onClick={handleNextButtonClick}
             >
               Próximo
             </Button>
           )}
           {currentIndex === groups.length - 1 && (
-            <Button className="w-full mb-1 bg-success" type="submit" disabled={!isFormValid()}>Cadastrar</Button>
+            <Button className="w-full mb-1 bg-success700" type="submit" disabled={!isFormValid()}>Cadastrar</Button>
           )}
           {currentIndex > 0 && (
             <Button
               type='button'
-              className="w-full mb-1 bg-success hover:bg-success"
+              className="w-full mb-1 bg-success700 hover:bg-success700"
               onClick={() => setCurrentIndex((prevIndex) => prevIndex - 1)}>
               Voltar
             </Button>

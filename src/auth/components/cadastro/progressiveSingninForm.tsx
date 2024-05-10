@@ -1,51 +1,29 @@
 "use client"
-import * as React from "react";
 import axios from 'axios';
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle,} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { FaCheckSquare   } from "react-icons/fa";
-import * as validations from "./formValidations";
-import { AlertMessage, DadosPessoais } from "./model";
-import { useRouter } from "next/navigation";
-import TermosDeUso from './termosDeUso/termosDeUso';
+import * as React from "react";
 import { BsCheck2 } from "react-icons/bs";
 import { AiOutlineClose } from "react-icons/ai";
-import { AlertSistem } from "@/components/shared/alertSistem";
+import { useRouter } from "next/navigation";
+
+import { Button, Input, Label, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui';
+import { AlertSistem , ProgressBullet , ProgressLine} from "@/components/shared";
+
+import * as validations from "./formValidations";
+import { AlertMessage, DadosPessoais } from "./model";
+import TermosDeUso from './termosDeUso/termosDeUso';
 
 type JSXElement = React.ReactElement<any, string | React.JSXElementConstructor<any>>;
 type ErrorPasswordMessage = JSXElement[];
 
-function ProgressBullet({ active, status }: { active: boolean; status: "filled" | "notFilled" }) {
-  return (
-    <div
-      className={`w-5 h-5 rounded-full ${
-        active && status === "filled" ? "bg-success900" : active ? "bg-success" : "bg-primary"
-      } flex items-center justify-center text-success`}>
-      {active && <FaCheckSquare className="w-2.5 h-2.5" />}
-    </div>
-  );
-}
-
-function ProgressLine({ active }: { active: boolean }) {
-  return (
-    <div
-      className={`flex-1 h-0.5 bg-${active ? "success" : "primary"} rounded-lg`}
-    />
-  );
-}
-
 export function SigninProgressiveForm() {
-  const [showTermosDeUso, setShowTermosDeUso] = useState(false);
-  const [messageErrors, setMessageErrors] = useState<{[key: string]: string}>({});
-  const [messagePasswordErrors, setMessagePasswordErrors] = useState<{ [key: string]: ErrorPasswordMessage }>({});
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [termoDeUso, setTermoDeUso] = useState(false);
-  const [passwordFocused, setPasswordFocused] = useState(false);
-  const [alertVisible, setAlertVisible] = useState(false);
-  const [dadosPessoais, setDadosPessoais] = useState<DadosPessoais>({
+  const [showTermosDeUso, setShowTermosDeUso] = React.useState(false);
+  const [messageErrors, setMessageErrors] = React.useState<{[key: string]: string}>({});
+  const [messagePasswordErrors, setMessagePasswordErrors] = React.useState<{ [key: string]: ErrorPasswordMessage }>({});
+  const [currentIndex, setCurrentIndex] = React.useState<number>(0);
+  const [termoDeUso, setTermoDeUso] = React.useState(false);
+  const [passwordFocused, setPasswordFocused] = React.useState(false);
+  const [alertVisible, setAlertVisible] = React.useState(false);
+  const [dadosPessoais, setDadosPessoais] = React.useState<DadosPessoais>({
     name: "",
     telefone: "",
     telefone_emergencia: "",
@@ -55,9 +33,9 @@ export function SigninProgressiveForm() {
     email: "",
     password: "",
     passwordRepeat:"",
-    termos_de_uso: "",
+    termos_de_uso: `${termoDeUso}`,
   });
-  const [alertMessage, setAlertMessage] = useState<AlertMessage>({
+  const [alertMessage, setAlertMessage] = React.useState<AlertMessage>({
     title: '',
     message: ''
   });
@@ -82,7 +60,7 @@ export function SigninProgressiveForm() {
   const toggleTermosDeUso = () => {
     setShowTermosDeUso(!showTermosDeUso);
   };
-  const [groups, setGroups] = useState<{label: string; status: "notFilled" | "filled"; cards: { label: string; name: keyof DadosPessoais; type: string; placeholder: string }[] }[]>([
+  const [groups, setGroups] = React.useState<{label: string; status: "notFilled" | "filled"; cards: { label: string; name: keyof DadosPessoais; type: string; placeholder: string }[] }[]>([
     {
       label: "Informações Pessoais",
       status: "notFilled",
@@ -112,60 +90,105 @@ export function SigninProgressiveForm() {
     },
   ]);
 
-  const isFieldValid = (card: any, value: string): boolean => {
-    switch (card.name) {
-      case 'cpf':
-        return validations.validateCPF(value);
-      case 'rg':
-        return validations.validateRG(value);
-      case 'email':
-        return validations.validateEmail(value);
-      case 'password':
-        return validations.validatePassword(value);
-      case 'passwordRepeat':
-        return value === dadosPessoais.password;
-      case 'data_de_nascimento':
-        return validations.validateBirthDate(value);
-      default:
-        return !!value.trim();
-    }
-  };
-  const handleNextButtonClick = () => {
-    const currentCard = groups[currentIndex].cards;
-    let hasError = false;
-    const newMessageErrors = {...messageErrors};
-
-    for (const card of currentCard) {
-      const fieldValue = dadosPessoais[card.name];
-
-      if (!isFieldValid(card, fieldValue)) {
-        hasError = true;
-        newMessageErrors[card.name] = `${card.label} é obrigatório.`;
-      } else {
-        delete newMessageErrors[card.name];
+  const isFieldValid = (card: any, value: string): string => {
+    const { name } = card;
+    let errorMessage = '';
+  
+    if (value.trim() === '') {
+      errorMessage = 'Este campo é obrigatório!';
+    } else {
+      switch (name) {
+        case 'name':
+          errorMessage = validations.validateNome(value) ? '' : 'O nome deve ter apenas letras';
+          break;
+        case 'cpf':
+          errorMessage = validations.validateCPF(value) ? '' : 'CPF inválido!';
+          break;
+        case 'rg':
+          errorMessage = validations.validateRG(value) ? '' : 'RG inválido!';
+          break;
+        case 'email':
+          errorMessage = validations.validateEmail(value) ? '' : 'Email inválido!';
+          break;
+        case 'password':
+              const lowercaseRegex = /[a-z]/;
+              const uppercaseRegex = /[A-Z]/;
+              const numberRegex = /[0-9]/;
+              const minLength = value.length >= 8;
+  
+              const hasLowercase = lowercaseRegex.test(value);
+              const hasUppercase = uppercaseRegex.test(value);
+              const hasNumber = numberRegex.test(value);
+  
+              let errorPasswordMessage: ErrorPasswordMessage = [];
+              if (!hasLowercase || value.trim() === '') errorPasswordMessage.push(<label className="flex gap-2" key="lowercase"><AiOutlineClose className="text-destructive" /> 1 Letra minúscula</label>);
+              if (hasLowercase) errorPasswordMessage.push(<label className="flex gap-2" key="lowercase-valid"><BsCheck2 className="text-success" /> 1 Letra minúscula</label>);
+              if (!hasUppercase || value.trim() === '') errorPasswordMessage.push(<label className="flex gap-2" key="uppercase"><AiOutlineClose className="text-destructive" /> 1 Letra maiúscula</label>);
+              if (hasUppercase) errorPasswordMessage.push(<label className="flex gap-2" key="uppercase-valid"><BsCheck2 className="text-success" /> 1 Letra maiúscula</label>);
+              if (!hasNumber || value.trim() === '') errorPasswordMessage.push(<label className="flex gap-2" key="number"><AiOutlineClose className="text-destructive" /> 1 Número</label>);
+              if (hasNumber) errorPasswordMessage.push(<label className="flex gap-2" key="number-valid"><BsCheck2 className="text-success" /> 1 Número</label>);
+              if (!minLength || value.trim() === '') errorPasswordMessage.push(<label className="flex gap-2" key="length"><AiOutlineClose className="text-destructive" /> Mínimo 8 dígitos</label>);
+              if (minLength) errorPasswordMessage.push(<label className="flex gap-2" key="length-valid"><BsCheck2 className="text-success" /> Mínimo 8 dígitos</label>);
+  
+              errorPasswordMessage = errorPasswordMessage.map((element, index) => React.cloneElement(element, { key: index }));
+  
+              setMessagePasswordErrors((prevState) => ({
+                ...prevState,
+                [name]: errorPasswordMessage,
+              }));
+              break;
+            case 'passwordRepeat':
+              errorMessage = value === dadosPessoais.password ? '' : 'As senhas não são iguais!';
+              break;
+            case 'data_de_nascimento':
+              errorMessage = validations.validateBirthDate(value) ? '' : 'A data de nascimento inválida!';
+              break;
+            case 'telefone':
+            case 'telefone_emergencia':
+              errorMessage = validations.validatePhoneNumber(value) ? '' : 'O telefone deve conter apenas números e ter 11 dígitos';
+              break;
+            default:
+              break;
       }
     }
-
-    if (hasError) {
-      setMessageErrors(newMessageErrors);
-      return;
-    }
-
-    const updatedGroups = [...groups];
-    updatedGroups[currentIndex].status = "filled";
-    setGroups(updatedGroups);
-
-    setCurrentIndex((prevIndex) => prevIndex + 1);
+        return errorMessage;
   };
 
+        const handleNextButtonClick = () => {
+          const currentCard = groups[currentIndex].cards;
+          let hasError = false;
+          const newMessageErrors = { ...messageErrors };
+
+          for (const card of currentCard) {
+            const fieldValue = dadosPessoais[card.name];
+            const errorMessage = isFieldValid(card, fieldValue);
+
+            if (errorMessage) {
+              hasError = true;
+              newMessageErrors[card.name] = errorMessage;
+            } else {
+              delete newMessageErrors[card.name];
+            }
+          }
+
+          if (hasError) {
+            setMessageErrors(newMessageErrors);
+            return;
+          }
+
+          const updatedGroups = [...groups];
+          updatedGroups[currentIndex].status = "filled";
+          setGroups(updatedGroups);
+
+          setCurrentIndex((prevIndex) => prevIndex + 1);
+        };
+
   const handleAcceptTerms = () => {
-    setTermoDeUso(true);
+    setTermoDeUso(!termoDeUso);
     setDadosPessoais((prevState) => ({
       ...prevState,
-      termos_de_uso: `${termoDeUso}`,
+      termos_de_uso: `${!termoDeUso}`,
     }));
-    console.log('termosDeUso', true);
-    console.log('termosDeUso', termoDeUso)
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -178,64 +201,7 @@ export function SigninProgressiveForm() {
 
     const currentCard = groups[currentIndex].cards.find((card) => card.name === name);
     if (currentCard) {
-      let errorMessage = '';
-
-      if (value.trim() === '') {
-        errorMessage = 'Este campo é obrigatório!';
-      } else {
-        switch (name) {
-          case 'cpf':
-            errorMessage = validations.validateCPF(value) ? '' : 'CPF inválido!';
-            break;
-          case 'rg':
-            errorMessage = validations.validateRG(value) ? '' : 'RG inválido!';
-            break;
-          case 'email':
-            errorMessage = validations.validateEmail(value) ? '' : 'Email inválido!';
-            break;
-          case 'password':
-            const lowercaseRegex = /[a-z]/;
-            const uppercaseRegex = /[A-Z]/;
-            const numberRegex = /[0-9]/;
-            const minLength = value.length >= 8;
-
-            const hasLowercase = lowercaseRegex.test(value);
-            const hasUppercase = uppercaseRegex.test(value);
-            const hasNumber = numberRegex.test(value);
-
-            let errorPasswordMessage: ErrorPasswordMessage = [];
-            if (!hasLowercase || value.trim() === '') errorPasswordMessage.push(<label className="flex gap-2" key="lowercase"><AiOutlineClose className="text-destructive" /> 1 Letra minúscula</label>);
-            if (hasLowercase) errorPasswordMessage.push(<label className="flex gap-2" key="lowercase-valid"><BsCheck2 className="text-success" /> 1 Letra minúscula</label>);
-            if (!hasUppercase || value.trim() === '') errorPasswordMessage.push(<label className="flex gap-2" key="uppercase"><AiOutlineClose className="text-destructive" /> 1 Letra maiúscula</label>);
-            if (hasUppercase) errorPasswordMessage.push(<label className="flex gap-2" key="uppercase-valid"><BsCheck2 className="text-success" /> 1 Letra maiúscula</label>);
-            if (!hasNumber || value.trim() === '') errorPasswordMessage.push(<label className="flex gap-2" key="number"><AiOutlineClose className="text-destructive" /> 1 Número</label>);
-            if (hasNumber) errorPasswordMessage.push(<label className="flex gap-2" key="number-valid"><BsCheck2 className="text-success" /> 1 Número</label>);
-            if (!minLength || value.trim() === '') errorPasswordMessage.push(<label className="flex gap-2" key="length"><AiOutlineClose className="text-destructive" /> Mínimo 8 dígitos</label>);
-            if (minLength) errorPasswordMessage.push(<label className="flex gap-2" key="length-valid"><BsCheck2 className="text-success" /> Mínimo 8 dígitos</label>);
-
-            errorPasswordMessage = errorPasswordMessage.map((element, index) => React.cloneElement(element, { key: index }));
-
-            setMessagePasswordErrors((prevState) => ({
-              ...prevState,
-              [name]: errorPasswordMessage,
-            }));
-            break;
-          case 'passwordRepeat':
-            errorMessage = value === dadosPessoais.password ? '' : 'As senhas não são iguais!';
-            break;
-          case 'data_de_nascimento':
-            errorMessage = validations.validateBirthDate(value) ? '' : 'A data de nascimento inválida!';
-            break;
-          case 'telefone':
-            errorMessage = validations.validatePhoneNumber(value) ? '' : 'O telefone deve conter apenas números e ter 11 digitos';
-            break;
-          case 'telefone_emergencia':
-            errorMessage = validations.validatePhoneNumber(value) ? '' : 'O telefone deve conter apenas números e ter 11 digitos';
-            break;
-          default:
-            errorMessage = '';
-        }
-      }
+      const errorMessage = isFieldValid(currentCard, value);
 
       setMessageErrors((prevState) => ({
         ...prevState,

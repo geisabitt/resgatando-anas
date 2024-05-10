@@ -17,7 +17,7 @@ export function validateUserData(userData: Partial<Users>): string | null {
     }
 
     if (!isValidRG(userData.rg!)) {
-        return "RG inválido. Deve conter apenas números e entre 7 e 8 dígitos.";
+        return "RG inválido. Deve conter apenas números e entre 8 e 11 dígitos.";
     }
 
     if (!isValidTelefone(userData.telefone!)) {

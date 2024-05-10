@@ -1,12 +1,17 @@
 import { DadosPessoais } from './model';
 
+export const validateNome = (name: string): boolean => {
+  const regex = /^[a-zA-Z\s]+$/;
+  return regex.test(name);
+};
+
 export const validateCPF = (cpf: string): boolean => {
     const regex = /^[0-9]{11}$/;
     return regex.test(cpf);
   };
 
   export const validateRG = (rg: string): boolean => {
-    const regex = /^[0-9]{8}$/;
+    const regex = /^[0-9]{8,11}$/;
     return regex.test(rg);
   };
 
@@ -45,6 +50,10 @@ export const validateCPF = (cpf: string): boolean => {
 
   export const validateForm = (dadosPessoais: DadosPessoais): boolean => {
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+
+    if (!validateNome(dadosPessoais.name)) {
+      return false;
+    }
 
     if (!validateCPF(dadosPessoais.cpf)) {
       return false;
