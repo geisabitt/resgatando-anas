@@ -184,12 +184,11 @@ export function SigninProgressiveForm() {
         };
 
   const handleAcceptTerms = () => {
-    setTermoDeUso(true);
+    setTermoDeUso(!termoDeUso);
     setDadosPessoais((prevState) => ({
       ...prevState,
-      termos_de_uso: `${termoDeUso}`,
+      termos_de_uso: `${!termoDeUso}`,
     }));
-    console.log('termosDeUso', termoDeUso)
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

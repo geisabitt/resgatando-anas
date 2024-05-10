@@ -36,9 +36,16 @@ try {
     } catch (error) {
         if (error instanceof Prisma.PrismaClientKnownRequestError) {
             const targetField = (error.meta?.target as string[])?.[0] ?? 'Campo não especificado';
+            if(error.code === 'P2002'){
+                return Response.json({
+                    message: `Ja existe o registro do '${targetField}' no sistema. Confira se o '${targetField}' está correto`,
+                    status: 400,
+                    error
+                });
+            }
             return Response.json({
                 message: `Erro ao cadastrar usuário. O campo '${targetField}' é inválido. Tente novamente mais tarde`,
-                status: 500,
+                status: 400,
                 error
             });
         } else {
