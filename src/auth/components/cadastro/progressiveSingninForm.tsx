@@ -229,7 +229,7 @@ export function SigninProgressiveForm() {
         const response = await axios.post('/api/user/create', dadosPessoais);
         if (response.data.status === 201) {
           console.log(response.data);
-          router.push("/retiro/cadastro/dadosAdicionais");
+          router.push("/retiro/cadastro/dados-adicionais");
         } else {
           console.log(response.data);
           setAlertMessage({
