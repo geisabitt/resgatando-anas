@@ -88,7 +88,7 @@ export function AnamineseProgressiveForm() {
     console.log(dadosAnaminese)
 
       try {
-        const response = await axios.post('/api/user/createAditionalData', dadosAnaminese);
+        const response = await axios.post('/api/user/create-aditional-data', dadosAnaminese);
         if (response.data.status === 201 || response.data.status === 200) {
           console.log('try 200 ou 201', response.data);
           router.push("/retiro/cadastro/status");

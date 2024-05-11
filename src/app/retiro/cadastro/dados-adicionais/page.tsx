@@ -19,7 +19,7 @@ export default async function CadastroAnaminese() {
   </CardContent>
   <CardFooter className="flex flex-col gap-2 items-start">
     <p>Tente cadastrar-se</p>
-    <Button><Link href="/retiro/cadastro/dadosPessoais">CADASTRE-SE</Link></Button>
+    <Button><Link href="/retiro/cadastro/dados-pessoais">CADASTRE-SE</Link></Button>
     <p>Se já possuir uma conta faça login</p>
     <Button><Link href="/retiro/login">Login</Link></Button>
   </CardFooter>
