@@ -35,19 +35,35 @@ export function AnamineseProgressiveForm() {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [messageErrors, setMessageErrors] = useState<{[key: string]: string}>({});
   const [alertVisible, setAlertVisible] = useState(false);
+  const [inputStatus, setInputStatus] = useState(false);
 
   const handleAlertClose = () => {
     setAlertVisible(false);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-
-    setDadosAnaminese((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+    const { name, value, type } = e.target;
+  
+    if (type === "radio" && value === "Não") {
+      const updatedDadosAnaminese = { ...dadosAnaminese };
+      groups[currentIndex].cards.forEach(card => {
+        updatedDadosAnaminese[card.name] = "não";
+      });
+      setDadosAnaminese(updatedDadosAnaminese);
+      setDadosAnaminese((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+      setInputStatus(true)
+    } else {
+      setInputStatus(false)
+      setDadosAnaminese((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    }
   };
+  
 
   const isFieldValid = (card: any, value: string): boolean => {
     return !!value.trim();
@@ -117,7 +133,7 @@ export function AnamineseProgressiveForm() {
   const isFormValid = () => {
     return Object.values(dadosAnaminese).every((value) => value.trim() !== "");
   };
-  
+
   const initialGroups: GroupDadosAdicionais[] = [
     {
       label: "Doença",
@@ -237,6 +253,7 @@ export function AnamineseProgressiveForm() {
                     placeholder={card.placeholder}
                     value={dadosAnaminese[card.name]}
                     onChange={handleInputChange}
+                    disabled={inputStatus}
                     required
                   />
                 )}
