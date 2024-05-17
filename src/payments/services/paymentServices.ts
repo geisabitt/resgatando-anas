@@ -1,58 +1,44 @@
-import { PaymentCreateRequest } from 'mercadopago/dist/clients/payment/create/types';
-
-async function PaymentPix(formData: FormData): Promise<{ paymentCreateRequest: PaymentCreateRequest; result: any }> {
-    'use server';
-
-    const name = formData.get('name') as string;
-    const email = formData.get('email') as string;
-    const phone = formData.get('phone') as string;
-    const description = formData.get('description') as string;
-    const payment_method_id = formData.get('payment_method_id') as string;
-    const transaction_amount = parseFloat(formData.get('transaction_amount') as string);
-
-    const paymentCreateRequest: PaymentCreateRequest = {
-        description,
-        payment_method_id,
-        transaction_amount,
-        payer:{
-            email,
-            first_name: name,
-            phone:{
-                number: phone,
-            },
-        },
+async function getInfoPayment(id:number) {
+    'use server'
+  
+  const DATA_SOURCE_URL = 'https://api.mercadopago.com/v1/payments/';
+  const ACCESS_TOKEN = process.env.ACCESS_TOKEN_TEST_MERCADOPAGO;
+  
+  function extractUserPaymentDetails(data: any): UserPaymentDetails {
+      return {
+       detail:  {id: data.id,
+        issuer_id: data.issuer_id,
+        payment_method_id: data.payment_method_id,
+        payment_type_id: data.payment_type_id,
+        status: data.status,
+        status_detail: data.status_detail,
+        description: data.description,
+        installments: data.installments,
+        transaction_amount: data.transaction_amount,
+        qr_code: data.point_of_interaction?.transaction_data?.qr_code,
+        ticket_url: data.point_of_interaction?.transaction_data?.ticket_url,
+        qr_code_base64: data.point_of_interaction?.transaction_data?.qr_code_base64,}
+      };
     }
-    console.log("SERVICE LOG", paymentCreateRequest);
-    
-
-    try {
-        const response = await fetch('http://localhost:3000/api/mp/payments', {
-        //const response = await fetch('http://localhost:3000/api/mp/paymentHandle', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ paymentCreateRequest }),
-        });
-
-        if (!response.ok) {
-            console.error(`API call failed with status: ${response.status}`);
-            const errorData = await response.json();
-            console.error('Error data:', errorData);
-            throw new Error(`Failed to make the API call. Status: ${response.status}`);
-        }
-
-        const result = await response.json();
-
-        return { paymentCreateRequest, result };
-    } catch (error) {
-        console.error(error);
-        throw new Error('Failed to make the API call');
-    }
-}
-
-const PaymentService = {
-    PaymentPix,
-};
-
-export default PaymentService;
+  
+    const paymentUrl = `${DATA_SOURCE_URL}${id}`
+    const res = await fetch(paymentUrl, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${ACCESS_TOKEN}`,
+      },
+    });
+  
+    const uniquePayment = await res.json();
+  
+    const userPaymentDetails = extractUserPaymentDetails(uniquePayment);
+  
+    return userPaymentDetails;
+  }
+  
+  const ServicePayment = {
+      getInfoPayment
+  }
+  
+  export default ServicePayment

@@ -53,13 +53,24 @@ async function creatRouteId(){
     return null
 }
 
+async function getUserId(){
+    const sessionCookie = cookies().get('session');
+    if(sessionCookie){
+        const {value} = sessionCookie;
+        const {sub} = await openSessionToken(value)
+        return sub
+    }
+    return null
+}
+
 
 const AuthService = {
     openSessionToken,
     createSessionToken,
     isSessionValid,
     destroySession,
-    creatRouteId
+    creatRouteId,
+    getUserId
 }
 
 
