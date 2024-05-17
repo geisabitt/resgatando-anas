@@ -1,6 +1,6 @@
 import AuthService from "@/auth/service/authService";
 import { PrismaClient } from "@prisma/client";
-import { redirect } from "next/navigation";
+//import { redirect } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
@@ -16,13 +16,16 @@ export async function GET(req: NextRequest) {
                 id: true,
                 email: true,
                 name: true,
+                telefone: true,
                 type: true,
             }
         });
 
         if (user) {
-            return redirect(`/`)
+            return console.log(user)
+            //return redirect(`/`)
         }
     }
-    return NextResponse.redirect(new URL('/', req.url));
+    return console.log('nao foi encontrado um usuario')
+    //return NextResponse.redirect(new URL('/', req.url));
 }

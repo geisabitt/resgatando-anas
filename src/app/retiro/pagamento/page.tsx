@@ -1,10 +1,10 @@
-'use client'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import Image from 'next/image';
 // import Link from 'next/link';
 
 import './style.css';
 import ButtonPayments from '@/payments/components/button-payments';
+import { ButtonPix } from "@/payments/components/button-pix";
 
 export default function Pagamento() {
 
@@ -32,7 +32,7 @@ export default function Pagamento() {
         <div className="w-full flex flex-col items-center mb-4">
           <p className="font-bold tracking-tight">Valor de 1 ingresso promocional via pix:</p>
           <h2 className="mb-4 text-blue500">R$ 180,00*</h2>
-          <ButtonPayments btnColor="bg-blue500" btnText={"Comprar na promoção"} btnLink={"pagamento/pix"}/>
+          <ButtonPix/>
         </div>
         <div className="w-full flex flex-col items-center">
           <p className="text-center font-bold">Valor de 1 ingresso pagamento por cartão de crédito :</p>
