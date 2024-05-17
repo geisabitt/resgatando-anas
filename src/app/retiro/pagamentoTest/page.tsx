@@ -27,8 +27,7 @@ export default function Pagamento() {
         },
       };
   return (
-    <>
-        <Card className="w-[350px] my-2 mx-auto">
+    <Card className="w-[350px] my-2 mx-auto">
       <CardHeader>
         <CardTitle>Pagina de pagamento</CardTitle>
       </CardHeader>
@@ -46,6 +45,5 @@ export default function Pagamento() {
       <Link href='statusBad' className="bg-destructive p2 rounded-[0.3rem] text-center">Erro de paragemto</Link>
      </CardFooter>
     </Card>
-    </>
   )
 }
