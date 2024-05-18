@@ -13,5 +13,11 @@ export async function GET() {
   });
 
   const methods = await res.json();
-  return NextResponse.json(methods);
+  const metodosFiltrados = methods.map((method: any) => ({
+    id: method.id,
+    name: method.name,
+    payment_type_id: method.payment_type_id,
+    status: method.status
+  }));
+  return NextResponse.json(metodosFiltrados);
 }

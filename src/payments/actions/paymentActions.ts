@@ -71,6 +71,16 @@ async function initPublicMercadoPago(){
 }
 
 async function createPaymentCard(formData: FormData){
+    
+    // const transaction_amount = formData.get('transaction_amount') as string
+    // const description = formData.get('description') as string
+    // const card_number = formData.get('card_number') as string
+    // const date_expiration =  formData.get('date_expiration') as string
+    // const security_code = formData.get('security_code') as string
+    // const card_name = formData.get('card_name') as string
+    // const doc_number = formData.get('doc_number') as string
+    // const email = formData.get('email') as string
+    // const doc_type = formData.get('type') as string;
 
     const name = formData.get('name') as string;
     const email = formData.get('email') as string;
