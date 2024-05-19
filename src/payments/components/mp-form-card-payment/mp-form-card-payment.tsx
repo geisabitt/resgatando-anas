@@ -5,7 +5,7 @@ import './mp-form-card-payment.css';
 
 export default function FormPagamentoCartao() {
 
-  initMercadoPago('TEST-3d6b9fa7-f9f1-42bb-abf2-346829e60be9', { locale: 'pt-BR' });
+  initMercadoPago(process.env.TOKEN_PROD_MERCADOPAGO_PUBLIC!, { locale: 'pt-BR' });
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -31,20 +31,6 @@ export default function FormPagamentoCartao() {
     setError(null);
     console.log('paramsssss', param)
 
-    const paymentData = {
-        token: param.token,
-        description: 'Retiro Resgatando Anas 2024',
-        transactionAmount: 250,
-        installments: 1,
-        paymentMethodId: param.payment_method_id,
-        issuer: param.issuer_id,
-        payer: {
-            email: param.payer.email,
-            identificationType: param.payer.identification.type,
-            identificationNumber: param.payer.identification.number,
-        },
-    };
-    console.log('Dados do pagamento no front-end:', paymentData);
 
     try {
       const response = await fetch('/api/mp/create-payment', {
@@ -52,7 +38,7 @@ export default function FormPagamentoCartao() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(paymentData),
+        body: JSON.stringify(param),
       });
 
       if (!response.ok) {
@@ -61,8 +47,8 @@ export default function FormPagamentoCartao() {
       }
 
       const result = await response.json();
-      console.log('Pagamento concluído:', result);
-      alert('Pagamento concluído');
+      console.log('Resposta da api:', result);
+      alert(`Codigo: ${result.status}, mensagem: ${result.message}`);
     } catch (error: any) {
       console.error('Erro no pagamento:', error);
       setError(error.message);
@@ -78,7 +64,7 @@ export default function FormPagamentoCartao() {
     <div>
       <CardPayment
         customization={customization}
-        initialization={{ amount: 250 }}
+        initialization={{ amount: 0.5 }}
         onSubmit={handleSubmit}
       />
       {loading && <p>Processando pagamento...</p>}
