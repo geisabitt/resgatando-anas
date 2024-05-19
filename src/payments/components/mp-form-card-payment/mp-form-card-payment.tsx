@@ -1,11 +1,18 @@
 'use client'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CardPayment, initMercadoPago } from '@mercadopago/sdk-react';
 import './mp-form-card-payment.css';
 
 export default function FormPagamentoCartao() {
 
-  initMercadoPago(process.env.TOKEN_PROD_MERCADOPAGO_PUBLIC!, { locale: 'pt-BR' });
+  useEffect(() => {
+    const token = process.env.NEXT_PUBLIC_TOKEN_PROD_MERCADOPAGO_PUBLIC;
+    if (token) {
+      initMercadoPago(token, { locale: 'pt-BR' });
+    } else {
+      setError('Token de acesso do Mercado Pago não está disponível');
+    }
+  }, []);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -61,7 +68,7 @@ export default function FormPagamentoCartao() {
   };
 
   return (
-    <div>
+    <div className='w-[95%] p-2'>
       <CardPayment
         customization={customization}
         initialization={{ amount: 0.5 }}
