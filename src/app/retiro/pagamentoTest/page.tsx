@@ -29,7 +29,7 @@ export default function Pagamento() {
   return (
     <Card className="w-[350px] my-2 mx-auto">
       <CardHeader>
-        <CardTitle>Pagina de pagamento</CardTitle>
+        <h6>Pagina de pagamento</h6>
       </CardHeader>
       <CardContent>
       <Payment

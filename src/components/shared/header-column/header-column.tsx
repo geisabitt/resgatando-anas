@@ -13,7 +13,7 @@ export const HeaderColumn: React.FC<IconTextComponentProps> = ({ icon: Icon, tex
   return (
     <header className="flex flex-col items-center gap-2">
       <Icon className={iconColor} size={iconSize} />
-      <h6 className={textBold ? 'font-bold' : ''}>{text}</h6>
+      <h6 className={`${textBold ? 'font-bold' : ''} text-center`}>{text}</h6>
     </header>
   );
 };
