@@ -3,9 +3,8 @@ import ButtonRegistro from "./buttonRegistro";
 export default function Header() {
     return (
       <>
-      <div className="flex flex-col gap-4 items-center md:flex-row md:p-4 mx-auto my-auto">
+      <div className="flex flex-col gap-4 items-center mx-auto my-auto">
         <Image
-            className="md:fixed md:top-2 md:left-4 md:z-50 md:w-12"
             width={63}
             height={62}
             alt={'Logo Resgatando Anas Você é Terra Fértil'}
@@ -29,21 +28,21 @@ export default function Header() {
           </div>
         </div>
       </div>
-      <div className="flex flex-col gap-4 md:w-auto p-4">
-        <h6 className="md:text-left font-bold -mt-6 pr-4">Tema: Descendo do Salto</h6>
+      <div className="flex flex-col gap-4 p-4">
+        <h6 className="font-bold -mt-6 pr-4">Tema: Descendo do Salto</h6>
         <p>
         Reserve um tempo para si mesma e entre em um espaço de cura e crescimento. Descendo do Salto é mais do que um evento; é um convite para se conectar consigo mesma, elevar sua autoestima e se cercar de apoio. Independentemente de onde você esteja em sua jornada, este retiro foi criado com você em mente.
         </p>
         <ButtonRegistro/>
       </div>
       </div>
-      <p className="mx-auto my-auto py-4 md:w-auto p-4">
+      <p className="mx-auto my-auto py-4 p-4">
       Junte-se a nós em um retiro transformador, mergulhando em um ambiente acolhedor e enriquecedor, especialmente projetado para mulheres como você.
       </p>
-      <p className="mx-auto my-auto py-4 md:w-auto p-4">
+      <p className="mx-auto my-auto py-4 p-4">
       Descendo do Salto é mais do que um evento; é um convite para cuidar da sua saúde emocional, enquanto compartilha experiências valiosas e encontra apoio em uma comunidade acolhedora.
       </p>
-      <p className="mx-auto my-auto py-4 md:w-auto p-4">
+      <p className="mx-auto my-auto py-4 p-4">
       Vamos juntas descer do salto e caminhar para uma vida mais plena e autêntica!
       </p>
       </>
