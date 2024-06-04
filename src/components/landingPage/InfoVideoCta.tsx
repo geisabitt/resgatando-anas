@@ -11,8 +11,8 @@ export default function InfoVideoCta() {
     return (
         <>
         <Separator/>
-        <div className="flex flex-col p-4 gap-4 md:flex-row justify-center items-center">
-            <p className="text-justify">
+        <div className="flex flex-col p-4 gap-4 justify-center items-center">
+            <p>
             Venha se reconectar consigo mesma durante três dias em uma charmosa chácara, longe das pressões cotidianas. Este retiro oferece um espaço de crescimento pessoal, através de palestras, dinâmicas e momentos de reflexão, todos voltados para promover o cuidado emocional.
             </p>
             <YouTube videoId={videoId} opts={opts} />

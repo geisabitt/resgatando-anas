@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { Noto_Sans } from 'next/font/google'
 import './globals.css'
-import ButtonIndex from '@/components/ButtonIndex'
 import FooterMenu from '@/components/FooterMenu';
 import { HeaderMenu } from '@/components/HeaderMenu';
 const notoSans = Noto_Sans({ subsets: ['latin'] })
@@ -20,8 +19,7 @@ export default function RootLayout({
     <html lang="pt-br">
       <body className={notoSans.className}>
       <HeaderMenu/>
-      <div className='my-20'>{children}</div>
-      <ButtonIndex/>
+      <div className='max-w-[380px] my-20 mx-auto'>{children}</div>
       <FooterMenu/>
       </body>
     </html>
