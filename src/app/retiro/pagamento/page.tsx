@@ -37,7 +37,8 @@ export default function Pagamento() {
         <div className="w-full flex flex-col items-center">
           <p className="text-center font-bold">Valor de 1 ingresso pagamento por cartão de crédito :</p>
           <h2 className="mb-4 text-blue500">R$ 250,00*</h2>
-          <ButtonPayments btnText={"Comprar ingressos"} btnLink={"pagamento/cartao"}/>
+          <p className="text-destructive">Temporariamente Indisponível</p>
+          {/* <ButtonPayments btnText={"Comprar ingressos"} btnLink={"pagamento/cartao"}/> */}
         </div>
       {/* <Link href='statusOk' className="bg-success p2 rounded-[0.3rem] text-center">Pagamento Confirmado</Link>
       <Link href='statusBad' className="bg-destructive p2 rounded-[0.3rem] text-center">Erro de paragemto</Link> */}
