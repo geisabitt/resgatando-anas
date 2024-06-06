@@ -302,8 +302,8 @@ export function SigninProgressiveForm() {
             ))}
           </div>
           {currentIndex === 0 && !showTermosDeUso && (
-              <Button  onClick={toggleTermosDeUso} type="button" className="w-full mt-4 bg-blue900 hover:bg-blue-900">
-                Contrato
+              <Button  onClick={toggleTermosDeUso} type="button" className="w-full mt-4 text-white bg-blue900 hover:bg-blue700">
+                Aceitar Termos obrigatórios
               </Button>
             )}
             <div>{showTermosDeUso && <TermosDeUso onClose={toggleTermosDeUso} onAcceptTerms={handleAcceptTerms} />}</div>
@@ -311,17 +311,17 @@ export function SigninProgressiveForm() {
         <CardFooter className="flex flex-col gap-2">
             {currentIndex < groups.length - 1 && (
               <Button
-                className="w-full mb-1 bg-success hover:bg-success"
+                className="w-full mb-1 text-white bg-success700 hover:bg-success"
                 onClick={handleNextButtonClick} >
                 Próximo
               </Button>
             )}
             {currentIndex === groups.length - 1 && (
-              <Button className="w-full mb-1 bg-success" type="submit" disabled={!isFormValid()}>Cadastrar</Button>
+              <Button className="w-full mb-1 text-white bg-success700" type="submit" disabled={!isFormValid()}>Cadastrar</Button>
             )}
           {currentIndex > 0 && (
             <Button
-              className="w-full mb-1 bg-success hover:bg-success"
+              className="w-full mb-1 text-white bg-success700 hover:bg-success"
               onClick={() => setCurrentIndex((prevIndex) => prevIndex - 1)}>
               Voltar
             </Button>

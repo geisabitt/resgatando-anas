@@ -130,3 +130,15 @@ type PaymentData = {
     };
   };
 }
+type AlertSistemProps = {
+  title?: string;
+  message: string;
+  onClose: () => void;
+  show: boolean;
+  header?: {
+    icon: IconType;
+    iconColor: string;
+    text: string;
+    textBold: boolean;
+  };
+}
