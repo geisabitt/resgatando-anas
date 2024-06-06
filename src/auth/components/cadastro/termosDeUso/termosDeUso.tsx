@@ -119,10 +119,10 @@ export default function TermosDeUso({ onClose, onAcceptTerms  }: TermosDeUsoProp
             <label
                 htmlFor="terms"
                 className="font-bold text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                <p>Li e aceito os termos de uso</p>
+                <p>Clique aqui para declarar que leu e aceitou os termos de uso</p>
             </label>
         </div>
-        <Button className="bg-success700 text-white" onClick={onClose}>Aceitar Termos</Button>
+        <Button className="bg-success700 text-white" onClick={onClose} disabled={!isChecked}>Aceitar Termos</Button>
     </div>
     </ScrollArea>
 
