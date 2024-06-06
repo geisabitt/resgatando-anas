@@ -303,7 +303,7 @@ export function SigninProgressiveForm() {
           </div>
           {currentIndex === 0 && !showTermosDeUso && (
               <Button  onClick={toggleTermosDeUso} type="button" className="w-full mt-4 text-white bg-blue900 hover:bg-blue700">
-                Contrato
+                Aceitar Termos obrigatórios
               </Button>
             )}
             <div>{showTermosDeUso && <TermosDeUso onClose={toggleTermosDeUso} onAcceptTerms={handleAcceptTerms} />}</div>
