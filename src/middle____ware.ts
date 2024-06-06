@@ -9,12 +9,12 @@ const publicRoutes = [
   '/',
   '/api/user/create',
   '/api/user/login',
-  '/retiro/cadastro',
+  '/retiro/cadastro/dados-pessoais',
   '/retiro/login',
-  '/retiro/pagamento',
-  '/retiro/pagamentoPix',
-  '/retiro/statusOk',
-  '/retiro/statusBad',
+  // '/retiro/pagamento',
+  // '/retiro/pagamentoPix',
+  // '/retiro/statusOk',
+  // '/retiro/statusBad',
   '/api/mp/payments',
 ];
 

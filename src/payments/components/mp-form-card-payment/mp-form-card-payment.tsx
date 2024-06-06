@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react';
 import { CardPayment, initMercadoPago } from '@mercadopago/sdk-react';
+import { useRouter } from "next/navigation";
 import './mp-form-card-payment.css';
 
 export default function FormPagamentoCartao() {
@@ -32,6 +33,7 @@ export default function FormPagamentoCartao() {
       hidePaymentButton: false,
     },
   };
+  const router = useRouter();
 
   const handleSubmit = async (param: any) => {
     setLoading(true);
@@ -50,15 +52,22 @@ export default function FormPagamentoCartao() {
 
       if (!response.ok) {
         const errorText = await response.text();
-        throw new Error(errorText || 'Erro ao processar o pagamento');
+        router.push("/retiro/pagamento/status/cartao-recusado");
+        // throw new Error(errorText || 'Erro ao processar o pagamento');
       }
 
       const result = await response.json();
       console.log('Resposta da api:', result);
-      alert(`Codigo: ${result.status}, mensagem: ${result.message}`);
+      if(result.status !== "approved") {
+      //alert(`Codigo: ${result.status}, mensagem: ${result.message}`);
+      router.push("/retiro/pagamento/status/cartao-recusado");
+      }else{
+        router.push("/retiro/pagamento/status/aprovado");
+      }
     } catch (error: any) {
       console.error('Erro no pagamento:', error);
-      setError(error.message);
+      // setError(error.message);
+      router.push("/retiro/pagamento/status/cartao-recusado");
     } finally {
       setLoading(false);
       setTimeout(() => {
@@ -71,11 +80,11 @@ export default function FormPagamentoCartao() {
     <div className='w-[95%] p-2'>
       <CardPayment
         customization={customization}
-        initialization={{ amount: 0.5 }}
+        initialization={{ amount: 250 }}
         onSubmit={handleSubmit}
       />
-      {loading && <p>Processando pagamento...</p>}
-      {error && <p>Error: {error}</p>}
+      {/* {loading && <p>Processando pagamento...</p>}
+      {error && <p>Error: {error}</p>} */}
     </div>
   );
 }

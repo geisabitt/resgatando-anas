@@ -8,7 +8,7 @@ export default function Page() {
 
 
 return (
-    <Card className="w-[98%] max-w-[380px] flex flex-col gap-2 my-1 mx-auto border-0">
+    <Card className="w-[98%] max-w-[380px] flex flex-col gap-2 my-2 mx-auto border-0">
         <HeaderColumn icon={BsEmojiFrown} iconColor="text-red300" text={"Pagamento cancelado!"} textBold={true} />
     <CardContent>
         <p className="">O código PIX para pagamento expirou, será necessário gerar um novo pagamento. Ou se preferir o pagamento pode ser feito com cartão de crédito.</p>

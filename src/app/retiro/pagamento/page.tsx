@@ -10,7 +10,7 @@ export default function Pagamento() {
 
 
   return (
-    <Card className="w-[98%] max-w-[380px] my-1 mx-auto border-0">
+    <Card className="w-[98%] max-w-[380px] my-2 mx-auto border-0">
       <CardHeader className="flex flex-row gap-2">
       <Image src={'/img/LogoResgatandoAnas.png'} alt="alt" width={47} height={47} />
         <CardTitle><h5>Resgatando Anas</h5> <p>Descendo do salto</p></CardTitle>

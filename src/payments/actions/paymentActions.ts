@@ -46,12 +46,14 @@ async function createPaymentPix(){
         },
     }
     const idempotencyKey = uuidv4();
-    const client = new MercadoPagoConfig({ accessToken: process.env.ACCESS_TOKEN_TEST_MERCADOPAGO!, options: { timeout: 5000, idempotencyKey: idempotencyKey } });
+    const client = new MercadoPagoConfig({ accessToken: process.env.ACCESS_TOKEN_PROD_MERCADOPAGO!, options: { timeout: 5000, idempotencyKey: idempotencyKey } });
     const payment = new Payment(client);
 
     const response = await payment.create({ body: paymentCreateRequest });
     const { id } = response;
 
+    console.log(response)
+    
     await prisma.paymentUser.create({
         data: {
             userId,
