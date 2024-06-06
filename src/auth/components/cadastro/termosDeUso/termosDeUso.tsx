@@ -122,7 +122,7 @@ export default function TermosDeUso({ onClose, onAcceptTerms  }: TermosDeUsoProp
                 <p>Li e aceito os termos de uso</p>
             </label>
         </div>
-        <Button onClick={onClose} variant="outline">Voltar</Button>
+        <Button className="bg-success700 text-white" onClick={onClose}>Concluir</Button>
     </div>
     </ScrollArea>
 
