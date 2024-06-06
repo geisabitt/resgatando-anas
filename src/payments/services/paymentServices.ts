@@ -2,7 +2,7 @@ async function getInfoPayment(id:number) {
     'use server'
   
   const DATA_SOURCE_URL = 'https://api.mercadopago.com/v1/payments/';
-  const ACCESS_TOKEN = process.env.ACCESS_TOKEN_TEST_MERCADOPAGO;
+  const ACCESS_TOKEN = process.env.ACCESS_TOKEN_PROD_MERCADOPAGO;
   
   function extractUserPaymentDetails(data: any): UserPaymentDetails {
       return {

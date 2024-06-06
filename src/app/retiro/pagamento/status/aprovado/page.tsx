@@ -10,7 +10,7 @@ export default function Page() {
 
 
 return (
-    <Card className="w-[98%] max-w-[380px] flex flex-col gap-2 my-1 mx-auto border-0">
+    <Card className="w-[98%] max-w-[380px] flex flex-col gap-2 my-2 mx-auto border-0">
         <HeaderColumn icon={BsCheck2Circle} iconColor="text-success" text={"Pagamento efetuado com sucesso!"} textBold={true} />
         <CardHeader className="flex flex-col items-center gap-2">
         <Image src={'/img/LogoResgatandoAnas.png'} alt="alt" width={103} height={101} />

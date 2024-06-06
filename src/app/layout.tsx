@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="pt-br">
       <body className={notoSans.className}>
       <HeaderMenu/>
-      <div className='max-w-[380px] my-12 mx-auto'>{children}</div>
+      <div className='max-w-[380px] my-20 mx-auto'>{children}</div>
       <FooterMenu/>
       </body>
     </html>
