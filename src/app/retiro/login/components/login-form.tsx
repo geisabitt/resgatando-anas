@@ -81,8 +81,7 @@ export function LoginForm() {
     try {
     const response = await axios.post('/api/user/login', dadosLogin);
       if (response.status === 200) {
-        console.log(response.data);
-        //router.push("/dashboard");
+        router.push("/retiro/login/status");
       } else {
         setAlertMessage({
           title: `Erro`,
