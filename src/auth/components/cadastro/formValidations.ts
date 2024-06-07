@@ -5,16 +5,33 @@ export const validateNome = (name: string): boolean => {
   return regex.test(name);
 };
 
+const containsSequentialDigits = (input: string): boolean => {
+  return /(\d)\1{3,}/.test(input);
+};
+
 export const validateCPF = (cpf: string): boolean => {
-    const regex = /^[0-9]{11}$/;
-    return regex.test(cpf);
-  };
+  const regex = /^[0-9]{11}$/;
+  if (!regex.test(cpf)) {
+    return false;
+  }
+  return !containsSequentialDigits(cpf);
+};
 
-  export const validateRG = (rg: string): boolean => {
-    const regex = /^[0-9]{8,11}$/;
-    return regex.test(rg);
-  };
+export const validateRG = (rg: string): boolean => {
+  const regex = /^[0-9]{8,11}$/;
+  if (!regex.test(rg)) {
+    return false;
+  }
+  return !containsSequentialDigits(rg);
+};
 
+export const validatePhoneNumber = (phoneNumber: string): boolean => {
+  const regex = /^\d{10,11}$/;
+  if (!regex.test(phoneNumber)) {
+    return false;
+  }
+  return !containsSequentialDigits(phoneNumber);
+};
   export const validateEmail = (email: string): boolean => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
@@ -33,19 +50,6 @@ export const validateCPF = (cpf: string): boolean => {
     const inputDate = new Date(birthDate);
 
     return inputDate >= minAgeDate && inputDate <= maxAgeDate;
-  };
-
-  export const validatePhoneNumber = (phoneNumber: string): boolean => {
-    if (!/^\d+$/.test(phoneNumber)) {
-      return false;
-    }
-    if (phoneNumber.length < 10) {
-      return false;
-    }
-    if (phoneNumber.length > 11) {
-      return false;
-    }
-    return true;
   };
 
   export const validateForm = (dadosPessoais: DadosPessoais): boolean => {
