@@ -53,20 +53,17 @@ export default function FormPagamentoCartao() {
       if (!response.ok) {
         const errorText = await response.text();
         router.push("/retiro/pagamento/status/cartao-recusado");
-        // throw new Error(errorText || 'Erro ao processar o pagamento');
       }
 
       const result = await response.json();
       console.log('Resposta da api:', result);
       if(result.status !== "approved") {
-      //alert(`Codigo: ${result.status}, mensagem: ${result.message}`);
       router.push("/retiro/pagamento/status/cartao-recusado");
       }else{
         router.push("/retiro/pagamento/status/aprovado");
       }
     } catch (error: any) {
       console.error('Erro no pagamento:', error);
-      // setError(error.message);
       router.push("/retiro/pagamento/status/cartao-recusado");
     } finally {
       setLoading(false);

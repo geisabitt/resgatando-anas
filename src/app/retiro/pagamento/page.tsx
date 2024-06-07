@@ -1,6 +1,5 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import Image from 'next/image';
-// import Link from 'next/link';
 
 import './style.css';
 import ButtonPayments from '@/payments/components/button-payments';
@@ -40,8 +39,6 @@ export default function Pagamento() {
           <p className="text-destructive">Temporariamente Indisponível</p>
           {/* <ButtonPayments btnText={"Comprar ingressos"} btnLink={"pagamento/cartao"}/> */}
         </div>
-      {/* <Link href='statusOk' className="bg-success p2 rounded-[0.3rem] text-center">Pagamento Confirmado</Link>
-      <Link href='statusBad' className="bg-destructive p2 rounded-[0.3rem] text-center">Erro de paragemto</Link> */}
       </CardFooter>
     </Card>
   )
