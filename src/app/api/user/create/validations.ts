@@ -50,7 +50,7 @@ function isValidCPF(cpf: string): boolean {
 }
 
 function isValidRG(rg: string): boolean {
-    const rgRegex = /^\d{7,8}$/;
+    const rgRegex = /^\d{8,11}$/;
     return rgRegex.test(rg);
 }
 
