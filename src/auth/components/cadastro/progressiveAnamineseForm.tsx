@@ -1,9 +1,10 @@
-"use client"
+"use client";
 import './progressiveAnaminese.css';
 import * as React from "react";
 import axios from 'axios';
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { BsArrowClockwise } from "react-icons/bs";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -26,7 +27,7 @@ export function AnamineseProgressiveForm() {
     quais_alimentos: "",
     tamanho_blusa: "",
   });
-
+  const [loading, setLoading] = useState(false);
   const [alertMessage, setAlertMessage] = useState<AlertMessage>({
     title: '',
     message: ''
@@ -43,7 +44,12 @@ export function AnamineseProgressiveForm() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
-  
+    let newValue = value;
+
+    if (type === "text") {
+      newValue = value.replace(/\d/g, '');
+    }
+
     if (type === "radio" && value === "Não") {
       const updatedDadosAnaminese = { ...dadosAnaminese };
       groups[currentIndex].cards.forEach(card => {
@@ -52,21 +58,23 @@ export function AnamineseProgressiveForm() {
       setDadosAnaminese(updatedDadosAnaminese);
       setDadosAnaminese((prevState) => ({
         ...prevState,
-        [name]: value,
+        [name]: newValue,
       }));
       setInputStatus(true)
     } else {
       setInputStatus(false)
       setDadosAnaminese((prevState) => ({
         ...prevState,
-        [name]: value,
+        [name]: newValue,
       }));
     }
   };
-  
 
   const isFieldValid = (card: any, value: string): boolean => {
-    return !!value.trim();
+    if (card.type === "select") {
+      return !!value.trim();
+    }
+    return !!value.trim() && value.trim().length >= 3;
   };
 
   const handleNextButtonClick = () => {
@@ -79,7 +87,7 @@ export function AnamineseProgressiveForm() {
 
       if (!isFieldValid(card, fieldValue)) {
         hasError = true;
-        newMessageErrors[card.name] = `${card.label} é obrigatório.`;
+        newMessageErrors[card.name] = `O campo é obrigatório`;
       } else {
         delete newMessageErrors[card.name];
       }
@@ -97,41 +105,44 @@ export function AnamineseProgressiveForm() {
     setCurrentIndex((prevIndex) => prevIndex + 1);
   };
 
-
   const router = useRouter();
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(dadosAnaminese)
+    setLoading(true);
 
-      try {
-        const response = await axios.post('/api/user/create-aditional-data', dadosAnaminese);
-        if (response.data.status === 201 || response.data.status === 200) {
-          console.log('try 200 ou 201', response.data);
-          router.push("/retiro/cadastro/status");
-        } else if(response.data.status === "D200" ){
-          console.log('try else D200', response.data);
-          //TODO tratar a rota de edição para quem já possui os dados adicionais cadastrados
-          router.push("/retiro/cadastro/status");
-        } else{
-          console.log('try else', response.data);
-          setAlertMessage({
-            title: `Error status ${response.data.error.code}`,
-            message: `${response.data.message}`
-          });
-          setAlertVisible(true);
-        }
-      } catch (error) {
-        console.error('Erro ao cadastrar usuário:', error);
+    try {
+      const response = await axios.post('/api/user/create-aditional-data', dadosAnaminese);
+      if (response.data.status === 201 || response.data.status === 200) {
+        console.log('try 200 ou 201', response.data);
+        router.push("/retiro/cadastro/status");
+      } else if(response.data.status === "D200" ){
+        console.log('try else D200', response.data);
+        //TODO tratar a rota de edição para quem já possui os dados adicionais cadastrados
+        router.push("/retiro/cadastro/status");
+      } else{
+        console.log('try else', response.data);
         setAlertMessage({
-          title: `Error`,
-          message: `${error}`
+          title: `Error status ${response.data.error.code}`,
+          message: `${response.data.message}`
         });
         setAlertVisible(true);
+      }
+    } catch (error) {
+      console.error('Erro ao cadastrar usuário:', error);
+      setAlertMessage({
+        title: `Error`,
+        message: `${error}`
+      });
+      setAlertVisible(true);
+    } finally {
+      // Desative o estado de carregamento, independentemente do resultado da requisição
+      setLoading(false);
     }
   };
 
   const isFormValid = () => {
-    return Object.values(dadosAnaminese).every((value) => value.trim() !== "");
+    return Object.values(dadosAnaminese).every((value) => value.trim() !== "" && value.trim());
   };
 
   const initialGroups: GroupDadosAdicionais[] = [
@@ -257,6 +268,9 @@ export function AnamineseProgressiveForm() {
                     required
                   />
                 )}
+                {messageErrors[card.name] && (
+                  <p className="px12 text-red-500 text-sm">{messageErrors[card.name]}</p>
+                )}
               </div>
             ))}
           </div>
@@ -265,19 +279,28 @@ export function AnamineseProgressiveForm() {
           {currentIndex < groups.length - 1 && (
             <Button
               type='button'
-              className="w-full mb-1 bg-success700 hover:bg-success700"
+              className="w-full mb-1 text-white bg-success700 hover:bg-success700"
               onClick={handleNextButtonClick}
             >
               Próximo
             </Button>
           )}
           {currentIndex === groups.length - 1 && (
-            <Button className="w-full mb-1 bg-success700" type="submit" disabled={!isFormValid()}>Cadastrar</Button>
+            <Button className="w-full mb-1 bg-success700 text-white" type="submit" disabled={!isFormValid() || loading}>
+            {loading ? (
+              <span className='flex items-center gap-2'>
+                <BsArrowClockwise className="text-[30px] animate-spin mr-2" /> 
+                Carregando...
+              </span>
+            ) : (
+              <span className='flex items-center gap-2'>Cadastrar</span>
+            )}
+          </Button>
           )}
           {currentIndex > 0 && (
             <Button
               type='button'
-              className="w-full mb-1 bg-success700 hover:bg-success700"
+              className="w-full mb-1 bg-success700 text-white hover:bg-success700"
               onClick={() => setCurrentIndex((prevIndex) => prevIndex - 1)}>
               Voltar
             </Button>
