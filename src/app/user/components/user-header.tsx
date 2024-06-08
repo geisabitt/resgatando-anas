@@ -1,42 +1,13 @@
 'use client'
-import { useState, useEffect } from "react";
-import Link from "next/link";
 import { BsFillPersonFill } from "react-icons/bs";
 import { Users } from "@prisma/client";
+import Link from "next/link";
 
-function capitalizeWords(name:string) {
+function capitalizeWords(name: string) {
     return name.toLowerCase().replace(/\b\w/g, char => char.toUpperCase());
 }
 
-export default function UserHeader() {
-    const [user, setUser] = useState<Partial<Users>>({});
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const fetchUserData = async () => {
-            try {
-                const response = await fetch("/api/user/user-id");
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                const data = await response.json();
-                if (data.status === 201 && data.user) {
-                    setUser(data.user);
-                }
-                setLoading(false);
-            } catch (error) {
-                console.error("Error fetching user data:", error);
-                setLoading(false);
-            }
-        };
-
-        fetchUserData();
-    }, []);
-
-    if (loading) {
-        return <div className="flex flex-col align-center justify-center">Loading...</div>;
-    }
-
+export default function UserHeader({ user }: { user: Partial<Users> }) {
     return (
         <>
             {user && (
@@ -49,5 +20,5 @@ export default function UserHeader() {
                 </div>
             )}
         </>
-    )
+    );
 }
