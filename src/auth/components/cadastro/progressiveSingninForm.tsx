@@ -145,7 +145,11 @@ export function SigninProgressiveForm() {
               break;
             case 'telefone':
             case 'telefone_emergencia':
-              errorMessage = validations.validatePhoneNumber(value) ? '' : 'O telefone deve conter apenas números, ter 10 ou 11 dígitos e não pode ser uma sequência repetida';
+              if (!validations.validatePhoneNumber(value)) {
+                errorMessage = 'O telefone deve conter apenas números, ter 10 ou 11 dígitos e não pode ser uma sequência repetida';
+              } else if (name === 'telefone_emergencia' && value === dadosPessoais.telefone) {
+                errorMessage = 'Os telefones não podem ser iguais!';
+              }
               break;
             default:
               break;
