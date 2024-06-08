@@ -9,12 +9,12 @@ import Link from 'next/link';
 export default function Page() {
     const router = useRouter();
 
-    // useEffect(() => {
-    //     const timer = setTimeout(() => {
-    //         router.push('/retiro/pagamento');
-    //     }, 5000);
-    //     return () => clearTimeout(timer);
-    // }, [router]);
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            router.push('/user');
+        }, 5000);
+        return () => clearTimeout(timer);
+    }, [router]);
 
     return (
         <div className="w-full my-2 mx-auto flex flex-col gap-14 text-center items-center">
@@ -27,7 +27,7 @@ export default function Page() {
                 </CardContent>
                 <CardFooter className="flex flex-col gap-2 text-[0.75rem]">
                     <span>Em 5 segundos você irá para sua pagina.  Se estiver demorando clique no link abaixo para seguir.</span>
-                    <Link className='text-blue500' href='#'>Ir para meu painel</Link>
+                    <Link className='text-blue500' href='/user'>Ir para meu painel</Link>
                 </CardFooter>
             </Card>
         </div>

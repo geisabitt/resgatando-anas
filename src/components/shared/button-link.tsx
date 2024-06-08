@@ -1,14 +1,15 @@
-import { Button } from "@/components/ui";
 import Link from "next/link";
+import { IconType } from 'react-icons';
 
 type ButtonProps = {
     btnText: string
     btnLink: string
-    btnColor?: string
+    btnClass?: string
+    icon?: IconType
 }
 
-export default function ButtonLink({btnText, btnColor, btnLink}: Readonly<ButtonProps>) {
+export default function ButtonLink({btnText, btnClass, btnLink, icon: Icon}: Readonly<ButtonProps>) {
     return (
-        <Link className={`w-full py-4 rounded text-[1.125rem] text-center text-white font-bold ${btnColor || 'bg-success700'}`} href={btnLink}>{btnText}</Link>
+        <Link className={`w-full py-4 rounded text-center ${btnClass ?? 'bg-success700'}`} href={btnLink}>{btnText} {Icon && <Icon className="w-8 h-8" />}</Link>
     );
 }
