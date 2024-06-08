@@ -10,20 +10,20 @@ export default async function CadastroAnaminese() {
   return (
     <div className="flex align-center justify-center p-8">
       {session? <AnamineseProgressiveForm />: <Card>
-  <CardHeader>
-    <CardTitle>Mensagem do Sistema</CardTitle>
-    <CardDescription>É preciso ser cadastrada para completar a inscrição no retiro</CardDescription>
-  </CardHeader>
-  <CardContent>
-    <p>Não encontramos seu cadastro por isso não é possível prosseguir com a sua inscrição.</p>
-  </CardContent>
-  <CardFooter className="flex flex-col gap-2 items-start">
-    <p>Tente cadastrar-se</p>
-    <Button><Link href="/retiro/cadastro/dados-pessoais">CADASTRE-SE</Link></Button>
-    <p>Se já possuir uma conta faça login</p>
-    <Button><Link href="/retiro/login">Login</Link></Button>
-  </CardFooter>
-</Card> }
+        <CardHeader>
+          <CardTitle>Mensagem do Sistema</CardTitle>
+          <CardDescription>É preciso ser cadastrada para completar a inscrição no retiro</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <p>Não encontramos seu cadastro por isso não é possível prosseguir com a sua inscrição.</p>
+        </CardContent>
+        <CardFooter className="flex flex-col gap-2 items-start">
+          <p>Tente cadastrar-se</p>
+          <Button><Link href="/retiro/cadastro/dados-pessoais">CADASTRE-SE</Link></Button>
+          <p>Se já possuir uma conta faça login</p>
+          <Button><Link href="/retiro/login">Login</Link></Button>
+        </CardFooter>
+      </Card> }
     </div>
   )
 }

@@ -6,7 +6,6 @@ import { Button, Input, Label, Card, CardContent, CardFooter, CardHeader, CardTi
 import { AlertSistem } from "@/components/shared";
 import { validateEmail } from '@/auth/components/cadastro/formValidations';
 import { BsFillEyeFill,BsFillEyeSlashFill  } from "react-icons/bs";
-import ButtonLink from '@/components/shared/button-link';
 import Link from 'next/link';
 
 export function LoginForm() {
@@ -106,7 +105,7 @@ export function LoginForm() {
     <CardHeader className="text-center">
     <CardTitle>Faça seu login</CardTitle>
     </CardHeader>
-      <form onSubmit={handleFormSubmit}>
+      <form  className="min-h-[60vh] flex flex-col justify-between" onSubmit={handleFormSubmit}>
         <CardContent>
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
@@ -152,7 +151,7 @@ export function LoginForm() {
               <>Entrar</>
             )}
           </Button>
-          <Button className="w-full mb-1 text-white bg-blue900 hover:bg-blue700" type="button">
+          <Button className="w-full mb-1 bg-primary-foreground hover:bg-primary-foreground" type="button">
             <Link href={'/retiro/cadastro/dados-pessoais'}>Não sou cadastrada</Link>
           </Button>
         </CardFooter>
