@@ -11,11 +11,12 @@ const publicRoutes = [
   '/api/user/login',
   '/retiro/cadastro/dados-pessoais',
   '/retiro/login',
+  '/nao-autorizado',
   // '/retiro/pagamento',
   // '/retiro/pagamentoPix',
   // '/retiro/statusOk',
   // '/retiro/statusBad',
-  '/api/mp/payments',
+  //'/api/mp/payments',
 ];
 
 const publicFolders = ['/img', '/videos'];
@@ -27,14 +28,6 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  // Verifique se a rota da API foi acessada
-  const isApiPaymentRoute = pathname.startsWith('/api/mp/payments');
-
-  // Se for a rota da API de pagamento, permita o acesso sem autenticação
-  if (isApiPaymentRoute) {
-    return NextResponse.next();
-  }
-
   const session = await AuthService.isSessionValid();
   if (!session) {
     const isAPIRoute = pathname.startsWith('/api');
@@ -42,7 +35,7 @@ export async function middleware(req: NextRequest) {
     if (isAPIRoute) {
       return NextResponse.json({ message: 'Não autorizado' }, { status: 401 });
     }
-    return NextResponse.redirect(new URL('/retiro/login', req.url));
+    return NextResponse.redirect(new URL('/nao-autorizado', req.url));
   }
 
   return NextResponse.next();

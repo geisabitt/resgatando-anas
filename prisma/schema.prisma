@@ -43,9 +43,12 @@ model UsersAnaminese {
 }
 
 model PaymentUser{
-  id          String   @id @default(uuid())
-  userId      String
-  paymentId   String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt()
+  id                  String   @id @default(uuid())
+  userId              String
+  paymentId           String
+  paymentStatus       String
+  paymentDescription  String
+  active              Boolean
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt()
 }
