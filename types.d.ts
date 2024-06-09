@@ -9,6 +9,24 @@ type DisplayPayment = {
     payment_type_id: string;
     transaction_amount: number;
   }
+
+type StatusMessageProps = {
+    title:string
+    type:string
+    message:string
+}
+
+
+type DisplayUserPayments = {
+    id: string,
+    userId:string,
+    paymentId: string,
+    paymentStatus: string,
+    paymentDescription: string,
+    url:string,
+    btnText:string,
+}
+
 type MethodsPayment = {
     id: string,
     name: string,

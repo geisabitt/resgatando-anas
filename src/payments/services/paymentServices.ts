@@ -31,8 +31,9 @@ async function getInfoPayment(id:number) {
     });
   
     const uniquePayment = await res.json();
-  
+    
     const userPaymentDetails = extractUserPaymentDetails(uniquePayment);
+    console.log(userPaymentDetails)
   
     return userPaymentDetails;
   }

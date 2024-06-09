@@ -16,12 +16,12 @@ export async function GET(req: NextRequest) {
                     id:true,
                     userId:true,
                     paymentId:true,
-                    // paymentStatus:true,
+                    paymentStatus:true,
+                    paymentDescription:true,
                     createdAt:true,
                     }
                     });
 
-            console.log("PAYMENT", payment);
             return Response.json({ payment, status: 200 });
         }
 

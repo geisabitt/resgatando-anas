@@ -1,6 +1,5 @@
 import { PaymentCreateRequest } from 'mercadopago/dist/clients/payment/create/types';
 
-
 import { MercadoPagoConfig, Payment } from 'mercadopago';
 import { v4 as uuidv4 } from 'uuid';
 import { PrismaClient } from "@prisma/client";
@@ -50,7 +49,7 @@ async function createPaymentPix(){
     const payment = new Payment(client);
 
     const response = await payment.create({ body: paymentCreateRequest });
-    const { id } = response;
+    const { id , status } = response;
 
     console.log(response)
     
@@ -58,6 +57,9 @@ async function createPaymentPix(){
         data: {
             userId,
             paymentId: String(id),
+            paymentStatus: status!,
+            paymentDescription: description,
+            active : true,
         },
     });
     redirect(`/retiro/pagamento/pix/${id}`);

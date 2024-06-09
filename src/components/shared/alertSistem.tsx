@@ -2,7 +2,6 @@ import './alertSistem.css'
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { BsFillXCircleFill } from "react-icons/bs";
 import { HeaderColumn } from "@/components/shared/header-column/header-column";
-import { IconType } from 'react-icons';
 
 export function AlertSistem(props: AlertSistemProps) {
   const handleClose = () => {
