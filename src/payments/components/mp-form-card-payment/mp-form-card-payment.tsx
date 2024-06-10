@@ -10,6 +10,15 @@ export default function FormPagamentoCartao() {
     const token = process.env.NEXT_PUBLIC_TOKEN_PROD_MERCADOPAGO_PUBLIC;
     if (token) {
       initMercadoPago(token, { locale: 'pt-BR' });
+
+      // Adicione o script de segurança para capturar o Device ID
+      const script = document.createElement('script');
+      script.src = "https://www.mercadopago.com/v2/security.js";
+      script.setAttribute('view', 'checkout');
+      script.onload = () => {
+        console.log('Security script loaded');
+      };
+      document.body.appendChild(script);
     } else {
       setError('Token de acesso do Mercado Pago não está disponível');
     }
@@ -38,16 +47,21 @@ export default function FormPagamentoCartao() {
   const handleSubmit = async (param: any) => {
     setLoading(true);
     setError(null);
-    console.log('paramsssss', param)
-
+    console.log('paramsssss', param);
 
     try {
+      // Capture o Device ID da variável global
+      const deviceId = (window as any).MP_DEVICE_SESSION_ID;
+      if (!deviceId) {
+        throw new Error('Device ID não capturado');
+      }
+
       const response = await fetch('/api/mp/create-payment', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(param),
+        body: JSON.stringify({ ...param, deviceId }), // Envie o Device ID junto com os dados do pagamento
       });
 
       if (!response.ok) {
@@ -58,8 +72,8 @@ export default function FormPagamentoCartao() {
       const result = await response.json();
       console.log('Resposta da api:', result);
       if(result.status !== "approved") {
-      router.push("/retiro/pagamento/status/cartao-recusado");
-      }else{
+        router.push("/retiro/pagamento/status/cartao-recusado");
+      } else {
         router.push("/retiro/pagamento/status/aprovado");
       }
     } catch (error: any) {
@@ -80,8 +94,8 @@ export default function FormPagamentoCartao() {
         initialization={{ amount: 250 }}
         onSubmit={handleSubmit}
       />
-      {/* {loading && <p>Processando pagamento...</p>}
-      {error && <p>Error: {error}</p>} */}
+      {loading && <p>Processando pagamento...</p>}
+      {error && <p>Error: {error}</p>}
     </div>
   );
 }

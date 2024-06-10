@@ -48,6 +48,7 @@ model PaymentUser{
   paymentId           String
   paymentStatus       String
   paymentDescription  String
+  paymentType         String
   active              Boolean
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt()

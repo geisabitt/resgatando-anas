@@ -22,7 +22,9 @@ type DisplayUserPayments = {
     userId:string,
     paymentId: string,
     paymentStatus: string,
+    paymentType: string,
     paymentDescription: string,
+    createdAt: string,
     url:string,
     btnText:string,
 }

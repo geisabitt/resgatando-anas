@@ -1,33 +1,73 @@
 import AuthService from "@/auth/service/authService";
 import { PrismaClient } from "@prisma/client";
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
 
 export async function GET(req: NextRequest) {
     try {
         const id = await AuthService.creatRouteId();
-        console.log("ID",id);
-        
+        console.log("ID", id);
+
         if (id) {
-            const payment = await prisma.paymentUser.findMany({
+            const payments = await prisma.paymentUser.findMany({
                 where: { userId: id },
                 select: {
-                    id:true,
-                    userId:true,
-                    paymentId:true,
-                    paymentStatus:true,
-                    paymentDescription:true,
-                    createdAt:true,
-                    }
-                    });
+                    id: true,
+                    userId: true,
+                    paymentId: true,
+                    paymentStatus: true,
+                    paymentType: true,
+                    paymentDescription: true,
+                    createdAt: true,
+                }
+            });
 
-            return Response.json({ payment, status: 200 });
+            // Formatar os tipos de pagamento
+            const formattedPayments = payments.map(payment => {
+                let formattedType;
+                switch (payment.paymentType) {
+                    case 'bank_transfer':
+                        formattedType = 'Pix';
+                        break;
+                    case 'credit_card':
+                        formattedType = 'Cartão de Crédito';
+                        break;
+                    default:
+                        formattedType = payment.paymentType;
+                }
+
+                let formattedStatus;
+                switch (payment.paymentStatus) {
+                    case 'pending':
+                        formattedStatus = 'Pendente';
+                        break;
+                    case 'approved':
+                        formattedStatus = 'Aprovado';
+                        break;
+                    case 'rejected':
+                        formattedStatus = 'Recusado';
+                        break;
+                    default:
+                        formattedStatus = 'Desconhecido';
+                }
+
+                const createdAt = new Date(payment.createdAt);
+                const now = new Date();
+                const diffInHours = (now.getTime() - createdAt.getTime()) / (1000 * 60 * 60);
+
+                if (diffInHours > 12 && formattedType === 'Pix') {
+                    formattedStatus = 'Cancelado';
+                }
+                return { ...payment, paymentType: formattedType, paymentStatus: formattedStatus };
+            });
+
+            return NextResponse.json({ payments: formattedPayments, status: 200 });
         }
 
-        return Response.json({ message: 'Usuário ou pagamento não encontrados', status: 400 });
+        return NextResponse.json({ message: 'Usuário ou pagamento não encontrados', status: 400 });
     } catch (error) {
         console.error("Ocorreu um erro:", error);
-        return Response.json({ message: 'Ocorreu um erro ao processar a solicitação', status: 500 });
+        return NextResponse.json({ message: 'Ocorreu um erro ao processar a solicitação', status: 500 });
     }
 }

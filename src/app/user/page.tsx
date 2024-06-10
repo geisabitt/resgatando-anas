@@ -39,12 +39,13 @@ export default function Page() {
                     throw new Error('Network response was not ok');
                 }
                 const data = await response.json();
-                if (data.status === 200 && data.payment) {
-                    const formattedPayments = data.payment.map((p: any) => ({
+                if (data.status === 200 && data.payments) {
+                    const formattedPayments = data.payments.map((p: DisplayUserPayments) => ({
                         paymentId: p.paymentId,
-                        paymentStatus: p.paymentStatus ?? "Pendente",
+                        paymentStatus: p.paymentStatus,
+                        paymentType: p.paymentType,
                         paymentDescription: p.paymentDescription,
-                        url: `/retiro/pagamento/pix/${p.paymentId}`,
+                        url: p.paymentStatus === 'Cancelado' && p.paymentType === 'Pix' ? '/retiro/pagamento/status/pix-expirado' : `/retiro/pagamento/pix/${p.paymentId}`,
                         btnText: "Ver pagamento",
                     }));
                     setPayments(formattedPayments);
@@ -79,9 +80,11 @@ export default function Page() {
                     icon={BsArrowRightShort}
                 />
             </Card>
-            {payments.map((payment) => (
-                <UserCardPayments key={payment.paymentId} payment={payment} />
-            ))}
+            <div className="flex flex-col gap-4">
+                {payments.map((payment) => (
+                    <UserCardPayments key={payment.paymentId} payment={payment} />
+                ))}
+            </div>
         </div>
     );
 }
