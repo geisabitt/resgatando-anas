@@ -42,6 +42,9 @@ export async function GET(req: NextRequest) {
                     case 'pending':
                         formattedStatus = 'Pendente';
                         break;
+                    case 'in_process':
+                        formattedStatus = 'Em processamento';
+                        break;
                     case 'approved':
                         formattedStatus = 'Aprovado';
                         break;
@@ -49,7 +52,7 @@ export async function GET(req: NextRequest) {
                         formattedStatus = 'Recusado';
                         break;
                     default:
-                        formattedStatus = 'Desconhecido';
+                        formattedStatus = payment.paymentStatus;
                 }
 
                 const createdAt = new Date(payment.createdAt);

@@ -7,11 +7,10 @@ import './mp-form-card-payment.css';
 export default function FormPagamentoCartao() {
 
   useEffect(() => {
-    const token = process.env.NEXT_PUBLIC_TOKEN_PROD_MERCADOPAGO_PUBLIC;
+    const token = process.env.NEXT_PUBLIC_TOKEN_TEST_MERCADOPAGO_PUBLIC;
     if (token) {
       initMercadoPago(token, { locale: 'pt-BR' });
 
-      // Adicione o script de segurança para capturar o Device ID
       const script = document.createElement('script');
       script.src = "https://www.mercadopago.com/v2/security.js";
       script.setAttribute('view', 'checkout');
@@ -50,7 +49,6 @@ export default function FormPagamentoCartao() {
     console.log('paramsssss', param);
 
     try {
-      // Capture o Device ID da variável global
       const deviceId = (window as any).MP_DEVICE_SESSION_ID;
       if (!deviceId) {
         throw new Error('Device ID não capturado');
@@ -61,7 +59,7 @@ export default function FormPagamentoCartao() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ ...param, deviceId }), // Envie o Device ID junto com os dados do pagamento
+        body: JSON.stringify({ ...param}),
       });
 
       if (!response.ok) {
@@ -70,11 +68,15 @@ export default function FormPagamentoCartao() {
       }
 
       const result = await response.json();
-      console.log('Resposta da api:', result);
-      if(result.status !== "approved") {
+      //console.log('Resposta da api:', result);
+      console.log('Resposta status', result.paymentResponse.status);
+
+      if(result.paymentResponse.status !== "approved") {
         router.push("/retiro/pagamento/status/cartao-recusado");
+        console.log('result.status !== "approved"')
       } else {
         router.push("/retiro/pagamento/status/aprovado");
+        console.log('else')
       }
     } catch (error: any) {
       console.error('Erro no pagamento:', error);
@@ -91,7 +93,7 @@ export default function FormPagamentoCartao() {
     <div className='w-[95%] p-2'>
       <CardPayment
         customization={customization}
-        initialization={{ amount: 250 }}
+        initialization={{ amount: 2 }}
         onSubmit={handleSubmit}
       />
       {loading && <p>Processando pagamento...</p>}
