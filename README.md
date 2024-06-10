@@ -22,6 +22,26 @@ ou
 prisma generate
 ```
 
+## Update data tables on the server with Prisma
+
+### Create a name for the data migration
+
+```bash
+npx prisma migrate dev --name add_default_values
+```
+
+### Check the migration status
+
+```bash
+npx prisma migrate status
+```
+
+### Complete the migration
+
+```bash
+npx prisma migrate dev
+```
+
 Open [http://localhost:5101](http://localhost:5101) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.

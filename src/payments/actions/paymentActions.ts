@@ -49,7 +49,7 @@ async function createPaymentPix(){
     const payment = new Payment(client);
 
     const response = await payment.create({ body: paymentCreateRequest });
-    const { id , status } = response;
+    const { id , status , payment_type_id} = response;
 
     console.log(response)
     
@@ -58,6 +58,7 @@ async function createPaymentPix(){
             userId,
             paymentId: String(id),
             paymentStatus: status!,
+            paymentType: payment_type_id!,
             paymentDescription: description,
             active : true,
         },
