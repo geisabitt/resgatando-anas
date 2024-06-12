@@ -7,7 +7,7 @@ import './mp-form-card-payment.css';
 export default function FormPagamentoCartao() {
 
   useEffect(() => {
-    const token = process.env.NEXT_PUBLIC_TOKEN_TEST_MERCADOPAGO_PUBLIC;
+    const token = process.env.NEXT_PUBLIC_TOKEN_MERCADOPAGO;
     if (token) {
       initMercadoPago(token, { locale: 'pt-BR' });
 
