@@ -6,8 +6,9 @@ export default function PagamentoCartao() {
 
     return (
       <div className="w-full">
-        <HeaderColumn icon={BsCreditCard2Back} iconSize={45} text="Efetuar pagamento via cartão de crédito"/>
-        <FormPagamentoCartao/>
+        {/* <HeaderColumn icon={BsCreditCard2Back} iconSize={45} text="Efetuar pagamento via cartão de crédito"/>
+        <FormPagamentoCartao/> */}
+        <p className="text-destructive">Temporariamente Indisponível</p>
       </div>
     )
   }

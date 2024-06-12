@@ -1,6 +1,7 @@
 import Image from "next/image";
 import ButtonRegistro from "./buttonRegistro";
 export default function Header() {
+  const baseUrl = process.env.BASE_URL
     return (
       <>
       <div className="flex flex-col gap-4 items-center mx-auto my-auto">
@@ -8,7 +9,7 @@ export default function Header() {
             width={63}
             height={62}
             alt={'Logo Resgatando Anas Você é Terra Fértil'}
-            src={'/img/LogoResgatandoAnas.png'}
+            src={`${baseUrl}/img/LogoResgatandoAnas.png`}
           />
       <div className="flex flex-row justify-center w-full">
         <div className="overflow-hidden w-[324px] h-[260px] relative">

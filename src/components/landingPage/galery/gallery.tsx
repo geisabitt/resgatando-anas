@@ -2,7 +2,7 @@ import AllGallery from './allGallery';
 import { FaArrowRight } from "react-icons/fa";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 
-const baseUrl = process.env.BASE_URL_PRODUCION;
+const baseUrl = process.env.BASE_URL;
 const images2021 = [
   `${baseUrl}/img/retiro2021/retiro2021-0001.jpg`,
   `${baseUrl}/img/retiro2021/retiro2021-0002.jpg`,

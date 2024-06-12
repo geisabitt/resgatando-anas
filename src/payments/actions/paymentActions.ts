@@ -28,7 +28,7 @@ async function createPaymentPix(){
     const phone = user.telefone;
     const description = 'Retiro Resgatando Anas 2024';
     const payment_method_id = 'pix';
-    const transaction_amount = 180;
+    const transaction_amount = 250;
     const installments = 1;
 
     const paymentCreateRequest: PaymentCreateRequest = {
