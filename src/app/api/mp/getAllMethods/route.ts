@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 const DATA_SOURCE_URL = 'https://api.mercadopago.com/v1/payment_methods';
-const ACCESS_TOKEN = process.env.ACCESS_TOKEN_PROD_MERCADOPAGO;
+const ACCESS_TOKEN = process.env.ACCESS_TOKEN_MERCADOPAGO;
 
 export async function GET() {
   const res = await fetch(DATA_SOURCE_URL, {

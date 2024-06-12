@@ -8,7 +8,7 @@ const prisma = new PrismaClient();
 
 export async function POST(req: NextRequest, res: NextResponse) {
     const newPayment = await req.json();
-    const ACCESS_TOKEN = process.env.ACCESS_TOKEN_TEST_MERCADOPAGO;
+    const ACCESS_TOKEN = process.env.ACCESS_TOKEN_MERCADOPAGO;
     const id = await AuthService.creatRouteId();
 
     if (!ACCESS_TOKEN) {
