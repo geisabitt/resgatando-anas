@@ -31,6 +31,20 @@ const images2022 = [
   `${baseUrl}/img/retiro2022/retiro2022-0011.jpg`,
   `${baseUrl}/img/retiro2022/retiro2022-0012.jpg`,
 ];
+const images2023 = [
+  `${baseUrl}/img/retiro2023/retiro2023-0001.jpg`,
+  `${baseUrl}/img/retiro2023/retiro2023-0002.jpg`,
+  `${baseUrl}/img/retiro2023/retiro2023-0003.jpg`,
+  `${baseUrl}/img/retiro2023/retiro2023-0004.jpg`,
+  `${baseUrl}/img/retiro2023/retiro2023-0005.jpg`,
+  `${baseUrl}/img/retiro2023/retiro2023-0006.jpg`,
+  `${baseUrl}/img/retiro2023/retiro2023-0007.jpg`,
+  `${baseUrl}/img/retiro2023/retiro2023-0008.jpg`,
+  `${baseUrl}/img/retiro2023/retiro2023-0009.jpg`,
+  `${baseUrl}/img/retiro2023/retiro2023-0010.jpg`,
+  `${baseUrl}/img/retiro2023/retiro2023-0011.jpg`,
+  `${baseUrl}/img/retiro2023/retiro2023-0012.jpg`,
+];
 export default function Gallery() {
     return (
         <ScrollArea id='galeria' className="w-[100%] max-h-[290px] py-4 pl-4 overflow-auto">
@@ -38,7 +52,6 @@ export default function Gallery() {
             <div>
               <div className='flex flex-col justify-center pl-[70px]'>
                 <div className="flex gap-2 ">
-                {/* <FaArrowRight className="mt-2 transform rotate-180"/> */}
                 <div className="mx-6 text-center">
                 <h6 className='font-bold'>Galeria 2021</h6>
                 <p>Raízes curadas</p>
@@ -56,15 +69,24 @@ export default function Gallery() {
                 <h6 className='font-bold'>Galeria 2022</h6>
                 <p>Floresça</p>
                 </div>
-                {/* <FaArrowRight className="mt-2" /> */}
+                <FaArrowRight className="mt-2" />
                 </div>
               </div>
             <AllGallery images={images2022} />
             </div>
-            {/* <div>
-            <h1 className='pl-[102px] py-2 font-bold'>Retiro 2023</h1>
-            <AllGallery images={images} />
-            </div> */}
+            <div>
+            <div className='flex flex-col justify-center pl-[70px]'>
+                <div className="flex gap-2 ">
+                <FaArrowRight className="mt-2 transform rotate-180"/>
+                <div className="text-center">
+                <h6 className='font-bold'>Galeria 2023</h6>
+                <p>Frutifique</p>
+                </div>
+                {/* <FaArrowRight className="mt-2" /> */}
+                </div>
+              </div>
+            <AllGallery images={images2023} />
+            </div>
             </div>
 
             <ScrollBar orientation="horizontal" />

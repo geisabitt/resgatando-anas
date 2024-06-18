@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import AuthService from './auth/service/authService';
 
 export const config = {
-  matcher: '/((?!_next/static|_next/image|favicon.ico|_next/img|foto-header.png).*)',
+  matcher: '/((?!_next/static|_next/image|favicon.ico|_next/img|foto-header.png|img/.*).*)',
 };
 
 const publicRoutes = [

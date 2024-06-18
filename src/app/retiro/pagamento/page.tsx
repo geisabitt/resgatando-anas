@@ -30,7 +30,7 @@ export default function Pagamento() {
       <CardFooter className="flex flex-col justify-center gap-2">
         <div className="w-full flex flex-col items-center mb-4">
           <p className="font-bold tracking-tight">Valor de 1 ingresso promocional via pix:</p>
-          <h2 className="mb-4 text-blue500">R$ 180,00*</h2>
+          <h2 className="mb-4 text-blue500">R$ 250,00*</h2>
           <ButtonPix/>
         </div>
         <div className="w-full flex flex-col items-center">
