@@ -108,20 +108,16 @@ export function AnamineseProgressiveForm() {
   const router = useRouter();
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(dadosAnaminese)
     setLoading(true);
 
     try {
       const response = await axios.post('/api/user/create-aditional-data', dadosAnaminese);
       if (response.data.status === 201 || response.data.status === 200) {
-        console.log('try 200 ou 201', response.data);
         router.push("/retiro/cadastro/status");
       } else if(response.data.status === "D200" ){
-        console.log('try else D200', response.data);
         //TODO tratar a rota de edição para quem já possui os dados adicionais cadastrados
         router.push("/retiro/cadastro/status");
       } else{
-        console.log('try else', response.data);
         setAlertMessage({
           title: `Error status ${response.data.error.code}`,
           message: `${response.data.message}`
@@ -136,7 +132,6 @@ export function AnamineseProgressiveForm() {
       });
       setAlertVisible(true);
     } finally {
-      // Desative o estado de carregamento, independentemente do resultado da requisição
       setLoading(false);
     }
   };
