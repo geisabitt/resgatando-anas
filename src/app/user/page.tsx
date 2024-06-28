@@ -1,7 +1,7 @@
 'use client'
 import { useState, useEffect } from "react";
 import { BsArrowRightShort } from "react-icons/bs";
-import { Users } from "@prisma/client";
+import { Users, UsersAnaminese } from "@prisma/client";
 import { Card } from '@/components/ui/card';
 import ButtonLink from "@/components/shared/button-link";
 import UserHeader from "./components-local/user-header";
@@ -10,6 +10,7 @@ import LoadingComponent from "@/components/LoadingComponent";
 
 export default function Page() {
     const [user, setUser] = useState<Partial<Users>>({});
+    const [userAnaminese, setUserAnaminese] = useState<Partial<UsersAnaminese> | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -23,19 +24,36 @@ export default function Page() {
                 if (data.status === 201 && data.user) {
                     setUser(data.user);
                 }
-                setLoading(false);
             } catch (error) {
                 console.error("Error fetching user data:", error);
+            }
+        };
+
+        const fetchUserAnaminese = async () => {
+            try {
+                const response = await fetch("/api/user/user-get-anaminese");
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+                if (data.status === 201) {
+                    setUserAnaminese(data.user);
+                } else {
+                    setUserAnaminese(null);  // Garantindo que será null se não encontrar dados
+                }
+                setLoading(false);
+            } catch (error) {
+                console.error("Error fetching user anaminese data:", error);
                 setLoading(false);
             }
         };
 
-    fetchUserData();
-
+        fetchUserData();
+        fetchUserAnaminese();
     }, []);
 
     if (loading) {
-        return <LoadingComponent/>;
+        return <LoadingComponent />;
     }
 
     return (
@@ -49,6 +67,18 @@ export default function Page() {
                     icon={BsArrowRightShort}
                 />
             </Card>
+            {userAnaminese === null && (
+                <div className="container">
+                    <p>
+                        Só é possivel realizar a compra do ingresso com todos os dados preenchidos.
+                        Complete o cadastro de DADOS ADICIONAIS.
+                    </p>
+                    <ButtonLink
+                        btnText={"Concluir Cadastro"}
+                        btnLink={"/retiro/cadastro/dados-adicionais"}
+                    />
+                </div>
+            )}
         </div>
     );
 }

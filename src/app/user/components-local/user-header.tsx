@@ -15,7 +15,9 @@ export default function UserHeader({ user }: { user: Partial<Users> }) {
                     <div className="inline-block p-6 rounded-full bg-primary mb-2">
                         <BsFillPersonFill className="w-6 h-6 text-gray-900" />
                     </div>
-                    <p className="mb-2 font-bold">{capitalizeWords(user.name!)}</p>
+                    <p className="mb-2 font-bold">
+                        {user.name ? capitalizeWords(user.name) : "Erro ao buscar o nome"}
+                    </p>
                     <Link className="px-4 py-1 rounded-full bg-primary mb-2 px12" href="/api/user/logout">Sair</Link>
                 </div>
             )}
