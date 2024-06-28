@@ -1,34 +1,16 @@
 'use client'
 import { useState, useEffect } from "react";
 import Link from 'next/link';
-import { Users } from "@prisma/client";
 import '../user-style.css';
 import './style.css';
 import LoadingComponent from "@/components/LoadingComponent";
 import UserCardPayments from "../components-local/user-card-payments";
 
 export default function Page() {
-    const [user, setUser] = useState<Partial<Users>>({});
     const [payments, setPayments] = useState<DisplayUserPayments[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchUserData = async () => {
-            try {
-                const response = await fetch("/api/user/user-id");
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                const data = await response.json();
-                if (data.status === 201 && data.user) {
-                    setUser(data.user);
-                }
-                setLoading(false);
-            } catch (error) {
-                console.error("Error fetching user data:", error);
-                setLoading(false);
-            }
-        };
 
         const fetchUserPayments = async () => {
             try {
@@ -47,12 +29,13 @@ export default function Page() {
                         btnText: "Ver pagamento",
                     }));
                     setPayments(formattedPayments);
+                    setLoading(false);
                 }
             } catch (error) {
                 console.error("Error fetching user payments:", error);
+                setLoading(false);
             }
         };
-    fetchUserData();
     fetchUserPayments();
 
     }, []);
@@ -62,17 +45,17 @@ export default function Page() {
     }
 
     return (
-        <div className="flex flex-col align-center text-gray-900 min-h-[80vh] relative">
+        <div className="flex flex-col align-center text-gray-900 gap-5">
             <h3>Meu Ingresso</h3>
-            <div className="flex flex-col gap-4">
-                <p className="container">Quantidade <span>0</span></p>
+            <div className="container">
+                <p>Quantidade <span>0</span></p>
             </div>
             <div className="flex flex-col gap-4">
                 {payments.map((payment) => (
                     <UserCardPayments key={payment.paymentId} payment={payment} />
                 ))}
             </div>
-            <Link className="w-[93%] py-4 rounded text-center bg-blue700 text-white fixed bottom-[100px]" href={'/user'}>Voltar</Link>
+            <Link className="py-4 rounded text-center bg-blue700 text-white" href={'/user'}>Voltar</Link>
         </div>
     );
 }
