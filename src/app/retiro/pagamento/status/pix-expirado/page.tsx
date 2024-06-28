@@ -15,9 +15,9 @@ return (
         <p className="">O código PIX para pagamento expirou, será necessário gerar um novo pagamento. Ou se preferir o pagamento pode ser feito com cartão de crédito.</p>
     </CardContent>
         <CardFooter className="flex flex-col justify-center gap-2">
-        <ButtonLink btnText={"Voltar para formas de pagamento"} btnClass="bg-blue500" btnLink={"/retiro/pagamento"}/>
+        <ButtonLink btnText={"Comprar Ingresso"} btnClass="bg-blue500 text-white" btnLink={"/retiro/pagamento"}/>
             <h6 className="mt-4 font-bold">Mais informações entre em contato com o suporte :</h6>
-            <p className="w-full">
+            <p className="w-full mb-10">
                 <p className="mt-2 flex justify-between text-gray-600">Pra. Roberta: <span>(21) 97026-1802</span></p>
                 <p className="flex justify-between text-gray-600">Pra. Glória: <span>(21) 97068-6842</span></p>
                 <p className="mt-2 font-bold text-gray-600">Informações adicionais:</p>

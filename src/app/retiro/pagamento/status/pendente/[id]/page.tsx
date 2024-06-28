@@ -3,11 +3,11 @@ import { Card, CardContent, CardFooter, CardHeader} from "@/components/ui/card"
 import { BsEmojiWinkFill } from "react-icons/bs";
 
 import { HeaderColumn } from "@/components/shared/header-column/header-column";
-import ButtonLink from "@/components/shared/button-link";
 import ServicePayment from "@/payments/services/paymentServices";
 import StatusMessage from "@/components/shared/status-message";
 import { PageQrCodePix } from "@/payments/components/qrCodePix";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export default async function Page({ params }: Readonly<{ params: { id: any } }>) {
     
@@ -21,6 +21,10 @@ export default async function Page({ params }: Readonly<{ params: { id: any } }>
         }}/>
     }
 
+    if (data.detail.status === 'Cancelado') {
+        redirect('/retiro/pagamento/status/pix-expirado');
+        return null;
+      }
 
 return (
     <Card className="w-[98%] max-w-[380px] flex flex-col gap-2 my-2 mx-auto border-0">
