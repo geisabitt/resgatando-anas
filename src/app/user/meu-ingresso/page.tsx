@@ -47,8 +47,8 @@ export default function Page() {
     return (
         <div className="flex flex-col align-center text-gray-900 gap-5">
             <h3>Meu Ingresso</h3>
-            <div className="container">
-                <p>Quantidade <span>0</span></p>
+            <div>
+                <p className="container">Quantidade <span>0</span></p>
             </div>
             <div className="flex flex-col gap-4">
                 {payments.map((payment) => (
