@@ -1,4 +1,4 @@
-import EditDadosAdicionais from "../components/edit-dados-adicionais";
+import EditDadosAdicionais from "../components-local/edit-dados-adicionais";
 
 export default function Page() {
 

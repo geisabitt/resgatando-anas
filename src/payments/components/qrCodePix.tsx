@@ -17,15 +17,11 @@ export async function PageQrCodePix({ detail }: UserPaymentDetails) {
     setCopied(true);
     setTimeout(() => {
       setCopied(false);
-    }, 3000);
+    }, 10000);
   };
 
   return (
     <Card className="w-full border-0">
-      <CardHeader className="flex flex-col items-center gap-2">
-        <Image src={'/img/icons/pix-icon.svg'} alt="Logo do sistema de pagamento pix" width={50} height={50} />
-        <CardTitle><h6>Efetuar Pagamento via pix</h6></CardTitle>
-      </CardHeader>
       <CardContent className="flex flex-col gap-2">
         <p className='font-bold'>Importante</p>
         <p className='px12'>Após o QRCode do PIX ser gerado, você tem 30 minutos para efetuar o pagamento.<br/>Caso contrário o pedido será automaticamente cancelado.</p>
@@ -40,6 +36,7 @@ export async function PageQrCodePix({ detail }: UserPaymentDetails) {
             {copied ? 'Copiado' : 'Copiar código'}
           </button>
         </CopyToClipboard>
+          <p className='text-success700'>{copied ? 'Código copiado com sucesso!' : ''}</p>
         <p className='px12'>A confirmação automática do pagamento pode demorar alguns minutos.</p>
       </CardContent>
     </Card>

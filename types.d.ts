@@ -81,6 +81,10 @@ type GetAllPayments = {
 type UserPaymentDetails = {
   detail: {id?: number;
   issuer_id?: string;
+  date_approved?: string;
+  date_created?:string;
+  date_last_updated?:string;
+  date_of_expiration?:string;
   payment_method_id?: string;
   payment_type_id?: string;
   status?: string;
