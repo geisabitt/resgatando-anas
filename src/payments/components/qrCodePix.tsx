@@ -17,7 +17,7 @@ export async function PageQrCodePix({ detail }: UserPaymentDetails) {
     setCopied(true);
     setTimeout(() => {
       setCopied(false);
-    }, 3000);
+    }, 10000);
   };
 
   return (
@@ -40,6 +40,7 @@ export async function PageQrCodePix({ detail }: UserPaymentDetails) {
             {copied ? 'Copiado' : 'Copiar código'}
           </button>
         </CopyToClipboard>
+          <p className='text-success700'>{copied ? 'Código copiado com sucesso!' : ''}</p>
         <p className='px12'>A confirmação automática do pagamento pode demorar alguns minutos.</p>
       </CardContent>
     </Card>
