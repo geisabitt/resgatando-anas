@@ -1,4 +1,4 @@
-import EditDadosPessoais from "../components/edit-dados-pessoais";
+import EditDadosPessoais from "../components-local/edit-dados-pessoais";
 
 export default function Page() {
 

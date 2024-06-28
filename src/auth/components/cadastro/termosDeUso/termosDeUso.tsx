@@ -23,7 +23,6 @@ export default function TermosDeUso({ onClose, onAcceptTerms  }: TermosDeUsoProp
     };
 
     useEffect(() => {
-        console.log('Termos do componente termos', isChecked);
     }, [isChecked]);
     return (
     <div className="termosDeUsoContainer ">

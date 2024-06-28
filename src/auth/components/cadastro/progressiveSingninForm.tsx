@@ -53,8 +53,6 @@ export function SigninProgressiveForm() {
   };
 
   React.useEffect(() => {
-    console.log('termos de uso',termoDeUso)
-    console.log('dados pessoais',dadosPessoais)
   }, [termoDeUso,dadosPessoais]);
 
   const toggleTermosDeUso = () => {
@@ -232,10 +230,8 @@ export function SigninProgressiveForm() {
       try {
         const response = await axios.post('/api/user/create', dadosPessoais);
         if (response.data.status === 201) {
-          console.log(response.data);
           router.push("/retiro/cadastro/dados-adicionais");
         } else {
-          console.log(response.data);
           setAlertMessage({
             title: `Error status ${response.data.error.code}`,
             message: `${response.data.message}`

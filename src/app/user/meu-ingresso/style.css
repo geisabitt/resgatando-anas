@@ -1,0 +1,12 @@
+.container{
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    border: 1px solid #E6C6C8;
+    border-radius: 0.5rem;
+}
+h3{
+    text-align: center;
+    margin-bottom: 2rem;
+}

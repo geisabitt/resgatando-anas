@@ -57,9 +57,9 @@ export async function GET(req: NextRequest) {
 
                 const createdAt = new Date(payment.createdAt);
                 const now = new Date();
-                const diffInHours = (now.getTime() - createdAt.getTime()) / (1000 * 60 * 60);
+                const diffInHours = (now.getTime() - createdAt.getTime()) / (1000 * 60);
 
-                if (diffInHours > 12 && formattedType === 'Pix') {
+                if (diffInHours > 30 && formattedType === 'Pix') {
                     formattedStatus = 'Cancelado';
                 }
                 return { ...payment, paymentType: formattedType, paymentStatus: formattedStatus };
