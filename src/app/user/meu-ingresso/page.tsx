@@ -43,7 +43,7 @@ export default function Page() {
                         paymentStatus: p.paymentStatus,
                         paymentType: p.paymentType,
                         paymentDescription: p.paymentDescription,
-                        url: p.paymentStatus === 'Cancelado' && p.paymentType === 'Pix' ? '/retiro/pagamento/status/pix-expirado' : `/retiro/pagamento/pix/${p.paymentId}`,
+                        url: p.paymentStatus === 'Cancelado' && p.paymentType === 'Pix' ? '/retiro/pagamento/status/pix-expirado' : `/retiro/pagamento/status/pendente/${p.paymentId}`,
                         btnText: "Ver pagamento",
                     }));
                     setPayments(formattedPayments);

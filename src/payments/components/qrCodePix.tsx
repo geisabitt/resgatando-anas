@@ -22,10 +22,6 @@ export async function PageQrCodePix({ detail }: UserPaymentDetails) {
 
   return (
     <Card className="w-full border-0">
-      <CardHeader className="flex flex-col items-center gap-2">
-        <Image src={'/img/icons/pix-icon.svg'} alt="Logo do sistema de pagamento pix" width={50} height={50} />
-        <CardTitle><h6>Efetuar Pagamento via pix</h6></CardTitle>
-      </CardHeader>
       <CardContent className="flex flex-col gap-2">
         <p className='font-bold'>Importante</p>
         <p className='px12'>Após o QRCode do PIX ser gerado, você tem 30 minutos para efetuar o pagamento.<br/>Caso contrário o pedido será automaticamente cancelado.</p>

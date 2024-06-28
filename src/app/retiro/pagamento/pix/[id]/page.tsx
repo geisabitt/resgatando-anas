@@ -1,6 +1,8 @@
 import StatusMessage from "@/components/shared/status-message";
+import Image from 'next/image';
 import { PageQrCodePix }  from "@/payments/components/qrCodePix";
 import ServicePayment from "@/payments/services/paymentServices";
+import { CardHeader, CardTitle } from "@/components/ui/card";
 
 export default async function Page({ params }: Readonly<{ params: { id: any } }>) {
 
@@ -16,6 +18,10 @@ export default async function Page({ params }: Readonly<{ params: { id: any } }>
 
     return(
         <div className="flex flex-col items-center p-4">
+        <CardHeader className="flex flex-col items-center gap-2">
+        <Image src={'/img/icons/pix-icon.svg'} alt="Logo do sistema de pagamento pix" width={50} height={50} />
+        <CardTitle><h6>Efetuar Pagamento via pix</h6></CardTitle>
+      </CardHeader>
             <PageQrCodePix detail={data.detail} />
             </div>
         )

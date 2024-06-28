@@ -3,6 +3,7 @@ import { BsEmojiFrown  } from "react-icons/bs";
 
 import { HeaderColumn } from "@/components/shared/header-column/header-column";
 import ButtonLink from "@/components/shared/button-link";
+import Link from "next/link";
 
 export default function Page() {
 
@@ -22,7 +23,7 @@ return (
                 <p className="mt-2 font-bold text-gray-600">Informações adicionais:</p>
                 <p className="flex justify-between text-gray-600">Diac. Camila: <span>(21) 99363-6957</span></p>
             </p>
-        <ButtonLink btnText={"Voltar a tela home"} btnLink={"/"}/>
+            <Link className="w-full py-4 rounded text-center bg-blue700 text-white" href={'/user'}>Voltar</Link>
     </CardFooter>
     </Card>
     )
