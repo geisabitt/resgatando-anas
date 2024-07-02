@@ -1,5 +1,5 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextRequest, NextResponse } from 'next/server';
 
-export default function GET(req: NextApiRequest, res: NextApiResponse) {
-  res.status(200).json({ message: 'Pegar apenas usuarios com pagamento aprovado' });
+export function GET(req: NextRequest) {
+  return NextResponse.json({ message: 'Pegar apenas usuarios com pagamento aprovado' }, { status: 200 });
 }
