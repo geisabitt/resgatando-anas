@@ -6,7 +6,6 @@ const prisma = new PrismaClient();
 
 export async function GET(req: NextRequest) {
     const id = await AuthService.creatRouteId();
-    console.log(id);
 
     if (id) {
         const user = await prisma.users.findFirst({

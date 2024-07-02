@@ -10,12 +10,13 @@ export async function POST (req: NextRequest){
     const newUser: Partial<Users> = await req.json()
 
     let errorMessage: string | null = validateUserData(newUser);
-
+    let typeUser: string = newUser.type ?? 'client';
     if (errorMessage) {
         return Response.json({ error: errorMessage, status: 400 });
     }
     const hashPassword = await bcrypt.hash(newUser.password!, 10);
-    const typeUser = 'admim';
+
+    
 try {
         const createUser = await prisma.users.create({
             data: { email:newUser.email!,
