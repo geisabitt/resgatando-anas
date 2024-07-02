@@ -23,7 +23,6 @@ export async function GET(req: NextRequest) {
                 }
             });
 
-            // Formatar os tipos de pagamento
             const formattedPayments = payments.map(payment => {
                 let formattedType;
                 switch (payment.paymentType) {
@@ -59,7 +58,7 @@ export async function GET(req: NextRequest) {
                 const now = new Date();
                 const diffInHours = (now.getTime() - createdAt.getTime()) / (1000 * 60);
 
-                if (diffInHours > 30 && formattedType === 'Pix') {
+                if (diffInHours > 30 && formattedType === 'Pix' && formattedStatus !== 'Aprovado') {
                     formattedStatus = 'Cancelado';
                 }
                 return { ...payment, paymentType: formattedType, paymentStatus: formattedStatus };

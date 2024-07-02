@@ -1,6 +1,6 @@
 import AuthService from "@/auth/service/authService";
 import { PrismaClient } from "@prisma/client";
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
 
@@ -12,10 +12,9 @@ export async function GET(req: NextRequest) {
             where: { userId: id },
         });
 
-
         if (data) {
-            return Response.json({status: 201, data});
+            return NextResponse.json({ status: 200, data });
         }
     }
-    return Response.json({ message: 'Dados não encontrados', status: 400});
+    return NextResponse.json({ message: 'Dados não encontrados', status: 400 });
 }
