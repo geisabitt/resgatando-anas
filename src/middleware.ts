@@ -12,11 +12,6 @@ const publicRoutes = [
   '/retiro/cadastro/dados-pessoais',
   '/retiro/login',
   '/nao-autorizado',
-  // '/retiro/pagamento',
-  // '/retiro/pagamentoPix',
-  // '/retiro/statusOk',
-  // '/retiro/statusBad',
-  //'/api/mp/payments',
 ];
 
 const publicFolders = ['/img', '/videos'];
@@ -36,6 +31,20 @@ export async function middleware(req: NextRequest) {
       return NextResponse.json({ message: 'Não autorizado' }, { status: 401 });
     }
     return NextResponse.redirect(new URL('/nao-autorizado', req.url));
+  }
+
+  if (pathname.startsWith('/administracao')) {
+    const sessionCookie = req.cookies.get('session');
+    if (sessionCookie) {
+      const { value: token } = sessionCookie;
+      const payload = await AuthService.openSessionToken(token);
+
+      if (payload?.type !== 'admin') {
+        return NextResponse.redirect(new URL('/nao-autorizado', req.url));
+      }
+    } else {
+      return NextResponse.redirect(new URL('/nao-autorizado', req.url));
+    }
   }
 
   return NextResponse.next();
