@@ -6,7 +6,7 @@ import './user-card-payments'
 export default function UserCardPayments({payment} : Readonly<{payment:DisplayUserPayments}>) {
 
     return (
-        <div id={payment.paymentId} className="w-[90%] my-0 mx-auto container-payments relative">
+        <div id={payment.paymentId} className="w-[90%] my-0 mx-auto container-payments">
             {/* <button><BsTrash className="text-red300 absolute right-4" /></button> */}
             <p>{payment.paymentDescription}</p>
             <p className="">Identificador: {payment.paymentId}</p>

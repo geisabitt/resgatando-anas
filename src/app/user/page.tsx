@@ -21,7 +21,8 @@ export default function Page() {
                     throw new Error('Network response was not ok');
                 }
                 const data = await response.json();
-                if (data.status === 201 && data.user) {
+                if (data.status === 200 && data.user) {
+                    console.log(data.user)
                     setUser(data.user);
                 }
             } catch (error) {
@@ -68,7 +69,7 @@ export default function Page() {
                 />
             </Card>
             {userAnaminese === null && (
-                <div className="container">
+                <div className="container w-full">
                     <p>
                         Só é possivel realizar a compra do ingresso com todos os dados preenchidos.
                         Complete o cadastro de DADOS ADICIONAIS.
