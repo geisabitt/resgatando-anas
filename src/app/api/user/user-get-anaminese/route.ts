@@ -8,12 +8,12 @@ export async function GET(req: NextRequest) {
     const id = await AuthService.creatRouteId();
 
     if (id) {
-        const data = await prisma.usersAnaminese.findFirst({
+        const anaminese = await prisma.usersAnaminese.findFirst({
             where: { userId: id },
         });
-
-        if (data) {
-            return NextResponse.json({ status: 200, data });
+        console.log(anaminese)
+        if (anaminese) {
+            return NextResponse.json({ status: 200, anaminese });
         }
     }
     return NextResponse.json({ message: 'Dados não encontrados', status: 400 });

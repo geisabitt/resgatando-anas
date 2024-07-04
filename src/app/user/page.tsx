@@ -22,7 +22,6 @@ export default function Page() {
                 }
                 const data = await response.json();
                 if (data.status === 200 && data.user) {
-                    console.log(data.user)
                     setUser(data.user);
                 }
             } catch (error) {
@@ -37,8 +36,9 @@ export default function Page() {
                     throw new Error('Network response was not ok');
                 }
                 const data = await response.json();
-                if (data.status === 201) {
-                    setUserAnaminese(data.user);
+                console.log(data)
+                if (data.status === 200) {
+                    setUserAnaminese(data.anaminese);
                 } else {
                     setUserAnaminese(null);  // Garantindo que será null se não encontrar dados
                 }
