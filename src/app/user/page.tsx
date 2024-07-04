@@ -60,15 +60,8 @@ export default function Page() {
     return (
         <div className="flex flex-col align-center justify-center text-gray-900">
             <UserHeader user={user} />
-            <Card className="border-0 shadow-0 flex flex-col gap-4 p-4">
-                <ButtonLink
-                    btnClass={"p-6 flex items-center justify-between bg-primary hover:bg-primary-foreground"}
-                    btnText={"Ingresso Retiro de Mulheres 2024"}
-                    btnLink={"/user/meu-ingresso"}
-                    icon={BsArrowRightShort}
-                />
-            </Card>
-            {userAnaminese === null && (
+            
+            {userAnaminese === null ? (
                 <div className="container w-full">
                     <p>
                         Só é possivel realizar a compra do ingresso com todos os dados preenchidos.
@@ -79,7 +72,14 @@ export default function Page() {
                         btnLink={"/retiro/cadastro/dados-adicionais"}
                     />
                 </div>
-            )}
+            ): <Card className="border-0 shadow-0 flex flex-col gap-4 p-4">
+            <ButtonLink
+                btnClass={"p-6 flex items-center justify-between bg-primary hover:bg-primary-foreground"}
+                btnText={"Ingresso Retiro de Mulheres 2024"}
+                btnLink={"/user/meu-ingresso"}
+                icon={BsArrowRightShort}
+            />
+        </Card> }
         </div>
     );
 }
