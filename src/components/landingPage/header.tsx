@@ -24,7 +24,7 @@ export default function Header() {
           <div className="absolute w-[252px] h-[64px] top-[90px] left-0 bg-primary" />
           <div className="absolute w-[254px] top-[95px] left-[17px] font-bold text-gray-800 text-[1rem]">
             RETIRO DE <br />
-            MULHERES 2023
+            MULHERES 2024
           </div>
           </div>
         </div>
