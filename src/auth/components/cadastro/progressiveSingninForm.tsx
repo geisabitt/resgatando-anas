@@ -1,7 +1,7 @@
 "use client"
 import axios from 'axios';
 import * as React from "react";
-import { BsCheck2 } from "react-icons/bs";
+import { BsCheck2, BsEyeFill , BsEyeSlashFill  } from "react-icons/bs";
 import { AiOutlineClose } from "react-icons/ai";
 import { useRouter } from "next/navigation";
 
@@ -16,6 +16,7 @@ type JSXElement = React.ReactElement<any, string | React.JSXElementConstructor<a
 type ErrorPasswordMessage = JSXElement[];
 
 export function SigninProgressiveForm() {
+  const [showPassword, setShowPassword] = React.useState(false);
   const [showTermosDeUso, setShowTermosDeUso] = React.useState(false);
   const [messageErrors, setMessageErrors] = React.useState<{[key: string]: string}>({});
   const [messagePasswordErrors, setMessagePasswordErrors] = React.useState<{ [key: string]: ErrorPasswordMessage }>({});
@@ -39,6 +40,10 @@ export function SigninProgressiveForm() {
     title: '',
     message: ''
   });
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevState) => !prevState);
+  };
 
   const handleAlertClose = () => {
     setAlertVisible(false);
@@ -240,7 +245,7 @@ export function SigninProgressiveForm() {
             <label className="flex gap-2" key="length"><AiOutlineClose className="text-destructive" /> Mínimo 8 dígitos</label>,
           ],
         });
-      }
+      }   
     }
   };
 
@@ -311,27 +316,39 @@ export function SigninProgressiveForm() {
         </CardHeader>
         <CardContent>
           <div className="grid w-full items-center gap-4">
-            {cards.map((card, index) => (
-              <div key={index} className="flex flex-col space-y-1.5">
-                <Label htmlFor={card.name}>{card.label}</Label>
-                <Input
-                  name={card.name}
-                  id={card.name}
-                  type={card.type}
-                  placeholder={card.placeholder}
-                  value={dadosPessoais[card.name]}
-                  onChange={handleInputChange}
-                  onFocus={card.name === 'password' ? handlePasswordFocus : undefined}
-                  onBlur={card.name === 'password' ? handlePasswordBlur : undefined}
-                  className={`${messageErrors[card.name] ? 'border-destructive' : ''}`}
-                  required
-                />
-                {card.name === 'password' && passwordFocused && messagePasswordErrors[card.name] && (
-                  <div className="text-[0.75rem]">{messagePasswordErrors[card.name]}</div>
-                )}
-                {card.name !== 'password' && messageErrors[card.name] && <label className="text-destructive">{messageErrors[card.name]}</label>}
-              </div>
-            ))}
+          {cards.map((card, index) => (
+  <div key={index} className="flex flex-col space-y-1.5">
+    <Label htmlFor={card.name}>{card.label}</Label>
+    <div className="relative">
+      <Input
+        name={card.name}
+        id={card.name}
+        type={card.name === 'password' || card.name === 'passwordRepeat' ? (showPassword ? 'text' : 'password') : card.type}
+        placeholder={card.placeholder}
+        value={dadosPessoais[card.name]}
+        onChange={handleInputChange}
+        onFocus={card.name === 'password' ? handlePasswordFocus : undefined}
+        onBlur={card.name === 'password' ? handlePasswordBlur : undefined}
+        className={`${messageErrors[card.name] ? 'border-destructive' : ''}`}
+        required
+      />
+      {(card.name === 'password' || card.name === 'passwordRepeat') && (
+        <button
+          type="button"
+          className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
+          onClick={togglePasswordVisibility}
+        >
+          {showPassword ? <BsEyeSlashFill className='h-6 w-6 text-gray-400' /> : <BsEyeFill  className='h-6 w-6 text-gray-400' />}
+        </button>
+      )}
+    </div>
+    {card.name === 'password' && passwordFocused && messagePasswordErrors[card.name] && (
+      <div className="text-[0.75rem]">{messagePasswordErrors[card.name]}</div>
+    )}
+    {card.name !== 'password' && messageErrors[card.name] && <label className="text-destructive">{messageErrors[card.name]}</label>}
+  </div>
+))}
+
           </div>
           {currentIndex === 0 && !showTermosDeUso && (
               <Button  onClick={toggleTermosDeUso} type="button" className="w-full mt-4 text-white bg-blue900 hover:bg-blue700">
