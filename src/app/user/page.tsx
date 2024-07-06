@@ -60,7 +60,7 @@ export default function Page() {
     return (
         <div className="flex flex-col align-center justify-center text-gray-900">
             <UserHeader user={user} />
-            
+
             {userAnaminese === null ? (
                 <div className="container w-full">
                     <p>

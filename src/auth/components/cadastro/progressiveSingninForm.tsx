@@ -93,68 +93,89 @@ export function SigninProgressiveForm() {
     let errorMessage = '';
   
     if (value.trim() === '') {
-      errorMessage = 'Este campo é obrigatório!';
-    } else {
-      switch (name) {
-        case 'name':
-          errorMessage = validations.validateNome(value) ? '' : 'O nome deve ter apenas letras';
-          break;
-        case 'cpf':
-          errorMessage = validations.validateCPF(value) ? '' : 'CPF inválido!';
-          break;
-        case 'rg':
-          errorMessage = validations.validateRG(value) ? '' : 'RG inválido!';
-          break;
-        case 'email':
-          errorMessage = validations.validateEmail(value) ? '' : 'Email inválido!';
-          break;
-        case 'password':
-              const lowercaseRegex = /[a-z]/;
-              const uppercaseRegex = /[A-Z]/;
-              const numberRegex = /[0-9]/;
-              const minLength = value.length >= 8;
-  
-              const hasLowercase = lowercaseRegex.test(value);
-              const hasUppercase = uppercaseRegex.test(value);
-              const hasNumber = numberRegex.test(value);
-  
-              let errorPasswordMessage: ErrorPasswordMessage = [];
-              if (!hasLowercase || value.trim() === '') errorPasswordMessage.push(<label className="flex gap-2" key="lowercase"><AiOutlineClose className="text-destructive" /> 1 Letra minúscula</label>);
-              if (hasLowercase) errorPasswordMessage.push(<label className="flex gap-2" key="lowercase-valid"><BsCheck2 className="text-success" /> 1 Letra minúscula</label>);
-              if (!hasUppercase || value.trim() === '') errorPasswordMessage.push(<label className="flex gap-2" key="uppercase"><AiOutlineClose className="text-destructive" /> 1 Letra maiúscula</label>);
-              if (hasUppercase) errorPasswordMessage.push(<label className="flex gap-2" key="uppercase-valid"><BsCheck2 className="text-success" /> 1 Letra maiúscula</label>);
-              if (!hasNumber || value.trim() === '') errorPasswordMessage.push(<label className="flex gap-2" key="number"><AiOutlineClose className="text-destructive" /> 1 Número</label>);
-              if (hasNumber) errorPasswordMessage.push(<label className="flex gap-2" key="number-valid"><BsCheck2 className="text-success" /> 1 Número</label>);
-              if (!minLength || value.trim() === '') errorPasswordMessage.push(<label className="flex gap-2" key="length"><AiOutlineClose className="text-destructive" /> Mínimo 8 dígitos</label>);
-              if (minLength) errorPasswordMessage.push(<label className="flex gap-2" key="length-valid"><BsCheck2 className="text-success" /> Mínimo 8 dígitos</label>);
-  
-              errorPasswordMessage = errorPasswordMessage.map((element, index) => React.cloneElement(element, { key: index }));
-  
-              setMessagePasswordErrors((prevState) => ({
-                ...prevState,
-                [name]: errorPasswordMessage,
-              }));
-              break;
-            case 'passwordRepeat':
-              errorMessage = value === dadosPessoais.password ? '' : 'As senhas não são iguais!';
-              break;
-            case 'data_de_nascimento':
-              errorMessage = validations.validateBirthDate(value) ? '' : 'A data de nascimento inválida!';
-              break;
-            case 'telefone':
-            case 'telefone_emergencia':
-              if (!validations.validatePhoneNumber(value)) {
-                errorMessage = 'O telefone deve conter apenas números, ter 10 ou 11 dígitos e não pode ser uma sequência repetida';
-              } else if (name === 'telefone_emergencia' && value === dadosPessoais.telefone) {
-                errorMessage = 'Os telefones não podem ser iguais!';
-              }
-              break;
-            default:
-              break;
+      if (name === 'password') {
+        setMessagePasswordErrors((prevState) => ({
+          ...prevState,
+          [name]: [
+            <label className="flex gap-2" key="lowercase"><AiOutlineClose className="text-destructive" /> 1 Letra minúscula</label>,
+            <label className="flex gap-2" key="uppercase"><AiOutlineClose className="text-destructive" /> 1 Letra maiúscula</label>,
+            <label className="flex gap-2" key="number"><AiOutlineClose className="text-destructive" /> 1 Número</label>,
+            <label className="flex gap-2" key="length"><AiOutlineClose className="text-destructive" /> Mínimo 8 dígitos</label>,
+          ],
+        }));
       }
+      return 'Este campo é obrigatório!';
     }
-        return errorMessage;
+
+    const lowercaseRegex = /[a-z]/;
+    const uppercaseRegex = /[A-Z]/;
+    const numberRegex = /[0-9]/;
+    const minLength = value.length >= 8;
+    const hasLowercase = lowercaseRegex.test(value);
+    const hasUppercase = uppercaseRegex.test(value);
+    const hasNumber = numberRegex.test(value);
+
+    switch (name) {
+      case 'name':
+        errorMessage = validations.validateNome(value) ? '' : 'O nome deve ter apenas letras';
+        break;
+      case 'cpf':
+        errorMessage = validations.validateCPF(value) ? '' : 'CPF inválido!';
+        break;
+      case 'rg':
+        errorMessage = validations.validateRG(value) ? '' : 'RG inválido!';
+        break;
+      case 'email':
+        errorMessage = validations.validateEmail(value) ? '' : 'Email inválido!';
+        break;
+      case 'password':
+
+        let errorPasswordMessage: ErrorPasswordMessage = [];
+        if (!hasLowercase) errorPasswordMessage.push(<label className="flex gap-2" key="lowercase"><AiOutlineClose className="text-destructive" /> 1 Letra minúscula</label>);
+        else errorPasswordMessage.push(<label className="flex gap-2" key="lowercase-valid"><BsCheck2 className="text-success" /> 1 Letra minúscula</label>);
+        if (!hasUppercase) errorPasswordMessage.push(<label className="flex gap-2" key="uppercase"><AiOutlineClose className="text-destructive" /> 1 Letra maiúscula</label>);
+        else errorPasswordMessage.push(<label className="flex gap-2" key="uppercase-valid"><BsCheck2 className="text-success" /> 1 Letra maiúscula</label>);
+        if (!hasNumber) errorPasswordMessage.push(<label className="flex gap-2" key="number"><AiOutlineClose className="text-destructive" /> 1 Número</label>);
+        else errorPasswordMessage.push(<label className="flex gap-2" key="number-valid"><BsCheck2 className="text-success" /> 1 Número</label>);
+        if (!minLength) errorPasswordMessage.push(<label className="flex gap-2" key="length"><AiOutlineClose className="text-destructive" /> Mínimo 8 dígitos</label>);
+        else errorPasswordMessage.push(<label className="flex gap-2" key="length-valid"><BsCheck2 className="text-success" /> Mínimo 8 dígitos</label>);
+  
+        errorPasswordMessage = errorPasswordMessage.map((element, index) => React.cloneElement(element, { key: index }));
+  
+        setMessagePasswordErrors((prevState) => ({
+          ...prevState,
+          [name]: errorPasswordMessage,
+        }));
+
+        if (!hasLowercase || !hasUppercase || !hasNumber || !minLength) {
+          errorMessage = 'A senha não atende aos critérios de segurança!';
+        }
+        break;
+      case 'passwordRepeat':
+        if (!hasLowercase || !hasUppercase || !hasNumber || !minLength) {
+          errorMessage = 'A senha não atende aos critérios de segurança!';
+      } else if (value !== dadosPessoais.password) {
+          errorMessage = 'As senhas não são iguais!';
+      }
+        break;
+      case 'data_de_nascimento':
+        errorMessage = validations.validateBirthDate(value) ? '' : 'A data de nascimento inválida!';
+        break;
+      case 'telefone':
+      case 'telefone_emergencia':
+        if (!validations.validatePhoneNumber(value)) {
+          errorMessage = 'O telefone deve conter apenas números, ter 10 ou 11 dígitos e não pode ser uma sequência repetida';
+        } else if (name === 'telefone_emergencia' && value === dadosPessoais.telefone) {
+          errorMessage = 'Os telefones não podem ser iguais!';
+        }
+        break;
+      default:
+        break;
+    }
+
+    return errorMessage;
   };
+
 
         const handleNextButtonClick = () => {
           const currentCard = groups[currentIndex].cards;
@@ -195,20 +216,31 @@ export function SigninProgressiveForm() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-
+  
     setDadosPessoais((prevState) => ({
       ...prevState,
       [name]: value,
     }));
-
+  
     const currentCard = groups[currentIndex].cards.find((card) => card.name === name);
     if (currentCard) {
       const errorMessage = isFieldValid(currentCard, value);
-
+  
       setMessageErrors((prevState) => ({
         ...prevState,
         [name]: errorMessage,
       }));
+  
+      if (name === 'password' && value.trim() === '') {
+        setMessagePasswordErrors({
+          [name]: [
+            <label className="flex gap-2" key="lowercase"><AiOutlineClose className="text-destructive" /> 1 Letra minúscula</label>,
+            <label className="flex gap-2" key="uppercase"><AiOutlineClose className="text-destructive" /> 1 Letra maiúscula</label>,
+            <label className="flex gap-2" key="number"><AiOutlineClose className="text-destructive" /> 1 Número</label>,
+            <label className="flex gap-2" key="length"><AiOutlineClose className="text-destructive" /> Mínimo 8 dígitos</label>,
+          ],
+        });
+      }
     }
   };
 
