@@ -9,6 +9,7 @@ const prisma = new PrismaClient();
 export async function POST(req: NextRequest, res: NextResponse) {
     const newPayment = await req.json();
     const ACCESS_TOKEN = process.env.ACCESS_TOKEN_MERCADOPAGO;
+    const INTEGRATORID = process.env.INTEGRATORID;
     const id = await AuthService.creatRouteId();
 
     if (!ACCESS_TOKEN) {
@@ -16,7 +17,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     }
 
     const idempotencyKey = uuidv4();
-    const client = new MercadoPago({ accessToken: ACCESS_TOKEN, options: { timeout: 5000 } });
+    const client = new MercadoPago({ accessToken: ACCESS_TOKEN, options: { timeout: 5000, integratorId: INTEGRATORID } });
     const payment = new Payment(client);
 
     try {
