@@ -24,7 +24,8 @@ export async function PageQrCodePix({ detail }: UserPaymentDetails) {
     <Card className="w-full border-0">
       <CardContent className="flex flex-col gap-2">
         <p className='font-bold'>Importante</p>
-        <p className='px12'>Após o QRCode do PIX ser gerado, você tem 30 minutos para efetuar o pagamento.<br/>Caso contrário o pedido será automaticamente cancelado.</p>
+        <p className='px12'>Após o QRCode ou código do PIX serem gerados, você tem 30 minutos para efetuar o pagamento.
+        Caso contrário o pedido será automaticamente cancelado.</p>
         <button className="w-full py-4 rounded text-[1.125rem] text-white font-bold text-center bg-success700" onClick={showQrCode}>
         {exibirQrCode ? 'Esconder QR code' : 'Exibir QR code'}
         </button>

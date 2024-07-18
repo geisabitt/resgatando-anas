@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import Link from 'next/link';
 import '../user-style.css';
-import './style.css';
 import LoadingComponent from "@/components/LoadingComponent";
 import UserCardPayments from "../components-local/user-card-payments";
 
@@ -26,7 +25,7 @@ export default function Page() {
                         paymentType: p.paymentType,
                         paymentDescription: p.paymentDescription,
                         url: p.paymentStatus === 'Cancelado' && p.paymentType === 'Pix' ? '/retiro/pagamento/status/pix-expirado' : `/retiro/pagamento/status/pendente/${p.paymentId}`,
-                        btnText: "Ver pagamento",
+                        btnText: "Ver detalhes do pagamento",
                     }));
                     setPayments(formattedPayments);
                     setLoading(false);
@@ -45,17 +44,17 @@ export default function Page() {
     }
 
     return (
-        <div className="flex flex-col align-center text-gray-900 gap-5">
-            <h3>Meu Ingresso</h3>
+        <div className="flex flex-col w-[95%] items-center text-gray-900 gap-5 mx-auto">
+            <h3 className="text-center">Meu Ingresso</h3>
             <div>
-                <p className="container">Quantidade <span>0</span></p>
+                <p className="w-full min-w-[342px] flex justify-between rounded border border-primary p-4 ">Quantidade <span>0</span></p>
             </div>
             <div className="flex flex-col gap-4">
                 {payments.map((payment) => (
                     <UserCardPayments key={payment.paymentId} payment={payment} />
                 ))}
             </div>
-            <Link className="py-4 rounded text-center bg-blue700 text-white" href={'/user'}>Voltar</Link>
+            <Link className="w-full py-4 rounded text-center bg-blue700 text-white" href={'/user'}>Voltar</Link>
         </div>
     );
 }

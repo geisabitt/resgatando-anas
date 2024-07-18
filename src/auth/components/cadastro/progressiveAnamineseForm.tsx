@@ -177,7 +177,7 @@ export function AnamineseProgressiveForm() {
       label: "Tamanho da Blusa",
       status: "notFilled",
       cards: [
-        { label: "Selecione o tamanho", name: "tamanho_blusa", type: "select", options: ["PP", "P", "M", "G", "GG", "XG", "XGG"] },
+        { label: "Selecione o tamanho da blusa", name: "tamanho_blusa", type: "select", options: ["PP", "P", "M", "G", "GG", "XG", "XGG"] },
       ],
     },
   ];
@@ -203,7 +203,7 @@ export function AnamineseProgressiveForm() {
             ))}
           </div>
           <CardTitle className='text-left'><h6>Preencha os campos abaixo</h6></CardTitle>
-          <CardDescription className='text-left'>Para sua segurança no dia do evento precisamos de informações adicionais.</CardDescription>
+          <CardDescription className='text-left'>Para sua segurança no dia do evento, precisamos de informações adicionais.</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid w-full items-center gap-4">
