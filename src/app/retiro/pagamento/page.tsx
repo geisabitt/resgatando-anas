@@ -18,7 +18,7 @@ export default function Pagamento() {
         <ul className="list-info flex flex-col gap-3">
           <li className="font-bold">Atenção</li>
           <li>Data 25, 26 e 27 de Outubro de 2024</li>
-          <li>Final das Inscrições até 05.10.2024 as 20:00h</li>
+          <li>Final das Inscrições dia 05.10.2024 as 20:00h</li>
           <li>Ingressos limitados, uma unidade  por pessoa</li>
         </ul>
       </Card>

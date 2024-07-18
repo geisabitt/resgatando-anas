@@ -12,7 +12,7 @@ export default function ButtonBack() {
     return (
                 <div className='w-full flex'>
                     {typeof window !== 'undefined' && (
-                            <Button onClick={handleBack} variant="link" className='text-blue500'>Voltar</Button>
+                            <Button onClick={handleBack} variant="link" className='text-blue500 m-4'>Voltar</Button>
                         )}
                 </div>
 
