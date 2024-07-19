@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import AuthService from "@/auth/service/authService";
 
 const prisma = new PrismaClient();
+const url = process.env.BASE_URL;
 
 export async function POST(req: NextRequest, res: NextResponse) {
     const newPayment = await req.json();
@@ -62,11 +63,17 @@ export async function POST(req: NextRequest, res: NextResponse) {
                                 number: number
                             },
                         },
+                        back_urls: {
+                            success: `${url}/retiro/pagamento/status/aprovado`,
+                            failure: `${url}/retiro/pagamento/status/recusado`,
+                            pending: `${url}/retiro/pagamento/status/pendente`,
+                          },
                 },
                 requestOptions: { idempotencyKey: idempotencyKey }
             });
 
             console.log('paymentResponse:', paymentResponse);
+            return NextResponse.json(paymentResponse);
 
         } catch (error) {
             console.error('Erro ao processar o pagamento:', error);
