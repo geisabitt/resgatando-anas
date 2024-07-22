@@ -1,12 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  images: {
-    remotePatterns: [
-      {
-        hostname: "*",
-      },
-    ],
-  },
+    images: {
+        domains: ["localhost", "resgatando-anas.vercel.app", "resgatandoanasofc.vercel.app"],
+      }
 }
 
 module.exports = nextConfig
