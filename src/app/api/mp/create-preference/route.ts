@@ -7,8 +7,7 @@ import AuthService from "@/auth/service/authService";
 const prisma = new PrismaClient();
 const url = process.env.BASE_URL;
 
-export async function POST(req: NextRequest, res: NextResponse) {
-    const newPayment = await req.json();
+export async function POST() {
     const ACCESS_TOKEN = process.env.ACCESS_TOKEN_MERCADOPAGO;
     const id = await AuthService.creatRouteId();
 
@@ -41,8 +40,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
         const preference = new Preference(client);
 
         try {
-            console.log('newPayment:', newPayment);
-
             const paymentResponse = await preference.create({
                 body: {
                         items: [
@@ -63,11 +60,26 @@ export async function POST(req: NextRequest, res: NextResponse) {
                                 number: number
                             },
                         },
+                        auto_return: 'all',
                         back_urls: {
                             success: `${url}/retiro/pagamento/status/aprovado`,
-                            failure: `${url}/retiro/pagamento/status/recusado`,
+                            failure: `${url}/retiro/pagamento/status/cartao-recusado`,
                             pending: `${url}/retiro/pagamento/status/pendente`,
                           },
+                          payment_methods: {
+                              excluded_payment_methods: [
+                                  { id: "paypal" },
+                                  { id: "atm" },
+                                  { id: "ticket" },
+                                  { id: "bank_transfer" },
+                                  { id: "bolbradesco" },
+                                  { id: "pec" },
+                                  { id: "debit_card" },
+                                  { id: "prepaid_card" },
+                                  { id: "money_order" },
+                                  { id: "pix" },
+                              ]
+                          }
                 },
                 requestOptions: { idempotencyKey: idempotencyKey }
             });
