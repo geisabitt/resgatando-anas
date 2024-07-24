@@ -27,7 +27,7 @@ export default function Page() {
                 </CardContent>
                 <CardFooter className="flex flex-col gap-2 text-[0.75rem]">
                     <span>Em 5 segundos você irá para sua pagina.  Se estiver demorando clique no link abaixo para seguir.</span>
-                    <Link className='text-blue500' href='/user'>Ir para meu painel</Link>
+                    <Link className='text-blue500' href='/user'>Ir para Minha Conta</Link>
                 </CardFooter>
             </Card>
         </div>

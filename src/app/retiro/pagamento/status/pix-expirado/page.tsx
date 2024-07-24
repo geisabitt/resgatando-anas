@@ -12,7 +12,7 @@ return (
     <Card className="w-[98%] max-w-[380px] flex flex-col gap-2 my-2 mx-auto border-0">
         <HeaderColumn icon={BsEmojiFrown} iconColor="text-red300" text={"Pagamento cancelado!"} textBold={true} />
     <CardContent>
-        <p className="">O código PIX para pagamento expirou, será necessário gerar um novo pagamento. Ou se preferir o pagamento pode ser feito com cartão de crédito.</p>
+        <p className="">O código PIX para pagamento expirou, será necessário gerar um novo pagamento.</p> {/* Ou se preferir o pagamento pode ser feito com cartão de crédito.</p> */}
     </CardContent>
         <CardFooter className="flex flex-col justify-center gap-2">
         <ButtonLink btnText={"Comprar Ingresso"} btnClass="bg-blue500 text-white" btnLink={"/retiro/pagamento"}/>

@@ -40,7 +40,7 @@ export default function Page() {
                 if (data.status === 200) {
                     setUserAnaminese(data.anaminese);
                 } else {
-                    setUserAnaminese(null);  // Garantindo que será null se não encontrar dados
+                    setUserAnaminese(null);
                 }
                 setLoading(false);
             } catch (error) {
@@ -75,7 +75,7 @@ export default function Page() {
             ): <Card className="border-0 shadow-0 flex flex-col gap-4 p-4">
             <ButtonLink
                 btnClass={"p-6 flex items-center justify-between bg-primary hover:bg-primary-foreground"}
-                btnText={"Ingresso Retiro de Mulheres 2024"}
+                btnText={"Informações sobre o Ingresso do Retiro de Mulheres 2024"}
                 btnLink={"/user/meu-ingresso"}
                 icon={BsArrowRightShort}
             />

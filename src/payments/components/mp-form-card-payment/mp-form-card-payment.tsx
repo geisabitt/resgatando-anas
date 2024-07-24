@@ -93,7 +93,7 @@ export default function FormPagamentoCartao() {
     <div className='w-[95%] p-2'>
       <CardPayment
         customization={customization}
-        initialization={{ amount: 2 }}
+        initialization={{ amount: 250 }}
         onSubmit={handleSubmit}
       />
       {loading && <p>Processando pagamento...</p>}
