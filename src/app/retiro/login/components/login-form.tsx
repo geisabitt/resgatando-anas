@@ -79,8 +79,9 @@ export function LoginForm() {
     setLoading(true);
     try {
     const response = await axios.post('/api/user/login', dadosLogin);
+    console.log(response.data.urlRedirect)
       if (response.status === 200) {
-        router.push("/retiro/login/status");
+        router.push(`${response.data.urlRedirect}`);
       } else {
         setAlertMessage({
           title: `Erro`,

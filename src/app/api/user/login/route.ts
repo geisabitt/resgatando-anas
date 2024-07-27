@@ -32,7 +32,11 @@ export async function POST(req: NextRequest) {
 
         const token = await AuthService.createSessionToken({ sub: user.id, type: user.type });
 
-        return NextResponse.json({ message: 'Login realizado com sucesso', token}, { status: 200 });
+        if(user.type === 'admin'){
+            return NextResponse.json({ message: 'Login realizado com sucesso', token, urlRedirect: '/administracao'}, { status: 200 });
+        }
+
+        return NextResponse.json({ message: 'Login realizado com sucesso', token, urlRedirect: '/user'}, { status: 200 });
 
     } catch (error) {
         console.error('Erro ao fazer login:', error);
