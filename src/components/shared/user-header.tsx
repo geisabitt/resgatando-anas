@@ -1,7 +1,7 @@
 'use client';
 import { BsFillPersonFill } from "react-icons/bs";
 import { Users } from "@prisma/client";
-import { useRouter } from "next/router";  // Importar useRouter
+import { useRouter } from "next/navigation";  // Importar useRouter
 import { useCallback } from "react";      // Importar useCallback para otimização
 
 function capitalizeWords(name: string) {
