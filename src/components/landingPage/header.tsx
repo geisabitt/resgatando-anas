@@ -6,8 +6,8 @@ export default function Header() {
       <>
       <div className="flex flex-col gap-4 items-center mx-auto my-auto">
         <Image
-            width={63}
-            height={62}
+            width={104}
+            height={127}
             alt={'Logo Resgatando Anas Você é Terra Fértil'}
             src={`${baseUrl}/img/LogoResgatandoAnas.png`}
           />
