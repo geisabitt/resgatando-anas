@@ -351,16 +351,17 @@ export function SigninProgressiveForm() {
 
           </div>
           {currentIndex === 0 && !showTermosDeUso && (
-              <Button  onClick={toggleTermosDeUso} type="button" className="w-full mt-4 text-white bg-blue900 hover:bg-blue700">
+              <Button onClick={toggleTermosDeUso} type="button" className="w-full mt-4 text-white bg-blue900 hover:bg-blue700">
                 Aceitar Termos obrigatórios
               </Button>
             )}
-            <div>{showTermosDeUso && <TermosDeUso onClose={toggleTermosDeUso} onAcceptTerms={handleAcceptTerms} />}</div>
+            <div>{showTermosDeUso && <TermosDeUso onClose={toggleTermosDeUso} onAcceptTerms={handleAcceptTerms} isChecked={termoDeUso} />}</div>
         </CardContent>
         <CardFooter className="flex flex-col gap-2">
             {currentIndex < groups.length - 1 && (
               <Button
                 className="w-full mb-1 text-white bg-success700 hover:bg-success"
+                disabled={!termoDeUso}
                 onClick={handleNextButtonClick} >
                 Próximo
               </Button>

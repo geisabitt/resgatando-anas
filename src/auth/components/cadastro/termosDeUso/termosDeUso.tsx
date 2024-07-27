@@ -7,15 +7,16 @@ import { BsFillTelephoneFill } from "react-icons/bs";
 import './termosDeUso.css'
 
 type OnCloseFunction = () => void;
-type onAcceptTermsType = () => void;
+type OnAcceptTermsType = () => void;
 
 interface TermosDeUsoProps {
     onClose: OnCloseFunction;
-    onAcceptTerms: onAcceptTermsType;
+    onAcceptTerms: OnAcceptTermsType;
+    isChecked: boolean;
 }
 
-export default function TermosDeUso({ onClose, onAcceptTerms  }: TermosDeUsoProps) {
-    const [isChecked, setIsChecked] = useState(false);
+export default function TermosDeUso({ onClose, onAcceptTerms, isChecked: initialIsChecked }: TermosDeUsoProps) {
+    const [isChecked, setIsChecked] = useState(initialIsChecked);
 
     const handleCheckboxChange = () => {
         setIsChecked(!isChecked);
@@ -23,7 +24,8 @@ export default function TermosDeUso({ onClose, onAcceptTerms  }: TermosDeUsoProp
     };
 
     useEffect(() => {
-    }, [isChecked]);
+        setIsChecked(initialIsChecked);
+    }, [initialIsChecked]);
     return (
     <div className="termosDeUsoContainer ">
     <ScrollArea className="h-[80vh] w-full">
