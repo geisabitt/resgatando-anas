@@ -1,13 +1,20 @@
-'use client'
+'use client';
 import { BsFillPersonFill } from "react-icons/bs";
 import { Users } from "@prisma/client";
-import Link from "next/link";
+import { useRouter } from "next/router";  // Importar useRouter
+import { useCallback } from "react";      // Importar useCallback para otimização
 
 function capitalizeWords(name: string) {
     return name.toLowerCase().replace(/\b\w/g, char => char.toUpperCase());
 }
 
 export default function UserHeader({ user }: { user: Partial<Users> }) {
+    const router = useRouter();
+
+    const handleLogout = useCallback(() => {
+        router.push('/api/user/logout');
+    }, [router]);
+
     return (
         <>
             {user && (
@@ -18,7 +25,12 @@ export default function UserHeader({ user }: { user: Partial<Users> }) {
                     <p className="mb-2 font-bold">
                         {user.name ? capitalizeWords(user.name) : "Erro ao buscar o nome"}
                     </p>
-                    <Link className="px-4 py-1 rounded-full bg-primary mb-2 px12" href="/api/user/logout">Sair</Link>
+                    <button
+                        className="px-4 py-1 rounded-full bg-primary mb-2 px12"
+                        onClick={handleLogout}
+                    >
+                        Sair
+                    </button>
                 </div>
             )}
         </>
