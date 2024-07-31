@@ -30,7 +30,7 @@ export default function Pagamento() {
           <h2 className="mb-4 text-blue500">R$ 250,00*</h2>
         </div>
           <ButtonPix/>
-          <ButtonPayments btnText={"Comprar ingresso via cartão"} btnLink={"/retiro/pagamento/cartao"}/>
+          {/* <ButtonPayments btnText={"Comprar ingresso via cartão"} btnLink={"/retiro/pagamento/cartao"}/> */}
       </CardFooter>
     </Card>
   )
