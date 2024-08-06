@@ -27,10 +27,7 @@ export const validateRG = (rg: string): boolean => {
 
 export const validatePhoneNumber = (phoneNumber: string): boolean => {
   const regex = /^\d{10,11}$/;
-  if (!regex.test(phoneNumber)) {
-    return false;
-  }
-  return !containsSequentialDigits(phoneNumber);
+  return regex.test(phoneNumber)
 };
   export const validateEmail = (email: string): boolean => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
