@@ -20,19 +20,6 @@ export default function Information() {
                 </div>
                 <div className="bg-green400 rounded-lg py-6 px-2 w-full">
                     <h6 className="flex justify-between text-blue900 font-bold">Investimento:<span>R$ 250,00</span></h6>
-                    {/* <div className="flex items-center justify-between bg-red300 rounded-lg p-2">
-                    <div>
-                        <p className="text-white text-[0.85rem]">Valor promocional no pix </p>
-                        <p className="text-white text-[0.85rem]">para as 10 primeiras:</p>
-                    </div>
-                    <div className="text-right">
-                        <p className="relative text-white text-[0.85rem]">
-                        <span className="absolute top-1/2 w-14 h-[1px] right-0 bg-white transform -translate-y-1/2"></span>
-                        R$ 250,00
-                        </p>
-                        <h6 className="text-white">R$ 180,00</h6>
-                    </div>
-                    </div> */}
                 </div>
                 <div  className="flex flex-col gap-2">
                 <div className="flex items-center gap-4">

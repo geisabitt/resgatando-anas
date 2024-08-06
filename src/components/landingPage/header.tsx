@@ -32,9 +32,12 @@ export default function Header() {
       <div className="flex flex-col gap-4 p-4">
         <h6 className="font-bold -mt-6 pr-4">Tema: Descendo do Salto</h6>
         <p>
-        Reserve um tempo para si mesma e entre em um espaço de cura e crescimento. Descendo do Salto é mais do que um evento; é um convite para se conectar consigo mesma, elevar sua autoestima e se cercar de apoio. Independentemente de onde você esteja em sua jornada, este retiro foi criado com você em mente.
+        Reserve um tempo para si mesma e entre em um espaço de cura e crescimento.
         </p>
         <ButtonRegistro/>
+        <p>
+        Descendo do Salto é mais do que um evento; é um convite para se conectar consigo mesma, elevar sua autoestima e se cercar de apoio. Independentemente de onde você esteja em sua jornada, este retiro foi criado com você em mente.
+        </p>
       </div>
       </div>
       <p className="mx-auto my-auto py-4 p-4">
