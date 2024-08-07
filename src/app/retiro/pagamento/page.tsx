@@ -2,8 +2,8 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import Image from 'next/image';
 
 import './style.css';
-import { ButtonPix } from "@/payments/components/button-pix";
-import ButtonPayments from "@/payments/components/button-payments";
+import { CardPixPayment } from "@/payments/components/card-pix-payment";
+import { CardCreditPayment } from "@/payments/components/card-credit-payment";
 
 export default function Pagamento() {
 
@@ -23,14 +23,15 @@ export default function Pagamento() {
           <li>Ingressos limitados, uma unidade  por pessoa</li>
         </ul>
       </Card>
-      </CardContent>
-      <CardFooter className="flex flex-col justify-center gap-9">
-        <div className="w-full flex flex-col items-center mb-4">
+        <div className="w-full flex flex-col items-center mt-6">
           <p className="font-bold tracking-tight">Valor de 1 ingresso:</p>
-          <h2 className="mb-4 text-blue500">R$ 250,00*</h2>
+          <h2 className="mb-6 text-blue500">R$ 250,00*</h2>
         </div>
-          <ButtonPix/>
-          {/* <ButtonPayments btnText={"Comprar ingresso via cartão"} btnLink={"/retiro/pagamento/cartao"}/> */}
+      </CardContent>
+      <CardFooter className="flex flex-col gap-2 items-start">
+          <p className="font-bold">Escolha a forma de pagamento:</p>
+          <CardPixPayment/>
+          <CardCreditPayment/>
       </CardFooter>
     </Card>
   )
