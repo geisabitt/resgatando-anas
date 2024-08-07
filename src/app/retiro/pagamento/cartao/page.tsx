@@ -1,8 +1,8 @@
 'use client'
 import { useState, useEffect } from "react";
-import { BsCreditCard2Back } from "react-icons/bs";
-import { HeaderColumn } from "@/components/shared/header-column/header-column";
+import Image from 'next/image';
 import './style.css';
+import { Card, CardHeader, CardTitle } from "@/components/ui";
 
 export default function PagamentoCartao() {
   const [url, setUrl] = useState<null | string>(null);
@@ -36,9 +36,19 @@ export default function PagamentoCartao() {
   }, []);
 
   return (
-    <div className="w-full">
-      <HeaderColumn icon={BsCreditCard2Back} iconSize={45} text="Efetuar pagamento via cartão de crédito" />
-      <div className="flex flex-col min-h-72 items-center justify-center text-center">
+    <div className="w-[90%] max-w-[380px] flex flex-col gap-6 my-2 mx-auto ">
+      <CardHeader className="flex flex-row gap-2">
+      <Image src={'/img/LogoResgatandoAnas.png'} alt="alt" width={47} height={47} />
+        <CardTitle><h5>Resgatando Anas</h5> <p>Descendo do salto</p></CardTitle>
+      </CardHeader>
+      <div className="flex flex-col min-h-72 items-center">
+      <Card className="w-full info p-2 my-6 mx-auto">
+        <ul className="list-info flex flex-col gap-3">
+            <li className="font-bold">Atenção</li>
+            <li>Ao clicar no botão abaixo você será redirecionada para página de pagamento do mercado pago, onde além da opção de cartão de crédito, você também terá a opção de pagar com mercado pago e com o cartão de débito caixa.</li>
+            <li>Tudo isso para facilitar a sua participação no retiro.</li>
+          </ul>
+      </Card>
         {loading ? (
           <div className="text-center">
             <p>Gerando link de pagamento</p>
@@ -47,7 +57,7 @@ export default function PagamentoCartao() {
         ) : (
           url ? (
             <a  className={`w-full`} href={url} target="_blank" rel="noopener noreferrer">
-              <button className={`w-full py-4 rounded bg-success700`}>Ir para pagina de pagamento</button>
+              <button className={`w-full py-4 rounded text-white font-bold bg-success700`}>Ir para pagina de pagamento</button>
             </a>
           ) : (
             null

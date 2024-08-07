@@ -5,18 +5,6 @@ import '../user-style.css';
 import LoadingComponent from "@/components/LoadingComponent";
 import UserCardPayments from "../components-local/user-card-payments";
 
-type DisplayUserPayments = {
-    id: string,
-    userId: string,
-    paymentId: string,
-    paymentStatus: string,
-    paymentType: string,
-    paymentDescription: string,
-    createdAt: string,
-    url: string,
-    btnText: string,
-}
-
 export default function Page() {
     const [payment, setPayment] = useState<DisplayUserPayments | null>(null);
     const [loading, setLoading] = useState(true);
@@ -31,15 +19,18 @@ export default function Page() {
                 }
                 const data = await response.json();
                 if (data.status === 200 && data.payments && data.payments.length > 0) {
-                    // Encontrar o último pagamento
                     const lastPayment = data.payments.reduce((latest: DisplayUserPayments, current: DisplayUserPayments) => {
                         return new Date(latest.createdAt) > new Date(current.createdAt) ? latest : current;
                     });
 
                     const formattedPayment: DisplayUserPayments = {
                         ...lastPayment,
-                        url: lastPayment.paymentStatus === 'Cancelado' && lastPayment.paymentType === 'Pix' ? '/retiro/pagamento/status/pix-expirado' : `/retiro/pagamento/status/pendente/${lastPayment.paymentId}`,
-                        btnText: "Ver detalhes do pagamento",
+                        url: lastPayment.paymentStatus === 'Aprovado'
+                            ? '/user/meu-ingresso/ver-ingresso'
+                            : (lastPayment.paymentStatus === 'Cancelado' && lastPayment.paymentType === 'Pix'
+                                ? '/retiro/pagamento/status/pix-expirado'
+                                : `/retiro/pagamento/status/pendente/${lastPayment.paymentId}`),
+                        btnText: 'Ver detalhes do pagamento',
                     };
 
                     setPayment(formattedPayment);
@@ -48,7 +39,6 @@ export default function Page() {
                         setTicketQuantity(1);
                     }
                 } else {
-                    // Caso não haja pagamentos
                     const emptyPayment: DisplayUserPayments = {
                         id: 'empty',
                         userId: '',
