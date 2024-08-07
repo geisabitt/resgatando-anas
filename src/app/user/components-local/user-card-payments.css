@@ -1,5 +1,6 @@
 .container-payments{
     display: flex;
+    gap: 0.2rem;
     flex-direction: column;
     margin: 1rem;
     padding: 1rem;
