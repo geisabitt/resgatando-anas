@@ -1,6 +1,6 @@
 "use client"
 import { useState, useEffect } from "react";
-import { BsArrowRightShort } from "react-icons/bs";
+import { BsArrowRightShort, BsPersonCheckFill } from "react-icons/bs";
 import { Card } from '@/components/ui/card';
 import ButtonLink from "@/components/shared/button-link";
 import UserHeader from "@/components/shared/user-header";
@@ -39,24 +39,13 @@ export default function Page() {
     return (
         <div className="flex flex-col align-center justify-center text-gray-900">
             <UserHeader user={user} />
-            <Card className="border-0 shadow-0 flex flex-col gap-4 p-4">
+            <Card className="border-0 shadow-0 flex flex-col text-gray-900 gap-4 p-4">
                 <ButtonLink
-                    btnClass={"p-6 flex items-center justify-between bg-primary hover:bg-primary-foreground"}
-                    btnText={"Lista de cadastros"}
+                    btnColor={"bg-primary hover:bg-primary-foreground"}
+                    btnClass={"flex-row-reverse font-bold"}
+                    btnText={"Cadastros e pagamentos - Retiro de Mulheres 2024"}
                     btnLink={"/administracao/lista"}
-                    icon={BsArrowRightShort}
-                />
-                <ButtonLink
-                    btnClass={"p-6 flex text-left items-center justify-between bg-primary hover:bg-primary-foreground"}
-                    btnText={"Lista pagamentos aprovados"}
-                    btnLink={"/administracao/lista-pagamento-aprovado"}
-                    icon={BsArrowRightShort}
-                />
-                <ButtonLink
-                    btnClass={"p-6 flex items-center justify-between bg-primary hover:bg-primary-foreground"}
-                    btnText={"Lista do mercado pago"}
-                    btnLink={"/administracao/lista-pagamento-mp"}
-                    icon={BsArrowRightShort}
+                    icon={BsPersonCheckFill}
                 />
             </Card>
         </div>
