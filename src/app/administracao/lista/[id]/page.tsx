@@ -16,15 +16,11 @@ const Page = ({ params }: { params: { id: any } }) => {
                     throw new Error('Network response was not ok');
                 }
                 const data = await response.json();
-                console.log('DAAATTTAAAA', data);
-                console.log('setUser', data.user);
-                console.log('setUserAnaminese', data.anaminese);
-                console.log('setUserPayment', data.payments);
 
                 if (data.status === 200) {
                     setUser(data.user);
                     setUserAnaminese(data.anaminese);
-                    setUserPayment(data.userPayment);
+                    setUserPayment(data.payments);
                 } else {
                     setUser(null);
                 }
