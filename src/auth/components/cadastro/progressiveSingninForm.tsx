@@ -122,6 +122,10 @@ export function SigninProgressiveForm() {
 
     switch (name) {
       case 'name':
+        if (dadosPessoais.name.length <= 2){
+          errorMessage = 'O nome deve ter no mínimo 2 caracteres';
+          break;
+        }
         errorMessage = validations.validateNome(value) ? '' : 'O nome deve ter apenas letras';
         break;
       case 'cpf':
@@ -221,33 +225,35 @@ export function SigninProgressiveForm() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-  
+
+    let newValue = name === "name" ? value.replace(/\d/g, '') : value;
+
     setDadosPessoais((prevState) => ({
-      ...prevState,
-      [name]: value,
+        ...prevState,
+        [name]: newValue,
     }));
-  
+
     const currentCard = groups[currentIndex].cards.find((card) => card.name === name);
     if (currentCard) {
-      const errorMessage = isFieldValid(currentCard, value);
-  
-      setMessageErrors((prevState) => ({
-        ...prevState,
-        [name]: errorMessage,
-      }));
-  
-      if (name === 'password' && value.trim() === '') {
-        setMessagePasswordErrors({
-          [name]: [
-            <label className="flex gap-2" key="lowercase"><AiOutlineClose className="text-destructive" /> 1 Letra minúscula</label>,
-            <label className="flex gap-2" key="uppercase"><AiOutlineClose className="text-destructive" /> 1 Letra maiúscula</label>,
-            <label className="flex gap-2" key="number"><AiOutlineClose className="text-destructive" /> 1 Número</label>,
-            <label className="flex gap-2" key="length"><AiOutlineClose className="text-destructive" /> Mínimo 8 dígitos</label>,
-          ],
-        });
-      }   
+        const errorMessage = isFieldValid(currentCard, newValue);
+
+        setMessageErrors((prevState) => ({
+            ...prevState,
+            [name]: errorMessage,
+        }));
+
+        if (name === 'password' && newValue.trim() === '') {
+            setMessagePasswordErrors({
+                [name]: [
+                    <label className="flex gap-2" key="lowercase"><AiOutlineClose className="text-destructive" /> 1 Letra minúscula</label>,  
+                    <label className="flex gap-2" key="uppercase"><AiOutlineClose className="text-destructive" /> 1 Letra maiúscula</label>,  
+                    <label className="flex gap-2" key="number"><AiOutlineClose className="text-destructive" /> 1 Número</label>,  
+                    <label className="flex gap-2" key="length"><AiOutlineClose className="text-destructive" /> Mínimo 8 dígitos</label>,  
+                ],
+            });
+        }
     }
-  };
+};
 
   const router = useRouter();
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
