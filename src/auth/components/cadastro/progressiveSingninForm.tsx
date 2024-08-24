@@ -110,6 +110,8 @@ export function SigninProgressiveForm() {
         }));
       }
       return 'Este campo é obrigatório!';
+    } else if (value.length >= 100) {
+      return 'Não é permitido ultrapassar os 100 carateres.';
     }
 
     const lowercaseRegex = /[a-z]/;

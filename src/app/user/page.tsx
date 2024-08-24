@@ -3,10 +3,10 @@ import { useState, useEffect } from "react";
 import { BsArrowRightShort } from "react-icons/bs";
 import { Users, UsersAnaminese } from "@prisma/client";
 import { Card } from '@/components/ui/card';
-import ButtonLink from "@/components/shared/button-link";
 import UserHeader from "./components-local/user-header";
 import './user-style.css';
 import LoadingComponent from "@/components/LoadingComponent";
+import ButtonLinkIcon from "@/components/shared/button-link-icon";
 
 export default function Page() {
     const [user, setUser] = useState<Partial<Users>>({});
@@ -67,14 +67,15 @@ export default function Page() {
                         Só é possivel realizar a compra do ingresso com todos os dados preenchidos.
                         Complete o cadastro de DADOS ADICIONAIS.
                     </p>
-                    <ButtonLink
+                    <ButtonLinkIcon
                         btnText={"Concluir Cadastro"}
                         btnLink={"/retiro/cadastro/dados-adicionais"}
                     />
                 </div>
             ): <Card className="border-0 shadow-0 flex flex-col gap-4 p-4">
-            <ButtonLink
-                btnClass={"p-6 flex items-center justify-between bg-primary hover:bg-primary-foreground"}
+                    <ButtonLinkIcon
+                btnColor={"bg-primary"}
+                btnClass={"p-6 flex items-center justify-between hover:bg-primary-foreground"}
                 btnText={"Informações sobre o Ingresso do Retiro de Mulheres 2024"}
                 btnLink={"/user/meu-ingresso"}
                 icon={BsArrowRightShort}

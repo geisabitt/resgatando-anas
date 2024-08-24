@@ -8,6 +8,7 @@ import StatusMessage from "@/components/shared/status-message";
 import { PageQrCodePix } from "@/payments/components/qrCodePix";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import ButtonLink from "@/components/shared/button-link";
 
 export default async function Page({ params }: Readonly<{ params: { id: any } }>) {
     
@@ -31,7 +32,7 @@ return (
         <HeaderColumn icon={BsEmojiWinkFill} iconColor="text-blue500" text={"Pagamento Pendente!"} textBold={true} />
     <CardContent className="flex flex-col justify-center gap-4">
         <p>Agradecemos pela sua paciência enquanto o pagamento está sendo analisado pelo banco. A confirmação pode levar até 30 minutos. Fique atento ao seu e-mail para receber a resposta. Para voltar ao seu perfil, clique no botão abaixo.</p>
-        <div className="flex flex-col items-center p-4">
+        <div className="flex flex-col items-center pt-4">
             <PageQrCodePix detail={data.detail} />
         </div>
     </CardContent>
@@ -44,7 +45,7 @@ return (
                 <p className="flex justify-between text-gray-600">Diac. Camila: <span>(21) 99363-6957</span></p>
             </p>
     </CardFooter>
-    <Link className="w-full py-4 rounded text-center bg-blue700 text-white" href={'/user'}>Voltar</Link>
+    <ButtonLink btnText={"Voltar para Minha Conta"} btnClass="text-white" btnLink={"/user"}/>
     </Card>
     )
 }
