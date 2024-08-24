@@ -6,26 +6,28 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
+
 model Users {
-  id                   String   @id @default(uuid())
-  email                String   @unique
-  telefone             String?
-  image                String?
-  telefone_emergencia  String?
-  rg                   String?
-  cpf                  String?  @unique
-  data_de_nascimento   String?
-  name                 String
-  password             String
-  type                 String
-  termos_de_uso        String
-  createdAt            DateTime @default(now())
-  updatedAt            DateTime @updatedAt()
+  id                  String   @id @default(uuid())
+  email               String   @unique
+  telefone            String?
+  image               String?
+  telefone_emergencia String?
+  rg                  String?  @unique
+  cpf                 String?  @unique
+  data_de_nascimento  String?
+  name                String
+  password            String
+  type                String
+  termos_de_uso       String
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt()
 }
+
 model UsersAnaminese {
   id                       String   @id @default(uuid())
   userId                   String   @unique
@@ -42,14 +44,14 @@ model UsersAnaminese {
   updatedAt                DateTime @updatedAt()
 }
 
-model PaymentUser{
-  id                  String   @id @default(uuid())
-  userId              String
-  paymentId           String
-  paymentStatus       String
-  paymentDescription  String
-  paymentType         String
-  active              Boolean
-  createdAt           DateTime @default(now())
-  updatedAt           DateTime @updatedAt()
+model PaymentUser {
+  id                 String   @id @default(uuid())
+  userId             String
+  paymentId          String
+  paymentStatus      String
+  paymentDescription String
+  paymentType        String
+  active             Boolean
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt()
 }
