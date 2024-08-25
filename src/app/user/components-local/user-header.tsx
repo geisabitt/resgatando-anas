@@ -1,14 +1,19 @@
 'use client';
 import { BsFillPersonFill } from "react-icons/bs";
 import { Users } from "@prisma/client";
-import { useAuth } from '@/auth/context/authContext';
+import { useRouter } from "next/navigation";  // Importar useRouter
+import { useCallback } from "react";
 
 function capitalizeWords(name: string) {
     return name.toLowerCase().replace(/\b\w/g, char => char.toUpperCase());
 }
 
 export default function UserHeader({ user }: { user: Partial<Users> }) {
-    const { logout } = useAuth();
+    const router = useRouter();
+
+    const handleLogout = useCallback(() => {
+        router.push('/api/user/logout');
+    }, [router]);
 
     return (
         <>
@@ -22,7 +27,7 @@ export default function UserHeader({ user }: { user: Partial<Users> }) {
                     </p>
                     <button
                         className="px-4 py-1 rounded-full bg-primary mb-2 px12"
-                        onClick={logout}
+                        onClick={handleLogout}
                     >
                         Sair
                     </button>
