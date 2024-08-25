@@ -6,9 +6,11 @@ import { Button, Input, Label, Card, CardContent, CardFooter, CardHeader, CardTi
 import { AlertSistem } from "@/components/shared";
 import { validateEmail } from '@/auth/components/cadastro/formValidations';
 import { BsFillEyeFill,BsFillEyeSlashFill  } from "react-icons/bs";
+import { useAuth } from '@/auth/context/authContext';
 import Link from 'next/link';
 
 export function LoginForm() {
+  const {checkSession} = useAuth();
   const [messageErrors, setMessageErrors] = React.useState<{[key: string]: string}>({});
   const [alertVisible, setAlertVisible] = React.useState(false);
   const [alertMessage, setAlertMessage] = React.useState<{ title: string, message: string }>({
@@ -145,7 +147,7 @@ export function LoginForm() {
           </div>
         </CardContent>
         <CardFooter className="flex flex-col gap-2">
-          <Button className="w-full mb-1 text-white" type="submit" disabled={loading}>
+          <Button className="w-full mb-1 text-white" type="submit" onClick={checkSession} disabled={loading}>
             {loading ? (
                 <span className="visually-hidden">Carregando...</span>
             ) : (

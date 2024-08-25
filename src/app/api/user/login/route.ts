@@ -9,8 +9,7 @@ export async function POST(req: NextRequest) {
     try {
         const userLogin: Partial<Users> = await req.json();
 
-        const email = userLogin.email;
-        const password = userLogin.password;
+        const { email, password } = userLogin;
 
         if (!email || !password) {
             return NextResponse.json({ message: 'E-mail e senha são obrigatórios.' }, { status: 400 });
@@ -30,13 +29,11 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ message: 'E-mail ou senha incorretos.' }, { status: 401 });
         }
 
-        const token = await AuthService.createSessionToken({ sub: user.id, type: user.type });
+        await AuthService.createSessionToken({ sub: user.id, type: user.type });
 
-        if(user.type === 'admin'){
-            return NextResponse.json({ message: 'Login realizado com sucesso', token, urlRedirect: '/administracao'}, { status: 200 });
-        }
+        const redirectUrl = user.type === 'admin' ? '/administracao' : '/user';
 
-        return NextResponse.json({ message: 'Login realizado com sucesso', token, urlRedirect: '/user'}, { status: 200 });
+        return NextResponse.json({ message: 'Login realizado com sucesso', urlRedirect: redirectUrl }, { status: 200 });
 
     } catch (error) {
         console.error('Erro ao fazer login:', error);
