@@ -40,20 +40,21 @@ export default function TermosDeUso({ onClose, onAcceptTerms, isChecked: initial
         <h6 className="font-bold">CONTRATO DE ADESÃO</h6>
 
         <p>O presente contrato se refere a informações sobre o Retiro de Mulheres “Descendo do Salto” que acontecerá nos dias 25, 26 e 27 do mês de outubro.</p>
+        <p>O evento Retiro de Mulheres Descendo do Salto se destina a mulheres com idade mínima de 18 anos.</p>
+        <h6 className="font-bold text-left">VALOR E FORMAS DE PAGAMENTO:</h6>
         <p>O valor do evento é R$ 250,00 (duzentos e cinquenta reais).</p>
         <p>As refeições e transporte de ida e volta estão inclusos no valor total do evento.(EMBARQUE E DESEMBARQUE serão feitos na igreja)</p>
         <p>O pagamento poderá ser feito em:</p>
-
         <ul>
             <li>
-            <p className='mark'>●</p>
+            <p className='mark'></p>
             <p>
                 <span className="font-bold">Pix: </span>Contendo na descrição do comprovante que o pagamento se refere ao Retiro de mulheres 2024.
                 O comprovante deverá ser enviado para o WhatsApp de uma das responsáveis pelo retiro, cujo números se encontram no final deste contrato.
             </p>
             </li>
-            <li>
-            <p className='mark'>●</p>
+            <li className="mt-4">
+            <p className='mark'></p>
             <p>
                 <span className="font-bold">Cartão de crédito: </span>Compra terá acréscimo da operadora do cartão e poderá ser parcelada.
             </p></li>
@@ -67,15 +68,16 @@ export default function TermosDeUso({ onClose, onAcceptTerms, isChecked: initial
         </ul>
         <p className="font-bold">OBJETOS PESSOAIS</p>
         <p>A participante deverá levar para uso próprio:</p>
-        <p><span className="font-bold">Roupa de cama: </span>coberta (coberta, edredom ou lençol para se cobrir) e travesseiro.</p>
-        <p><span className="font-bold">Roupas e calçados: </span>dê preferência aos mais confortáveis (calça legging, blusas compridas e bermudas larguinhas e compridas).</p>
+        <p><span className="font-bold">Roupa de cama: </span>Coberta, edredom ou lençol para se cobrir e travesseiro.</p>
+        <p><span className="font-bold">Roupas e calçados: </span>Dê preferência aos mais confortáveis (calça legging, blusas compridas e bermudas larguinhas e compridas).</p>
         <p><span className="font-bold">OBS: </span>Evite o uso de blusas, saias e shorts curtos, apertados e decotados.</p>
-        <p><span className="font-bold">Itens de higiene pessoal e beleza: </span>(pasta e escova de dente, toalha de banho, sabonete, desodorante, perfume, maquiagem, prancha de cabelo, hidratante, entre outros).</p>
-        <p><span className="font-bold">MEDICAMENTOS (deverão ser entregues ao chegar): </span>MEDICAMENTOS de uso contínuo para levar em saco separado. Pois, a equipe de enfermagem ficará responsável direto pela administração desses medicamentos. <br></br><br></br> É obrigatória a entrega das receitas médicas de cada medicamento à equipe de enfermagem.</p>
-        <p><span className="font-bold"> Bíblia (se tiver)</span></p>
+        <p><span className="font-bold">Itens de higiene pessoal e beleza: </span>Pasta e escova de dente, toalha de banho, sabonete, desodorante, perfume, maquiagem, prancha de cabelo, hidratante, entre outros.</p>
+        <p><span className="font-bold">Bíblia (se tiver)</span></p>
+        <p className="font-bold">MEDICAMENTOS</p>
+        <p>MEDICAMENTOS de uso contínuo deverão ser levados em sacos separados e entregues a equipe de enfermagem que ficará responsável diretamente pela administração desses medicamentos.</p>
+        <p>É obrigatória a entrega das receitas médicas de cada medicamento à equipe de enfermagem.</p>
         <p><span className="font-bold">EQUIPAMENTOS ELETRÔNICOS</span> não serão permitidos, exemplos: celulares, relógios e outros aparelhos eletrônicos. Caso esqueça, pedimos à colaboração para entregar à equipe que irá recolher, ficarão guardados e serão devolvidos no encerramento do retiro, na hora de ir embora.</p>
         <p>O Retiro de Mulheres Descendo do Salto não se responsabiliza por quaisquer objetos de valor, roupas, pertences pessoais, equipamentos eletrônicos não entregues, dinheiro e outros que sejam levados pela participante, desobrigando-se de qualquer tipo de reembolso em caso de dano, perda ou extravio. Aconselhamos que tudo seja marcado com a identificação pessoal (nome completo) da participante. Utilize identificação com o nome completo nas malas e bens pessoais para evitar perdas e transtornos.</p>
-        <p>O evento Retiro de Mulheres Descendo do Salto se destina a mulheres com idade mínima de 18 anos. As refeições e transporte de ida e volta está incluso no valor total do evento.</p>
         <p><span className="font-bold">EMBARQUE E DESEMBARQUE</span> serão feitos na igreja: Comunidade Cristã Terra Fértil. As participantes deverão estar nesse local no horário a ser informado.</p>
         <p><span className="font-bold">AUTORIZO </span>o uso de minha imagem em todo e qualquer material entre imagens de vídeo, fotos e documentos, para ser utilizada na divulgação em geral do evento.</p>
         <p>A presente autorização é concedida a título gratuito, abrangendo o uso da imagem acima mencionada em todo território nacional, das seguintes formas:</p>
