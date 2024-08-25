@@ -83,6 +83,7 @@ export function LoginForm() {
     const response = await axios.post('/api/user/login', dadosLogin);
     console.log(response.data.urlRedirect)
       if (response.status === 200) {
+        checkSession()
         router.push(`${response.data.urlRedirect}`);
       } else {
         setAlertMessage({

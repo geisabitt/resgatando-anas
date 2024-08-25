@@ -22,7 +22,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const logout = () => {
         fetch('/api/auth/logout').then(() => {
             setIsAuthenticated(false);
-            router.push('/retiro/login');
         });
     };
 
