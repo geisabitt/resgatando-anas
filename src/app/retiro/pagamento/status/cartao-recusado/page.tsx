@@ -9,9 +9,9 @@ export default function Page() {
 
 return (
     <Card className="w-[98%] max-w-[380px] flex flex-col gap-2 my-2 mx-auto border-0">
-        <HeaderColumn icon={BsEmojiFrown} iconColor="text-red300" text={"Pagamento cancelado!"} textBold={true} />
+        <HeaderColumn icon={BsEmojiFrown} iconColor="text-red300" text={"Pagamento recusado!"} textBold={true} />
     <CardContent>
-        <p className="">Não foi possível concluir o pagamento com esse cartão de crédito. Verifique as informações do seu cartão e tente novamente.</p>
+        <p className="">Não foi possível concluir o pagamento com esse cartão. Verifique as informações do seu cartão e tente novamente.</p>
     </CardContent>
         <CardFooter className="flex flex-col justify-center gap-2">
         <ButtonLink btnText={"Voltar para formas de pagamento"} btnColor="bg-blue500" btnClass="text-white" btnLink={"/retiro/pagamento"}/>
