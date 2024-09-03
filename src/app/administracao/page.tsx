@@ -46,6 +46,13 @@ export default function Page() {
                     btnLink={"/administracao/lista"}
                     icon={BsPersonCheckFill}
                 />
+                <ButtonLinkIcon
+                    btnColor={"bg-primary hover:bg-primary-foreground"}
+                    btnClass={"flex-row-reverse font-bold"}
+                    btnText={"Cadastros e pagamentos - Retiro de Mulheres 2024"}
+                    btnLink={"/administracao/lista-pagamento-mp"}
+                    icon={BsPersonCheckFill}
+                />
             </Card>
         </div>
     );

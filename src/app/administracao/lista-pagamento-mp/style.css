@@ -1,0 +1,10 @@
+@media (min-width: 780px) {
+    .desktop {
+        min-width: 700px !important;
+        width: 80% !important;
+        margin: 0 auto !important;
+    }
+    .ajuste-tabela{
+        margin: 0 auto !important;
+    }
+}
