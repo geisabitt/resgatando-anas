@@ -3,6 +3,7 @@
     flex-direction: column;
     margin: 1rem;
     padding: 1rem;
+    gap: .3rem !important;
     border: 1px solid #E6C6C8;
     border-radius: 0.5rem;
 }

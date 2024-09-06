@@ -31,24 +31,29 @@ export default function Page() {
                 }
                 const data = await response.json();
                 if (data.status === 200 && data.payments && data.payments.length > 0) {
-                    // Encontrar o último pagamento
                     const lastPayment = data.payments.reduce((latest: DisplayUserPayments, current: DisplayUserPayments) => {
                         return new Date(latest.createdAt) > new Date(current.createdAt) ? latest : current;
                     });
 
                     const formattedPayment: DisplayUserPayments = {
                         ...lastPayment,
-                        url: lastPayment.paymentStatus === 'Cancelado' && lastPayment.paymentType === 'Pix' ? '/retiro/pagamento/status/pix-expirado' : `/retiro/pagamento/status/pendente/${lastPayment.paymentId}`,
+                        url: lastPayment.paymentStatus === 'Cancelado' && lastPayment.paymentType === 'Pix'
+                            ? '/retiro/pagamento/status/pix-expirado'
+                            : `/retiro/pagamento/status/pendente/${lastPayment.paymentId}`,
                         btnText: "Ver detalhes do pagamento",
                     };
 
-                    setPayment(formattedPayment);
-
                     if (lastPayment.paymentStatus === 'Aprovado') {
                         setTicketQuantity(1);
+                        setPayment({
+                            ...lastPayment,
+                            url: '/retiro/pagamento/status/aprovado',
+                            btnText: 'Mais detalhes',
+                        });
+                    } else {
+                        setPayment(formattedPayment);
                     }
                 } else {
-                    // Caso não haja pagamentos
                     const emptyPayment: DisplayUserPayments = {
                         id: 'empty',
                         userId: '',
@@ -76,17 +81,19 @@ export default function Page() {
     }
 
     return (
-        <div className="flex flex-col w-[95%] items-center text-gray-900 gap-5 mx-auto">
+        <div className="flex flex-col w-[95%] min-h-[80vh] items-center text-gray-900 gap-5 mx-auto justify-between">
             <h3 className="text-center">Meu Ingresso</h3>
             <div>
                 <p className="w-full min-w-[342px] flex justify-between rounded border border-primary p-4 ">
                     Quantidade <span>{ticketQuantity}</span>
                 </p>
             </div>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 flex-grow">
                 {payment && <UserCardPayments key={payment.paymentId || 'empty'} payment={payment} />}
             </div>
-            <Link className="w-full py-4 rounded text-center bg-blue700 text-white" href={'/user'}>Voltar</Link>
+            <Link className="w-full py-4 mt-auto rounded text-center bg-blue700 text-white" href={'/user'}>
+                Voltar
+            </Link>
         </div>
     );
 }
