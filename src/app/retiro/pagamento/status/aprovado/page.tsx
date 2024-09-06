@@ -41,7 +41,7 @@ return (
                 <p className="mt-2 font-bold text-gray-600">Informações adicionais:</p>
                 <p className="flex justify-between text-gray-600">Diac. Camila: <span>(21) 99363-6957</span></p>
             </p>
-        <ButtonLink btnClass='text-center text-white' btnText={"Voltar a tela home"} btnLink={"/"}/>
+        <ButtonLink btnClass='text-center text-white' btnText={"Voltar para Minha Conta"} btnLink={"/user"}/>
     </CardFooter>
     </Card>
     )
