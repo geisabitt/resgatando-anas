@@ -37,5 +37,7 @@ next-env.d.ts
 
 .env
 testing.json
-delete-paymentUsers.js
-update-paymentUsers.js
+/delete-paymentUsers.js
+/update-paymentUsers.js
+
+/update-duplicados.js

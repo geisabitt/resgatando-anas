@@ -6,9 +6,9 @@ async function main() {
   await prisma.paymentUser.updateMany({
     where: {},
     data: {
-      paymentStatus: 'pending', // Valor padrão para registros existentes
-      paymentDescription: 'Retiro Resgatando Anas 2024', // Valor padrão para registros existentes
-      active: true // Valor padrão para registros existentes
+      paymentStatus: 'pending',
+      paymentDescription: 'Retiro Resgatando Anas 2024',
+      active: true
     },
   });
 

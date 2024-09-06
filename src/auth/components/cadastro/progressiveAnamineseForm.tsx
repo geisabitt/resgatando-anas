@@ -261,10 +261,16 @@ export function AnamineseProgressiveForm() {
                     onChange={handleInputChange}
                     disabled={inputStatus}
                     required
-                  />
+                      />
                 )}
                 {messageErrors[card.name] && (
                   <p className="px12 text-red-500 text-sm">{messageErrors[card.name]}</p>
+                )}
+                {card.name === "qual_medicamento" && (
+                  <p className="qual_medicamento">
+                    MEDICAMENTOS de uso contínuo deverão ser levados em sacos separados e entregues a equipe de enfermagem que ficará responsável diretamente pela administração desses medicamentos.
+                    <span>É obrigatória a entrega das receitas médicas de cada medicamento à equipe de enfermagem.</span>
+                  </p>
                 )}
               </div>
             ))}

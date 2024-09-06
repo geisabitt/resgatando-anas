@@ -42,6 +42,10 @@ CREATE TABLE "PaymentUser" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
     "paymentId" TEXT NOT NULL,
+    "paymentStatus" TEXT NOT NULL,
+    "paymentDescription" TEXT NOT NULL,
+    "paymentType" TEXT NOT NULL,
+    "active" BOOLEAN NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -50,6 +54,12 @@ CREATE TABLE "PaymentUser" (
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Users_email_key" ON "Users"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Users_telefone_key" ON "Users"("telefone");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Users_rg_key" ON "Users"("rg");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Users_cpf_key" ON "Users"("cpf");
