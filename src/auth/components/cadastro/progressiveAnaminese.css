@@ -65,3 +65,10 @@ input[type="radio"]:checked + .checkbox-label .checkbox-icon {
     border-radius: 8px;
 
 }
+.qual_medicamento{
+    font-size: 0.65rem !important;
+}
+.qual_medicamento span{
+    display: block;
+    margin-top: 1rem;
+}
