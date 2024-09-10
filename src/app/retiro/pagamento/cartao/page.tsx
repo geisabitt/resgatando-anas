@@ -21,9 +21,12 @@ export default function PagamentoCartao() {
         const data = await response.json();
         console.log(data)
 
-        if (data.init_point) {
-          console.log(data.init_point)
-          setUrl(data.init_point);
+        if (data.sandbox_init_point) {
+          console.log(data.sandbox_init_point)
+          setUrl(data.sandbox_init_point);
+        // if (data.init_point) {
+        //   console.log(data.init_point)
+        //   setUrl(data.init_point);
         } else {
           console.error('Erro ao criar a preferência de pagamento:', data.error);
         }
