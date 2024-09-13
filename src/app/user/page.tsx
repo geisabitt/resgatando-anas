@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { BsArrowRightShort } from "react-icons/bs";
 import { Users, UsersAnaminese } from "@prisma/client";
 import { Card } from '@/components/ui/card';
@@ -13,6 +14,8 @@ export default function Page() {
     const [userAnaminese, setUserAnaminese] = useState<Partial<UsersAnaminese> | null>(null);
     const [loading, setLoading] = useState(true);
 
+    const router = useRouter();
+
     useEffect(() => {
         const fetchUserData = async () => {
             try {
@@ -22,6 +25,9 @@ export default function Page() {
                 }
                 const data = await response.json();
                 if (data.status === 200 && data.user) {
+                    if (data.user.type === 'admin') {
+                        router.push('/administracao');
+                    }
                     setUser(data.user);
                 }
             } catch (error) {
