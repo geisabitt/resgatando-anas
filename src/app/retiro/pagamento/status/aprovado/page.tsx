@@ -1,14 +1,50 @@
-
+'use client';
 import Image from 'next/image';
-import { Card, CardContent, CardFooter, CardHeader} from "@/components/ui/card"
+import { Card, CardContent, CardFooter, CardHeader} from "@/components/ui/card";
 import { BsCheck2Circle } from "react-icons/bs";
-
 import { HeaderColumn } from "@/components/shared/header-column/header-column";
 import ButtonLink from "@/components/shared/button-link";
+import { useSearchParams } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function Page() {
+  const searchParams = useSearchParams();
 
+  useEffect(() => {
+    const status = searchParams.get('status');
+    const paymentId = searchParams.get('payment_id');
+    const paymentType = searchParams.get('payment_type');
 
+    if (status === 'approved') {
+      console.log('Payment details:', { status, paymentId, paymentType });
+      createPayment({ status, paymentId, paymentType });
+    }
+  }, [searchParams]);
+  const createPayment = async (queryParams: any) => {
+    try {
+      const response = await fetch('/api/payment/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: queryParams.paymentId,
+          paymentStatus: queryParams.status,
+          paymentType: queryParams.paymentType,
+          paymentDescription: "Retiro de mulheres 2024",
+        }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        console.log('Pagamento criado com sucesso:', data);
+      } else {
+        console.error('Erro ao criar o pagamento:', data.message);
+      }
+    } catch (error) {
+      console.error('Erro ao conectar com o back-end:', error);
+    }
+  };
 return (
     <Card className="w-[98%] max-w-[380px] flex flex-col gap-2 my-2 mx-auto border-0">
         <HeaderColumn icon={BsCheck2Circle} iconColor="text-success" text={"Pagamento efetuado com sucesso!"} textBold={true} />
