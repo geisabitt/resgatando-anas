@@ -96,7 +96,7 @@ export function SigninProgressiveForm() {
   const isFieldValid = (card: any, value: string): string => {
     const { name } = card;
     let errorMessage = '';
-  
+
     if (value.trim() === '') {
       if (name === 'password') {
         setMessagePasswordErrors((prevState) => ({

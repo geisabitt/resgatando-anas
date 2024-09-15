@@ -1,4 +1,3 @@
-import AuthService from "@/auth/service/authService";
 import { formatPaymentStatus, formatPaymentType } from "@/lib/formatters";
 import { PrismaClient } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
@@ -7,8 +6,8 @@ const prisma = new PrismaClient();
 
 export async function GET(req: NextRequest) {
     try {
-        const id = await AuthService.creatRouteId();
-        console.log("ID", id);
+        const url = new URL(req.url);
+        const id = url.searchParams.get('id');
 
         if (id) {
             const payments = await prisma.paymentUser.findMany({

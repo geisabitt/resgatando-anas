@@ -7,7 +7,7 @@ import { AuthProvider } from '@/auth/context/authContext';
 const notoSans = Noto_Sans({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Retiro Descencendo do Salto',
+  title: 'Retiro Descendo do Salto',
   description: 'Redito produzido pelo projeto de mulheres Resgatando Anas Você é Terra Fértil, Nova Iguaçú',
 }
 
