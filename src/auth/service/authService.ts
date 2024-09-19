@@ -39,8 +39,13 @@ async function isSessionValid() {
     return false
 }
 
-function destroySession(){
-    cookies().delete('session')
+function destroySession() {
+    // Definir o cookie de sessão com data de expiração passada para garantir sua remoção
+    cookies().set('session', '', {
+        path: '/',
+        expires: new Date(0),  // Define uma data de expiração para o passado
+        httpOnly: true
+    });
 }
 
 async function creatRouteId(){

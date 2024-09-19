@@ -12,7 +12,7 @@ export default function UserHeader({ user }: { user: Partial<Users> }) {
     const router = useRouter();
 
     const handleLogout = useCallback(() => {
-        router.push('/api/user/logout');
+        router.replace('/api/user/logout2');
     }, [router]);
 
     return (

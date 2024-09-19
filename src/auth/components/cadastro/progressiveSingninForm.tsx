@@ -11,6 +11,7 @@ import { AlertSistem , ProgressBullet , ProgressLine} from "@/components/shared"
 import * as validations from "./formValidations";
 import { AlertMessage, DadosPessoais } from "./model";
 import TermosDeUso from './termosDeUso/termosDeUso';
+import { useAuth } from '@/auth/context/authContext';
 
 type JSXElement = React.ReactElement<any, string | React.JSXElementConstructor<any>>;
 type ErrorPasswordMessage = JSXElement[];
@@ -40,6 +41,10 @@ export function SigninProgressiveForm() {
     title: '',
     message: ''
   });
+  const { checkSession } = useAuth();
+  React.useEffect(() => {
+    checkSession();
+  }, [checkSession]);
 
   const togglePasswordVisibility = () => {
     setShowPassword((prevState) => !prevState);
@@ -275,6 +280,7 @@ export function SigninProgressiveForm() {
       try {
         const response = await axios.post('/api/user/create', dadosPessoais);
         if (response.data.status === 201) {
+          await checkSession();
           router.push("/retiro/cadastro/dados-adicionais");
         } else {
           setAlertMessage({

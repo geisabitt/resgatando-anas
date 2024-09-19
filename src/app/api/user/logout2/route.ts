@@ -1,28 +1,17 @@
-import AuthService from "@/auth/service/authService";
+// api/user/logout/route.ts
 import { NextRequest, NextResponse } from "next/server";
+import AuthService from "@/auth/service/authService";
 
 export async function GET(req: NextRequest) {
-  try {
-    await AuthService.destroySession();
+  // Remover a sessão
+  const response = NextResponse.redirect(new URL('/retiro/login', req.url));
 
-    const isValidSession = await AuthService.isSessionValid();
+  // Garantir que o cookie está sendo removido no caminho correto
+  response.cookies.set('session', '', {
+    path: '/',
+    expires: new Date(0),  // Define a expiração do cookie para uma data passada
+    httpOnly: true,  // Mesmo atributo definido no cookie de criação
+  });
 
-    if (isValidSession) {
-      return NextResponse.json(
-        { message: "Erro ao deslogar. Tente novamente.", returnUrl: "/user" },
-        { status: 400 }
-      );
-    } else {
-      return NextResponse.json(
-        { message: "Logout realizado com sucesso", returnUrl: "/retiro/login" },
-        { status: 200 }
-      );
-    }
-  } catch (error) {
-    console.error("Erro durante o logout:", error);
-    return NextResponse.json(
-      { message: "Erro ao processar o logout", error: error },
-      { status: 500 }
-    );
-  }
+  return response;
 }
