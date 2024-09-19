@@ -9,7 +9,7 @@ export default function StatusMessage({statusMessageProps}: Readonly<{statusMess
     const router = useRouter();
 
     const handleBack = () => {
-        router.back();
+        router.replace('/');
     };
 
     return (
@@ -24,7 +24,7 @@ export default function StatusMessage({statusMessageProps}: Readonly<{statusMess
                 <CardFooter className="flex flex-col gap-2 text-[0.75rem]">
                     <span>Clique no link abaixo para voltar para a pagina anterior</span>
                     {typeof window !== 'undefined' && (
-                        <Button onClick={handleBack} variant="link" className='text-blue500'>Voltar</Button>
+                        <Button onClick={handleBack} variant="link" className='text-blue500'>Voltar para pagina inicial.</Button>
                     )}
                 </CardFooter>
             </Card>

@@ -10,6 +10,9 @@ const publicRoutes = [
   '/api/user/create',
   '/api/mp/getAllMethods',
   '/api/user/login',
+  '/api/user/logout2',
+  '/api/user/logout',
+  '/api/auth/check-session',
   '/retiro/cadastro/dados-pessoais',
   '/retiro/login',
   '/nao-autorizado',
@@ -31,6 +34,7 @@ export async function middleware(req: NextRequest) {
     if (isAPIRoute) {
       return NextResponse.json({ message: 'Não autorizado' }, { status: 401 });
     }
+
     return NextResponse.redirect(new URL('/nao-autorizado', req.url));
   }
 

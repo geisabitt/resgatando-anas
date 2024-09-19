@@ -34,13 +34,20 @@ export default function Page() {
                     const lastPayment = data.payments.reduce((latest: DisplayUserPayments, current: DisplayUserPayments) => {
                         return new Date(latest.createdAt) > new Date(current.createdAt) ? latest : current;
                     });
+                    let paymentUrl = `/retiro/pagamento/status/pendente/${lastPayment.paymentId}`;
+                    let btnText = "Ver detalhes do pagamento";
+
+                    if (lastPayment.paymentStatus === 'Cancelado' && lastPayment.paymentType === 'Pix') {
+                        paymentUrl = '/retiro/pagamento/status/pix-expirado';
+                    } else if (lastPayment.paymentType === 'Cartão de Crédito' && lastPayment.paymentStatus === 'Recusado') {
+                        paymentUrl = '/retiro/pagamento';
+                        btnText = 'Comprar ingresso';
+                    }
 
                     const formattedPayment: DisplayUserPayments = {
                         ...lastPayment,
-                        url: lastPayment.paymentStatus === 'Cancelado' && lastPayment.paymentType === 'Pix'
-                            ? '/retiro/pagamento/status/pix-expirado'
-                            : `/retiro/pagamento/status/pendente/${lastPayment.paymentId}`,
-                        btnText: "Ver detalhes do pagamento",
+                        url: paymentUrl,
+                        btnText: btnText,
                     };
 
                     if (lastPayment.paymentStatus === 'Aprovado') {

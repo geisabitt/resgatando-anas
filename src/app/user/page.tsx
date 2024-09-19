@@ -8,8 +8,10 @@ import UserHeader from "./components-local/user-header";
 import './user-style.css';
 import LoadingComponent from "@/components/LoadingComponent";
 import ButtonLinkIcon from "@/components/shared/button-link-icon";
+import { useAuth } from "@/auth/context/authContext";
 
 export default function Page() {
+    const { isAuthenticated } = useAuth();
     const [user, setUser] = useState<Partial<Users>>({});
     const [userAnaminese, setUserAnaminese] = useState<Partial<UsersAnaminese> | null>(null);
     const [loading, setLoading] = useState(true);
@@ -17,6 +19,13 @@ export default function Page() {
     const router = useRouter();
 
     useEffect(() => {
+        const checkUserSession = () => {
+            if (!isAuthenticated) {
+                router.push("/retiro/login");
+            } else {
+                setLoading(false);
+            }
+        }
         const fetchUserData = async () => {
             try {
                 const response = await fetch("/api/user/user-id");
@@ -54,7 +63,7 @@ export default function Page() {
                 setLoading(false);
             }
         };
-
+        checkUserSession();
         fetchUserData();
         fetchUserAnaminese();
     }, []);

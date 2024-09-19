@@ -1,16 +1,36 @@
 'use client'
 import { useAuth } from "@/auth/context/authContext";
 import { LoginForm } from "./components/login-form";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import LoadingComponent from '../../../components/LoadingComponent';
 
 export default function Login() {
-  const { checkSession } = useAuth();
+  const { isAuthenticated } = useAuth();
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
+
   useEffect(() => {
-    checkSession();
-  }, [checkSession]);
+    const checkUserSession = () => {
+      if (isAuthenticated) {
+        router.push("/user");
+      } else {
+        setLoading(false);
+      }
+    };
+
+    checkUserSession();
+  }, [isAuthenticated, router]);
+
   return (
-    <div className="flex align-center justify-center">
-        <LoginForm />
-    </div>
-  )
+    <>
+      {loading ? (
+        <LoadingComponent />
+      ) : (
+        <div className="flex align-center justify-center">
+          <LoginForm />
+        </div>
+      )}
+    </>
+  );
 }

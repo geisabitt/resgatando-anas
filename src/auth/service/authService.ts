@@ -16,7 +16,7 @@ async function createSessionToken(payload = {}){
     })
     .setExpirationTime('7d')
     .sign(secret);
-    
+
     const { exp } = await openSessionToken(session)
     cookies().set('session', session,{
         expires: (exp as number) *1000,
@@ -39,13 +39,17 @@ async function isSessionValid() {
     return false
 }
 
+
 function destroySession() {
-    // Definir o cookie de sessão com data de expiração passada para garantir sua remoção
     cookies().set('session', '', {
         path: '/',
-        expires: new Date(0),  // Define uma data de expiração para o passado
+        expires: new Date(0),
         httpOnly: true
     });
+}
+
+function destroySession2(){
+    cookies().delete('session')
 }
 
 async function creatRouteId(){
@@ -74,6 +78,7 @@ const AuthService = {
     createSessionToken,
     isSessionValid,
     destroySession,
+    destroySession2,
     creatRouteId,
     getUserId
 }
