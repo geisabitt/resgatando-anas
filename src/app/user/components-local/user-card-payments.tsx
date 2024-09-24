@@ -8,7 +8,7 @@ export default function UserCardPayments({ payment }: Readonly<{ payment: Displa
 
     return (
         <div id={payment.paymentId} className="w-[90%] min-w-[342px] my-0 mx-auto container-payments">
-            <p>{payment.paymentDescription ? payment.paymentDescription : "Retiro Resgatando Anas 2024"}</p>
+            <p>Retiro Resgatando Anas 2024</p>
             <p>Identificador: {payment.paymentId}</p>
             <p>Forma de Pagamento: {payment.paymentType}</p>
             <p>Status: {payment.paymentStatus}</p>

@@ -42,49 +42,67 @@ export async function POST() {
         try {
             const paymentResponse = await preference.create({
                 body: {
-                        items: [
-                            {
-                                id: 'RetiroAnas2024',
-                                title: 'Retiro Resgatando Anas 2024',
-                                description: 'Igresso para retiro de 3 dias em uma chacara em Nova Iguaçú',
-                                picture_url: 'https://resgatando-anas.vercel.app/_next/image?url=%2Fimg%2FLogoResgatandoAnas.png&w=64&q=75',
-                                category_id: 'Ingresso',
-                                quantity: 1,
-                                unit_price: 250,
-                            }
-                        ],
-                        payer: {
-                            name: user.name,
-                            phone: {
-                                area_code: areaCode,
-                                number: number
-                            },
+                    items: [
+                        {
+                            id: 'RetiroAnas2024',
+                            title: 'Retiro Resgatando Anas 2024',
+                            description: 'Igresso para retiro de 3 dias em uma chacara em Nova Iguaçú',
+                            picture_url: 'https://resgatando-anas.vercel.app/_next/image?url=%2Fimg%2FLogoResgatandoAnas.png&w=64&q=75',
+                            category_id: 'Ingresso',
+                            quantity: 1,
+                            unit_price: 250,
+                        }
+                    ],
+                    payer: {
+                        name: user.name,
+                        phone: {
+                            area_code: areaCode,
+                            number: number
                         },
-                        auto_return: 'all',
-                        back_urls: {
-                            success: `${url}/retiro/pagamento/status/aprovado`,
-                            failure: `${url}/retiro/pagamento/status/cartao-recusado`,
-                            pending: `${url}/retiro/pagamento/status/pendente`,
-                          },
-                          payment_methods: {
-                              excluded_payment_methods: [
-                                  { id: "paypal" },
-                                  { id: "atm" },
-                                  { id: "ticket" },
-                                  { id: "bank_transfer" },
-                                  { id: "bolbradesco" },
-                                  { id: "pec" },
-                                  { id: "debit_card" },
-                                  { id: "prepaid_card" },
-                                  { id: "money_order" },
-                                  { id: "pix" },
-                              ]
-                          }
+                    },
+                    auto_return: 'all',
+                    back_urls: {
+                        success: `${url}/retiro/pagamento/status/aprovado`,
+                        failure: `${url}/retiro/pagamento/status/cartao-recusado`,
+                        pending: `${url}/retiro/pagamento/status/pendente`,
+                    },
+                    payment_methods: {
+                        excluded_payment_methods: [
+                            { id: "paypal" },
+                            { id: "atm" },
+                            { id: "ticket" },
+                            { id: "bank_transfer" },
+                            { id: "bolbradesco" },
+                            { id: "pec" },
+                            { id: "debit_card" },
+                            { id: "prepaid_card" },
+                            { id: "money_order" },
+                            { id: "pix" },
+                        ]
+                    },
+                    redirect_urls: {
+                        success: `${url}/retiro/pagamento/status/aprovado`,
+                        failure: `${url}/retiro/pagamento/status/cartao-recusado`,
+                        pending: `${url}/retiro/pagamento/status/pendente`,
+                    },
                 },
                 requestOptions: { idempotencyKey: idempotencyKey }
             });
 
             console.log('paymentResponse:', paymentResponse);
+
+            // Salvando os dados do pagamento no banco de dados
+            await prisma.paymentUser.create({
+                data: {
+                    userId: user.id,
+                    paymentId: String(paymentResponse.id),
+                    paymentStatus: 'pending',
+                    paymentType: 'credit_card',
+                    paymentDescription: 'Retiro Resgatando Anas 2024',
+                    active: true,
+                },
+            });
+
             return NextResponse.json(paymentResponse);
 
         } catch (error) {
