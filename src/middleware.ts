@@ -13,7 +13,6 @@ const publicRoutes = [
   '/api/user/logout2',
   '/api/user/logout',
   '/api/auth/check-session',
-  '/retiro/cadastro/dados-pessoais',
   '/retiro/login',
   '/nao-autorizado',
 ];
@@ -35,7 +34,7 @@ export async function middleware(req: NextRequest) {
       return NextResponse.json({ message: 'Não autorizado' }, { status: 401 });
     }
 
-    return NextResponse.redirect(new URL('/nao-autorizado', req.url));
+    return NextResponse.redirect(new URL('/retiro/login', req.url));
   }
 
   if (pathname.startsWith('/administracao')) {
@@ -45,10 +44,10 @@ export async function middleware(req: NextRequest) {
       const payload = await AuthService.openSessionToken(token);
 
       if (payload?.type !== 'admin') {
-        return NextResponse.redirect(new URL('/nao-autorizado', req.url));
+        return NextResponse.redirect(new URL('/retiro/login', req.url));
       }
     } else {
-      return NextResponse.redirect(new URL('/nao-autorizado', req.url));
+      return NextResponse.redirect(new URL('/retiro/login', req.url));
     }
   }
 

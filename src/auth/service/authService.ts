@@ -40,7 +40,7 @@ async function isSessionValid() {
 }
 
 
-function destroySession() {
+async function destroySession() {
     cookies().set('session', '', {
         path: '/',
         expires: new Date(0),
@@ -48,7 +48,7 @@ function destroySession() {
     });
 }
 
-function destroySession2(){
+async function destroySession2(){
     cookies().delete('session')
 }
 
@@ -62,17 +62,6 @@ async function creatRouteId(){
     return null
 }
 
-async function getUserId(){
-    const sessionCookie = cookies().get('session');
-    if(sessionCookie){
-        const {value} = sessionCookie;
-        const {sub} = await openSessionToken(value)
-        return sub
-    }
-    return null
-}
-
-
 const AuthService = {
     openSessionToken,
     createSessionToken,
@@ -80,7 +69,6 @@ const AuthService = {
     destroySession,
     destroySession2,
     creatRouteId,
-    getUserId
 }
 
 

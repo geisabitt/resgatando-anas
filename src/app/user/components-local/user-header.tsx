@@ -1,8 +1,10 @@
 'use client';
+import axios from 'axios';
+import React from 'react';
 import { BsFillPersonFill } from "react-icons/bs";
 import { Users } from "@prisma/client";
 import { useRouter } from "next/navigation";
-import { useCallback } from "react";
+import { useAuth } from '@/auth/context/authContext';
 
 function capitalizeWords(name: string) {
     return name.toLowerCase().replace(/\b\w/g, char => char.toUpperCase());
@@ -10,10 +12,19 @@ function capitalizeWords(name: string) {
 
 export default function UserHeader({ user }: { user: Partial<Users> }) {
     const router = useRouter();
-
-    const handleLogout = useCallback(() => {
-        router.replace('/api/user/logout2');
-    }, [router]);
+    const { checkSession } = useAuth();
+  
+    const handleLogout = async () => {
+      try {
+        const response = await axios.post('/api/user/logout2');
+        if (response.status === 200) {
+          checkSession();
+          router.push('/retiro/login');
+        }
+      } catch (error) {
+        console.error('Erro ao fazer logout:', error);
+      }
+    };
 
     return (
         <>

@@ -22,8 +22,6 @@ export default function Page() {
         const checkUserSession = () => {
             if (!isAuthenticated) {
                 router.push("/retiro/login");
-            } else {
-                setLoading(false);
             }
         }
         const fetchUserData = async () => {
