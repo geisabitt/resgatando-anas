@@ -8,7 +8,7 @@ export async function POST (req: NextRequest){
     const newPayment: Partial<PaymentUser> = await req.json()
     console.log('newPayment:', newPayment)
 
-    const userId = String(await AuthService.getUserId());
+    const userId = String(await AuthService.creatRouteId());
     if (!userId) {
         return Response.json({ error: 'Não Foi Possivel Encontrar o Usúario', status: 400 });
     }
