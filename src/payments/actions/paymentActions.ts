@@ -11,7 +11,7 @@ const prisma = new PrismaClient();
 async function createPaymentPix(){
     'use server';
 
-    const userId = String(await AuthService.getUserId());
+    const userId = String(await AuthService.creatRouteId());
     const user = await prisma.users.findFirst({
             where: { id: userId },
             select: {
