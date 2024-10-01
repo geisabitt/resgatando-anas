@@ -1,6 +1,6 @@
 'use client';
 import axios from 'axios';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BsFillPersonFill } from "react-icons/bs";
 import { Users } from "@prisma/client";
 import { useRouter } from "next/navigation";
@@ -12,8 +12,17 @@ function capitalizeWords(name: string) {
 
 export default function UserHeader({ user }: { user: Partial<Users> }) {
     const router = useRouter();
-    const { checkSession } = useAuth();
-  
+    const { isAuthenticated,checkSession } = useAuth();
+
+    useEffect(() => {
+        const checkUserSession = () => {
+            if (!isAuthenticated) {
+                router.push('/retiro/login');
+            }
+        };
+        checkUserSession();
+    }, [isAuthenticated, router]);
+
     const handleLogout = async () => {
       try {
         const response = await axios.post('/api/user/logout2');
