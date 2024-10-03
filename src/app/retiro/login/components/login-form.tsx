@@ -80,7 +80,7 @@ export function LoginForm() {
     }
     setLoading(true);
     try {
-    const response = await axios.post('/api/user/login', dadosLogin);
+    const response = await axios.post('/api/auth/login', dadosLogin);
     console.log(response.data.urlRedirect)
       if (response.status === 200) {
         checkSession()

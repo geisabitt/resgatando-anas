@@ -10,7 +10,7 @@ function capitalizeWords(name: string) {
     return name.toLowerCase().replace(/\b\w/g, char => char.toUpperCase());
 }
 
-export default function UserHeader({ user }: { user: Partial<Users> }) {
+export default function UserHeader({ user }: Readonly<{ user: Partial<Users> }>) {
     const router = useRouter();
     const { isAuthenticated,checkSession } = useAuth();
 
@@ -25,7 +25,7 @@ export default function UserHeader({ user }: { user: Partial<Users> }) {
 
     const handleLogout = async () => {
       try {
-        const response = await axios.post('/api/user/logout2');
+        const response = await axios.post('/api/auth/logout');
         if (response.status === 200) {
           checkSession();
           router.push('/retiro/login');

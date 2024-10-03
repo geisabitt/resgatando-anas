@@ -9,11 +9,11 @@ const publicRoutes = [
   '/',
   '/api/user/create',
   '/api/mp/getAllMethods',
-  '/api/user/login',
-  '/api/user/logout2',
-  '/api/user/logout',
+  '/api/auth/login',
+  '/api/auth/logout',
   '/api/auth/check-session',
   '/retiro/login',
+  '/retiro/cadastro/dados-pessoais',
   '/nao-autorizado',
 ];
 
@@ -27,7 +27,7 @@ export async function middleware(req: NextRequest) {
   }
 
   const session = await AuthService.isSessionValid();
-  if (!session) {
+  if (!session && !publicRoutes.includes(pathname)) {
     const isAPIRoute = pathname.startsWith('/api');
 
     if (isAPIRoute && !publicRoutes.includes(pathname)) {
