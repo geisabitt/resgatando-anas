@@ -47,7 +47,7 @@ model UsersAnaminese {
 model PaymentUser {
   id                 String   @id @default(uuid())
   userId             String
-  paymentId          String
+  paymentId          String   @unique
   paymentStatus      String
   paymentDescription String
   paymentType        String

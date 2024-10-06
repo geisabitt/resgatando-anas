@@ -66,6 +66,7 @@ export async function POST() {
                         failure: `${url}/retiro/pagamento/status/cartao-recusado`,
                         pending: `${url}/retiro/pagamento/status/pendente`,
                     },
+                    //notification_url: `${url}/api/mp/notifications`,
                     payment_methods: {
                         excluded_payment_methods: [
                             { id: "paypal" },
@@ -91,8 +92,7 @@ export async function POST() {
 
             console.log('paymentResponse:', paymentResponse);
 
-            // Salvando os dados do pagamento no banco de dados
-            await prisma.paymentUser.create({
+            const savePreference = await prisma.paymentUser.create({
                 data: {
                     userId: user.id,
                     paymentId: String(paymentResponse.id),
@@ -102,6 +102,7 @@ export async function POST() {
                     active: true,
                 },
             });
+            console.log('savePreference:', savePreference);
 
             return NextResponse.json(paymentResponse);
 

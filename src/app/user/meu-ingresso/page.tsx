@@ -34,12 +34,39 @@ export default function Page() {
                     const lastPayment = data.payments.reduce((latest: DisplayUserPayments, current: DisplayUserPayments) => {
                         return new Date(latest.createdAt) > new Date(current.createdAt) ? latest : current;
                     });
+
+                    const paymentIdContainsLetters = /[a-zA-Z]/.test(lastPayment.paymentId);
+
+                    if (paymentIdContainsLetters) {
+                        try {
+                            const apiResponse = await fetch(`/api/mp/preference/get?id=${lastPayment.paymentId}`);
+                            if (!apiResponse.ok) {
+                                throw new Error('Failed to fetch payment status from MercadoPago');
+                            }
+                            const paymentData = await apiResponse.json();
+
+                            if (paymentData.paymentStatus === 'Aprovado') {
+                                setTicketQuantity(1);
+                                setPayment({
+                                    ...lastPayment,
+                                    paymentStatus: 'Aprovado',
+                                    url: '/retiro/pagamento/status/aprovado',
+                                    btnText: 'Mais detalhes',
+                                });
+                                return;
+                            }
+                        } catch (error) {
+                            console.error("Error fetching payment status from MercadoPago:", error);
+                        }
+                    }
+
                     let paymentUrl = `/retiro/pagamento/status/pendente/${lastPayment.paymentId}`;
                     let btnText = "Ver detalhes do pagamento";
 
                     if (lastPayment.paymentStatus === 'Cancelado' && lastPayment.paymentType === 'Pix') {
                         paymentUrl = '/retiro/pagamento/status/pix-expirado';
-                    } else if (lastPayment.paymentType === 'Cartão de Crédito' && lastPayment.paymentStatus === 'Recusado') {
+                    } else if (lastPayment.paymentType.includes('Cartão') &&
+                        (lastPayment.paymentStatus === 'Recusado' || lastPayment.paymentStatus === 'Pendente')) {
                         paymentUrl = '/retiro/pagamento';
                         btnText = 'Comprar ingresso';
                     }

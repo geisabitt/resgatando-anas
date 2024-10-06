@@ -4,6 +4,8 @@ export const formatPaymentType = (type: string): string => {
             return 'Pix';
         case 'credit_card':
             return 'Cartão de Crédito';
+        case 'debit_card':
+            return 'Cartão de Débito';
         default:
             return type;
     }

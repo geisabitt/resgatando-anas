@@ -49,7 +49,6 @@ export default function Page() {
                     throw new Error('Network response was not ok');
                 }
                 const data = await response.json();
-                console.log(data)
                 if (data.status === 200) {
                     setUserAnaminese(data.anaminese);
                 } else {
@@ -64,7 +63,7 @@ export default function Page() {
         checkUserSession();
         fetchUserData();
         fetchUserAnaminese();
-    }, []);
+    }, [isAuthenticated, router]);
 
     if (loading) {
         return <LoadingComponent />;

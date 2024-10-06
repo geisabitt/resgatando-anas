@@ -2,8 +2,6 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import Image from 'next/image';
 import { useState, useEffect } from "react";
-import { BsCreditCard2Back } from "react-icons/bs";
-import { HeaderColumn } from "@/components/shared/header-column/header-column";
 import './style.css';
 
 export default function PagamentoCartao() {
@@ -14,7 +12,7 @@ export default function PagamentoCartao() {
     const handlePayment = async () => {
       setLoading(true);
       try {
-        const response = await fetch('/api/mp/create-preference', {
+        const response = await fetch('/api/mp/preference/create', {
           method: 'POST',
         });
 
