@@ -17,6 +17,7 @@ export async function POST() {
             select: {
                 id: true,
                 email: true,
+                cpf: true,
                 name: true,
                 telefone: true,
                 type: true,
@@ -59,6 +60,8 @@ export async function POST() {
                             area_code: areaCode,
                             number: number
                         },
+                        email: user.email,
+                        identification: { number: `${user.cpf}`, type: 'cpf' },
                     },
                     auto_return: 'all',
                     back_urls: {

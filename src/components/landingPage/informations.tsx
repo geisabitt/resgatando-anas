@@ -8,7 +8,7 @@ export default function Information() {
                 <h6 className="font-bold">Data e local do evento</h6>
                 <div className="flex items-center gap-4">
                     <span className="pt-1"><BsCalendar className='w-6 h-6 text-blue700' /></span>
-                    <p>Dias: 25, 26 e 27 de outubro 2024</p>
+                    <p>Dias: 25, 26 e 27 de Abril de 2025</p>
                 </div>
                 <div className="flex gap-4">
                     <span className="pt-1"><BsPinMapFill className='w-6 h-6 text-blue700' /></span>
