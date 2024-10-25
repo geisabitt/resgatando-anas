@@ -1,6 +1,6 @@
 # PWA Resgatando Anas
 
-Produção [retiro-resgatando-anas](https://resgatando-anas-two.vercel.app/)
+Produção [resgatandoanasofc](https://resgatandoanasofc.vercel.app/)
 
 Desenvolvimento [resgatando-anas.vercel](https://resgatando-anas.vercel.app/)
 
